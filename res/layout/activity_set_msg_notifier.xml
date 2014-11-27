@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_main_bg_clr_grey"
+    android:orientation="vertical"
+    android:paddingTop="16.0dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_linear_vertical_1px"
+        android:orientation="vertical"
+        android:showDividers="middle" >
+
+        <RelativeLayout
+            android:id="@+id/rl_notifier_do_not_disturb"
+            android:layout_width="match_parent"
+            android:layout_height="54.0dp"
+            android:background="@drawable/selector_item_card_top_bg"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="@string/set_notifier_do_not_disturb"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_16sp" />
+
+            <com.mapgoo.snowleopard.widget.SwitchButton
+                android:id="@+id/sb_do_not_disturb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10.0dp"
+                android:clickable="false"
+                android:focusable="false" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_notifier_do_not_disturb_period"
+            android:layout_width="match_parent"
+            android:layout_height="54.0dp"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="@string/set_notifier_do_not_disturb_period"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_16sp" />
+
+            <TextView
+                android:id="@+id/tv_notifier_do_not_disturb_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="32.0dp"
+                android:gravity="center|right"
+                android:textColor="@color/skin_main_txt_clr_light_grey"
+                android:textSize="@dimen/txt_size_16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10.0dp"
+                android:contentDescription="@null"
+                android:src="@drawable/common_icon_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

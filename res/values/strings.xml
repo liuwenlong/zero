@@ -42,15 +42,18 @@
     <string name="lock_pattern_error_switch_account">登录其他账户</string>
     <string name="lock_pattern_error_switch_account2">登录其他账户</string>
     
-    <string name="settings_my_account">我的账号</string>
    <string name="settings_set_pwd">修改密码</string>
+   <string name="settings_set_bd_pwd">设置本地安全密码</string>
    <string name="settings_offline_map">离线地图</string>
    <string name="settings_msg_notify_set">消息提醒</string>
    <string name="settings_about">关于</string>
    <string name="settings_logout">退出登录</string>
-      
-   <string name="setpwd_input_old_password_hint">输入旧密码</string>
-   <string name="setpwd_input_new_password_hint">输入新密码</string>
+   <string name="settings_title">设置</string>
+  
+     <string name="login">登录</string>
+      <string name="settings_modify_pw">修改密码</string>    
+   <string name="settings_old_pw">输入旧密码</string>
+   <string name="settings_new_pw">输入新密码</string>
     
    <string name="about_check_update">检查更新</string>
    <string name="about_no_new_ver">已是最新版</string>

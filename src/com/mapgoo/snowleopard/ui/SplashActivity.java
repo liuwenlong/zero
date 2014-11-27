@@ -45,7 +45,7 @@ public class SplashActivity extends BaseActivity {
 
 	@Override
 	public void initData(Bundle savedInstanceState) {
-		startSettings();
+
 		if (savedInstanceState != null) {
 
 		} else {
@@ -78,7 +78,7 @@ public class SplashActivity extends BaseActivity {
 	 * @created 2014年7月14日
 	 */
 	private void redirectTo() {
-		startActivity(new Intent(mContext, LockPatternActivity.class));
+		startActivity(new Intent(mContext, SettingsActivity.class));
 	}
 
 	@Override

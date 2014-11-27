@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_main_bg_clr_grey" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="15dip"
+            android:orientation="vertical" >
+
+      
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.0dp"
+                android:background="@drawable/card_item_bg_layers"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <com.mapgoo.snowleopard.widget.EditTextView
+                    android:id="@+id/old_pwd"
+                    android:layout_width="0.0dp"
+                    android:layout_height="56.0dp"
+                    android:layout_weight="1.0"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:hint="@string/settings_old_pw"
+                    android:imeActionLabel="@string/login"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:longClickable="false"
+                    android:maxLength="20"
+                    android:padding="10.0dp"
+                    android:singleLine="true"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textColorHint="@color/skin_main_hint_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_18sp" />
+
+                <CheckBox
+                    android:id="@+id/cb_see_pwd_old"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5.0dp"
+                    android:button="@drawable/selector_pwd_visable_checkbox"
+                    android:checked="false" />
+            </LinearLayout>
+<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dp"
+                android:background="@drawable/card_item_bg_layers"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <com.mapgoo.snowleopard.widget.EditTextView
+                    android:id="@+id/new_pwd"
+                    android:layout_width="0.0dp"
+                    android:layout_height="56.0dp"
+                    android:layout_weight="1.0"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:hint="@string/settings_new_pw"
+                    android:imeActionLabel="@string/login"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:longClickable="false"
+                    android:maxLength="20"
+                    android:padding="10.0dp"
+                    android:singleLine="true"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textColorHint="@color/skin_main_hint_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_18sp" />
+
+                <CheckBox
+                    android:id="@+id/cb_see_pwd_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5.0dp"
+                    android:button="@drawable/selector_pwd_visable_checkbox"
+                    android:checked="false" />
+            </LinearLayout>
+         
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="30.0dp"
+            card_view:cardCornerRadius="3.0dp"
+            card_view:cardElevation="4.0dp" >
+
+            <com.mapgoo.snowleopard.widget.RippleButton
+                xmlns:ripple="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/tv_btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="48.0dp"
+                android:background="@color/selector_generic_darkgreen_btn"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="@string/login"
+                android:textColor="@color/skin_main_txt_clr_white"
+                android:textSize="@dimen/txt_size_18sp"
+                ripple:alphaFactor="0.8"
+                ripple:hover="true"
+                ripple:rippleColor="@color/skin_ripple_btn_clr_green_hover" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20.0dp"
+        android:divider="@drawable/divider_linear_horizontal"
+        android:orientation="horizontal"
+        android:showDividers="middle" >
+
+        
+
+        
+    </LinearLayout>
+
+</RelativeLayout>

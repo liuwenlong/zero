@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -119,9 +120,10 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 
 		ActionBar actionBar = getActionBar();
 
-		if (actionBar == null)
+		if (actionBar == null){
+			Log.e("actionBar", "actionBar is null");
 			return;
-
+		}
 		actionBar.setDisplayShowHomeEnabled(false); // 不显示Home
 		actionBar.setDisplayShowTitleEnabled(false); // 不显示Title
 		actionBar.setDisplayUseLogoEnabled(false); // 不显示logo

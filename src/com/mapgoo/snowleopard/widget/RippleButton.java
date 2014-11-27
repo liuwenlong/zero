@@ -157,8 +157,8 @@ public class RippleButton extends Button {
 					setRadius(0);
 					ViewHelper.setAlpha(RippleButton.this, 1);
 					mIsAnimating = false;
-					
-					mClickListener.onClick(RippleButton.this);
+					if(mClickListener!=null)
+						mClickListener.onClick(RippleButton.this);
 				}
 
 				@Override
