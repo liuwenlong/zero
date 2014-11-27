@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:minHeight="80.0dip"
+    android:minWidth="180.0dip"
+    android:orientation="horizontal"
+    android:padding="10.0dip" >
+
+    <ImageView
+        android:id="@+id/loading_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:src="@drawable/spinner3" />
+
+    <TextView
+        android:id="@+id/tip_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
+        android:textColor="@color/skin_main_txt_clr_grey"
+        android:textSize="16.0sp" />
+
+</LinearLayout>

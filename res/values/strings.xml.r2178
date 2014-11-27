@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">雪豹</string>
+    
+    <string name="click_again_to_exit_tip">再按一次退出</string>
+    
+    <string name="hint_phone_invalid">手机号不合法</string>
+	<string name="account_check_info_tel_error_null">手机号码不能为空</string>
+    <string name="account_check_info_tel_error">请填写正确的11位手机号码</string>
+    
+    <string name="bad_network">网络不给力啊!</string>
+    <string name="network_timeout">网络请求超时!</string>
+    <string name="network_timeout_req_again">网络请求超时!请重试</string>
+    <string name="token_expire_and_reget">token已失效，正在重新获取</string>
+    <string name="token_reget_success_and_do_your_stuff_again">token获取成功，请再次操作</string>
+    <string name="prompt">提示</string>
+    <string name="confirm">确定</string>
+    <string name="invite">邀请</string>
+    <string name="cancel">取消</string>
+    <string name="loading">正在加载，请您耐心等待…</string>
+    
+   <string name="bdmap_key_error_tips">百度地图-key错误, 请检查key设置</string>
+   <string name="bdmap_network_error_tips">百度地图-网络错误, 请检查网络设置</string>
+   
+    <string name="lockscreen_access_pattern_start">Pattern started</string>
+    <string name="lockscreen_access_pattern_cleared">Pattern cleared</string>
+    <string name="lockscreen_access_pattern_cell_added">Cell added</string>
+    <string name="lockscreen_access_pattern_detected">Pattern completed</string>
+    
+    <string name="lock_pattern_draw_lockpattern">绘制解锁图案</string>
+    <string name="lock_pattern_forgot_pwd">忘记手势密码?</string>
+    <string name="lock_pattern_setup">设置手势密码</string>
+    <string name="lock_pattern_reset_lockpattern">重新设置手势</string>
+    <string name="lock_pattern_draw_lockpattern_again">再次绘制解锁图案</string>
+    <string name="lock_pattern_error_retry">密码错误，还可以输入%1s次</string>
+    <string name="lock_pattern_error_less_then_4">至少连接4个点，请重新输入</string>
+    <string name="lock_pattern_error_not_the_same">与上次绘制不一致，请重新绘制</string>
+    <string name="lock_pattern_error_exceed_retry_times">您已连续5次输错手势，手势解锁已关闭，请重新登录</string>
+    <string name="lock_pattern_error_reset_pattern_tips">忘记手势密码，需重新登录</string>
+    <string name="lock_pattern_error_relogin">重新登录</string>
+    <string name="lock_pattern_error_switch_account">登录其他账户</string>
+    <string name="lock_pattern_error_switch_account2">登录其他账户</string>
+    
+    
+    
+</resources>

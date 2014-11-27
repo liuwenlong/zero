@@ -1,0 +1,494 @@
+package com.mapgoo.snowleopard.api;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+
+import android.graphics.Bitmap;
+import android.util.Log;
+
+import com.android.volley.Request.Method;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.mapgoo.snowleopard.MGApp;
+import com.mapgoo.snowleopard.utils.ImageUtils;
+
+/**
+ * 概述: API客户端接口：用于访问网络数据 <br>
+ *       
+ *       TIPS 暂时以json为请求体的格式数据提交
+ * 
+ * @author yao
+ * @version 1.0
+ * @created 2014年11月8日
+ */
+public class ApiClient {
+
+	private static Listener<JSONObject> mListener;
+	private static ErrorListener mErrorListener;
+	private static onReqStartListener mOnStartListener;
+
+	/**
+	 * 概述: 每个activity请求网络之前必须要先设置Listeners <br>
+	 * 用于每个请求成功或者失败的回调 <br>
+	 * 
+	 * @auther yao
+	 * @param listener
+	 * @param errorListener
+	 */
+	public static void setListeners(onReqStartListener onStartListener, Listener<JSONObject> listener, ErrorListener errorListener) {
+		mOnStartListener = onStartListener;
+		mListener = listener;
+		mErrorListener = errorListener;
+	}
+
+	/**
+	 * 概述: 请求开始的回调监听器
+	 * 
+	 * @author yao
+	 * @version 1.0
+	 * @created 2014年11月8日
+	 */
+	public interface onReqStartListener {
+		/**
+		 * 概述: 请求开始的回调方法
+		 * 
+		 * @auther yao
+		 * @param reqCode
+		 *            请求的reqCode
+		 */
+		public void onReqStart();
+	}
+
+	/**
+	 * 概述: GET请求
+	 * 
+	 * @auther yao
+	 * @param reqParams
+	 *            请求参数
+	 */
+	private static void _GET(String url, Map<String, String> headerParams, Map<String, String> reqParams) {
+		if (mListener != null && mErrorListener != null) {
+			if(mOnStartListener != null)
+				mOnStartListener.onReqStart(); // 请求开始的回调
+
+			MyVolley.addToRequestQueue(RequestUtils.getJsonObjectRequest(Method.GET, url, headerParams, reqParams, null, mListener,
+					mErrorListener));
+		}
+	}
+
+	/**
+	 * 概述: POST请求
+	 * 
+	 * @auther yao
+	 * @param reqParams
+	 *            POST请求参数/Form参数
+	 * @param reqJsonObject
+	 *            POST请求(Body) 暂时设置为：Content-Type=application/json
+	 */
+	private static void _POST(String url, Map<String, String> headerParams, Map<String, String> reqParams, Map<String, Object> reqBodyParams) {
+		if (mListener != null && mErrorListener != null) {
+			if(mOnStartListener != null)
+				mOnStartListener.onReqStart(); // 请求开始的回调
+
+			JSONObject reqJsonObject = null;
+			if (reqBodyParams != null)
+				reqJsonObject = new JSONObject(reqBodyParams);
+
+			MyVolley.addToRequestQueue(RequestUtils.getJsonObjectRequest(Method.POST, url, headerParams, reqParams,
+					reqJsonObject == null ? null : reqJsonObject, mListener, mErrorListener));
+		}
+	}
+
+	/**
+	 * 概述: POST请求
+	 * 
+	 * @auther yao
+	 * @param reqParams
+	 *            POST请求参数/Form参数
+	 * @param reqJsonObject
+	 *            POST请求(Body) 暂时设置为：Content-Type=application/json
+	 */
+	private static void _POST_AftarOnReqStart(String url, Map<String, String> headerParams, Map<String, String> reqParams,
+			Map<String, Object> reqBodyParams) {
+		if (mListener != null && mErrorListener != null) {
+
+			JSONObject reqJsonObject = new JSONObject(reqBodyParams);
+
+			MyVolley.addToRequestQueue(RequestUtils.getJsonObjectRequest(Method.POST, url, headerParams, reqParams, reqJsonObject,
+					mListener, mErrorListener));
+		}
+	}
+	
+	/**
+	 * 概述: POST请求
+	 * 
+	 * @auther yao
+	 * @param reqParams
+	 *            POST请求参数/Form参数
+	 * @param reqJsonObject
+	 *            POST请求(Body) 暂时设置为：Content-Type=application/json
+	 */
+	private static void _POST_WITH_LISTENERS(String url, Map<String, String> headerParams, Map<String, String> reqParams,
+			Map<String, Object> reqBodyParams, onReqStartListener reqStartListener, Listener<JSONObject> responseListener, ErrorListener errorListener) {
+		if (responseListener != null && errorListener != null) {
+			if (reqStartListener != null)
+				reqStartListener.onReqStart(); // 请求开始的回调
+
+			JSONObject reqJsonObject = null;
+
+			if (reqBodyParams != null)
+				reqJsonObject = new JSONObject(reqBodyParams);
+
+			MyVolley.addToRequestQueue(RequestUtils.getJsonObjectRequest(Method.POST, url, headerParams, reqParams,
+					reqJsonObject == null ? null : reqJsonObject, responseListener, errorListener));
+		}
+	}
+	
+
+	/**
+	 * 概述: 请求短信验证码
+	 * 
+	 * @auther yao
+	 * @param appKey
+	 * @param phoneNum
+	 *            手机号
+	 * @param reqCode
+	 *            请求号
+	 */
+	public static void reqVerifyCode(String appKey, String phoneNum) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("appkey", appKey);
+		reqParams.put("sim", phoneNum);
+
+		_GET(URLs.SMS_VERIFY, null, reqParams);
+	}
+
+	/**
+	 * 概述: 用户注册
+	 * 
+	 * @auther yao
+	 * @param phoneNum
+	 *            手机号
+	 * @param verifyCode
+	 *            验证码
+	 * @param encodedPwd
+	 *            密码/密文
+	 * @param reqCode
+	 *            请求号
+	 */
+	public static void userRegister(String phoneNum, String verifyCode, String encodedPwd) {
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("mobile", phoneNum);
+		reqBodyParams.put("verifyCode", verifyCode);
+		reqBodyParams.put("pwd", encodedPwd);
+
+		_POST(URLs.USER_REGISTER, null, null, reqBodyParams);
+	}
+
+	/**
+	 * 概述: 登录
+	 * 
+	 * @auther yao
+	 * @param telNum
+	 *            电话号码
+	 * @param encodedPwd
+	 *            密码/密文
+	 */
+	public static void login(String telNum, String encodedPwd) {
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("mobile", telNum);
+		reqBodyParams.put("pwd", encodedPwd);
+
+		_POST(URLs.USER_LOGIN, null, null, reqBodyParams);
+	}
+	
+	/**
+	 * 概述: 登录接口，内部使用，当token失效是重新用来重新获取token
+	 * 
+	 * @auther yao
+	 * @param telNum
+	 * @param encodedPwd
+	 * @param responseListener
+	 * @param errorListener
+	 */
+	public static void loginInternel(String telNum, String encodedPwd, onReqStartListener reqStartListener, Listener<JSONObject> responseListener, ErrorListener errorListener) {
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("mobile", telNum);
+		reqBodyParams.put("pwd", encodedPwd);
+
+		_POST_WITH_LISTENERS(URLs.USER_LOGIN, null, null, reqBodyParams, reqStartListener, responseListener, errorListener);
+	}
+	
+
+	/**
+	 * 概述: 获取帐号下设备列表
+	 * 
+	 * @auther yao
+	 * @param userId
+	 *            uid
+	 * @param authToken
+	 *            令牌
+	 */
+	public static void getUserObjList(int userId, String authToken) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("uid", String.valueOf(userId));
+
+		Log.d("uid", String.valueOf(userId));
+		Log.d("Authorization", authToken);
+
+		_GET(URLs.UserObjList, reqHeaderParams, reqParams);
+	}
+
+	public static void isIMEIExists(String authToken, String imei) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("imei", imei);
+
+		_GET(URLs.isIMEIExists, reqHeaderParams, reqParams);
+
+	}
+
+	public static void submitWearerInfo(String authToken, String imei, String sim, String mHumanName, String mBirthday,
+			boolean sex, double mHeight, double mWeight, Bitmap avatarBitmap) {
+
+		if (mListener != null && mErrorListener != null) {
+			if (mOnStartListener != null)
+				mOnStartListener.onReqStart(); // 请求开始的回调
+
+			Map<String, String> reqHeaderParams = new HashMap<String, String>();
+			reqHeaderParams.put("Authorization", authToken);
+			Log.d("Authorization", authToken);
+
+			String avatarString = ImageUtils.img2Base64(MGApp.pThis, avatarBitmap);
+
+			Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+			reqBodyParams.put("IMEI", imei);
+			reqBodyParams.put("SIM", sim);
+			reqBodyParams.put("HumanName", mHumanName);
+			reqBodyParams.put("Birthday", mBirthday);
+			reqBodyParams.put("Sex", sex);
+			reqBodyParams.put("Height", mHeight);
+			reqBodyParams.put("Weight", mWeight);
+			reqBodyParams.put("Avatar", avatarString);
+
+			Log.d("json", new JSONObject(reqBodyParams).toString());
+
+			_POST_AftarOnReqStart(URLs.ObjectBasic, reqHeaderParams, null, reqBodyParams);
+		}
+	}
+
+	/**
+	 * 概述: 获取/查看佩戴者信息
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param userId
+	 * @param mObjectId
+	 */
+	public static void getWearerInfo(String authToken, int userId, String mObjectId) {
+
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("userId", String.valueOf(userId));
+		reqParams.put("ObjectId", mObjectId);
+
+		_GET(URLs.ObjectBasic, reqHeaderParams, reqParams);
+	}
+
+	/**
+	 * 概述: 修改/新增 静音时段
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param objectID
+	 * @param mMuteid
+	 * @param mMutePeriodCMDVal
+	 */
+	public static void submitMutePeriod(String authToken, String objectID, int mMuteid, String mMutePeriodCMDVal) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("objectid", objectID);
+		reqBodyParams.put("muteid", String.valueOf(mMuteid));
+		reqBodyParams.put("value", mMutePeriodCMDVal);
+
+		Log.d("objectid", objectID);
+		Log.d("muteid", mMuteid + "");
+		Log.d("value", mMutePeriodCMDVal);
+
+		_POST(URLs.UpdateObjectMuteTime, reqHeaderParams, null, reqBodyParams);
+	}
+	
+	/**
+	 * 概述: 删除静音条目
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param objectID
+	 * @param muteID
+	 */
+	public static void delMuteTimeItem(String authToken, String objectID, String muteID) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+		
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("objectid", objectID);
+		reqBodyParams.put("muteid", String.valueOf(muteID));
+
+		Log.d("objectid", objectID);
+		Log.d("muteid", muteID + "");
+
+		_POST(URLs.DelObjectMuteTime, reqHeaderParams, null, reqBodyParams);
+	}
+
+	/**
+	 * 概述: 设置与佩戴者的关系
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param userId
+	 * @param userMobile
+	 * @param mIMEI
+	 * @param relationship
+	 * @param isAdmin
+	 */
+	public static void submitRelationship(String authToken, int userId, String userMobile, String mIMEI, String relationship,
+			boolean isAdmin) {
+
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("userid", userId);
+		reqBodyParams.put("username", userMobile);
+		reqBodyParams.put("imei", mIMEI);
+		reqBodyParams.put("relation", relationship);
+		reqBodyParams.put("ismanagement", isAdmin);
+		
+		_POST(URLs.UserObjRelation, reqHeaderParams, null, reqBodyParams);
+	}
+
+	/**
+	 * 概述: 获取设备家庭成员信息
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param mObjectId
+	 */
+	public static void getFamilyMembers(String authToken, String mObjectId) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("objectid", mObjectId);
+
+		_GET(URLs.ObjectMember, reqHeaderParams, reqParams);
+	}
+
+	/**
+	 * 概述: 设置用户SOS等级
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param userId
+	 * @param mObjectId
+	 * @param sosLevel
+	 */
+	public static void setUserObjSOS(String authToken, String userId, String mObjectId, int sosLevel) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("userid", userId);
+		reqBodyParams.put("objectid", mObjectId);
+		reqBodyParams.put("soslevel", sosLevel);
+
+		_POST(URLs.UpdateUserObjSOS, reqHeaderParams, null, reqBodyParams);
+
+	}
+
+	/**
+	 * 概述: 设置用户白名单权限
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param userId
+	 * @param mObjectId
+	 * @param b
+	 */
+	public static void setUserObjWhiteList(String authToken, String userId, String mObjectId, boolean isWhiteList) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("userid", userId);
+		reqBodyParams.put("objectid", mObjectId);
+		reqBodyParams.put("iswhitelist", isWhiteList);
+
+		_POST(URLs.UpdateUserObjWhiteList, reqHeaderParams, null, reqBodyParams);
+
+	}
+	
+	/**
+	 * 概述: 移除家庭成员
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param userID
+	 * @param mObjectId
+	 */
+	public static void removeUserObjMember(String authToken, String userId, String mObjectId) {
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("userid", userId);
+		reqBodyParams.put("objectid", mObjectId);
+
+		_POST(URLs.ObjectMember, reqHeaderParams, null, reqBodyParams);
+
+	}
+
+	/**
+	 * 概述: 
+	 *
+	 * @auther yao
+	 * @param authToken
+	 * @param userId
+	 * @param objectId
+	 * @param phoneNum
+	 */
+	public static void reqUserMemberInvite(String authToken, int userId, String objectId, String phoneNum) {
+
+		Map<String, String> reqHeaderParams = new HashMap<String, String>();
+		reqHeaderParams.put("Authorization", authToken);
+		Log.d("Authorization", authToken);
+
+		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
+		reqBodyParams.put("userid", userId);
+		reqBodyParams.put("objectid", objectId);
+		reqBodyParams.put("mobile", phoneNum);
+
+		_POST(URLs.InviteUserRelation, reqHeaderParams, null, reqBodyParams);
+	}
+
+}

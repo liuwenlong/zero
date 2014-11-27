@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_gesture_lock_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.0dp"
+        android:layout_marginTop="20.0dp"
+        android:layout_weight="1.0" >
+
+        <TextView
+            android:id="@+id/patternTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/lock_pattern_setup"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <com.mapgoo.snowleopard.widget.PatternIndicatorView
+            android:id="@+id/patternIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/patternTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8.0dp"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/patternTopDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="2.0dp"
+        android:text="@string/lock_pattern_draw_lockpattern"
+        android:textColor="@color/skin_main_txt_clr_light_white"
+        android:textSize="@dimen/txt_size_16sp" />
+
+    <com.mapgoo.snowleopard.widget.LockPatternView
+        android:id="@+id/lockView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.0dp"
+        android:layout_weight="1.0" >
+
+        <TextView
+            android:id="@+id/resetLockPattern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:visibility="gone"
+            android:onClick="onClick"
+            android:padding="10.0dp"
+            android:text="@string/lock_pattern_reset_lockpattern"
+            android:textColor="@color/skin_main_txt_clr_slight_white"
+            android:textSize="@dimen/txt_size_18sp" />
+    </RelativeLayout>
+
+</LinearLayout>
