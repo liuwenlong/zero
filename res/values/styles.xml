@@ -37,12 +37,35 @@
     <style name="AppTheme.Fullscreen" parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
     </style>
     
+     <style name="Anim.Zoom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/zoom_enter</item>
+        <item name="android:windowExitAnimation">@anim/zoom_exit</item>
+    </style>
+
+    <style name="AppTheme.Fullscreen.Zoom" parent="AppTheme.Fullscreen">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/Anim.Zoom</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    
+    
     <style name="loading_dialog" parent="@android:style/Theme.Holo.Dialog">
         <item name="android:windowBackground">@drawable/progress_bg</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+    
+    <style name="DialogTheme" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/shape_dialog_bg</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
 </resources>

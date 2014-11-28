@@ -18,8 +18,8 @@ import com.mapgoo.snowleopard.MGApp;
 import com.mapgoo.snowleopard.R;
 import com.mapgoo.snowleopard.bean.MGObject;
 import com.mapgoo.snowleopard.bean.User;
+import com.mapgoo.snowleopard.ui.widget.MyToast;
 import com.mapgoo.snowleopard.utils.LoadPref;
-import com.mapgoo.snowleopard.widget.MyToast;
 
 /**
  * 概述: 组织一个强大的基类，好让子类更方便的使用父类提供的方法，而不用重复写太多代码<br>

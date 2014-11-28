@@ -1,7 +1,6 @@
 package com.mapgoo.snowleopard.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.os.Bundle;
@@ -9,18 +8,17 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.mapgoo.snowleopard.R;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView;
+import com.mapgoo.snowleopard.ui.widget.PatternIndicatorView;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView.Cell;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView.DisplayMode;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView.OnPatternListener;
 import com.mapgoo.snowleopard.utils.CryptoUtils;
 import com.mapgoo.snowleopard.utils.LockPatternPref;
-import com.mapgoo.snowleopard.widget.LockPatternView;
-import com.mapgoo.snowleopard.widget.LockPatternView.Cell;
-import com.mapgoo.snowleopard.widget.LockPatternView.DisplayMode;
-import com.mapgoo.snowleopard.widget.LockPatternView.OnPatternListener;
-import com.mapgoo.snowleopard.widget.PatternIndicatorView;
 
 /**
  * 概述: 手势密码/本地安全密码-设置
@@ -38,12 +36,6 @@ public class LockPatternSetupActivity extends BaseActivity implements OnPatternL
 	@Override
 	public void initData(Bundle savedInstanceState) {
 		shakeAnim = AnimationUtils.loadAnimation(mContext, R.anim.shake_x);
-		
-		if (savedInstanceState != null) {
-
-		} else {
-
-		}
 	}
 
 	@Override

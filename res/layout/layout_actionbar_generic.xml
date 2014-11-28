@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_actionbar_root"
     android:layout_width="match_parent"
     android:layout_height="48.0dp"
-    android:background="@drawable/actionbar_bg_layers"
+    android:background="@drawable/ic_actionbar_bg"
     android:gravity="center_vertical" >
 
     <ImageView
@@ -15,25 +16,22 @@
         android:clickable="true"
         android:contentDescription="@null"
         android:onClick="onClick"
-        android:src="@drawable/ic_back_arrow_white" />
+        android:src="@drawable/ic_menu" />
 
     <TextView
         android:id="@+id/tv_ab_title"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="48.0dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:background="@drawable/selector_button_titlebar_bg"
-        android:clickable="false"
-        android:drawablePadding="5.0dp"
+        android:background="@drawable/ic_car_box"
+        android:clickable="true"
         android:ellipsize="end"
         android:gravity="center"
         android:onClick="onClick"
-        android:paddingLeft="10.0dip"
-        android:paddingRight="10.0dip"
         android:singleLine="true"
         android:textColor="@color/skin_main_txt_clr_white"
-        android:textSize="18sp" />
+        android:textSize="@dimen/txt_size_16sp" />
 
     <ImageView
         android:id="@+id/iv_ab_right_btn"
@@ -45,6 +43,6 @@
         android:clickable="true"
         android:contentDescription="@null"
         android:onClick="onClick"
-        android:src="@drawable/ic_done_white" />
+        android:src="@drawable/ic_main_share" />
 
 </RelativeLayout>

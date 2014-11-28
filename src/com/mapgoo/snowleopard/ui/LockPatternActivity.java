@@ -2,7 +2,6 @@ package com.mapgoo.snowleopard.ui;
 
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -15,13 +14,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.mapgoo.snowleopard.R;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView;
+import com.mapgoo.snowleopard.ui.widget.SimpleDialogBuilder;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView.Cell;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView.DisplayMode;
+import com.mapgoo.snowleopard.ui.widget.LockPatternView.OnPatternListener;
 import com.mapgoo.snowleopard.utils.CryptoUtils;
 import com.mapgoo.snowleopard.utils.LockPatternPref;
 import com.mapgoo.snowleopard.utils.StringUtils;
-import com.mapgoo.snowleopard.widget.LockPatternView;
-import com.mapgoo.snowleopard.widget.LockPatternView.Cell;
-import com.mapgoo.snowleopard.widget.LockPatternView.DisplayMode;
-import com.mapgoo.snowleopard.widget.LockPatternView.OnPatternListener;
 
 /**
  * 概述: 手势密码
@@ -51,8 +51,11 @@ public class LockPatternActivity extends BaseActivity implements OnPatternListen
 			mPatternStr = LockPatternPref.getInstance(mContext).getLockPattern();
 		}
 
-		if (StringUtils.isEmpty(mPatternStr))
+		if (StringUtils.isEmpty(mPatternStr)) {
 			startActivity(new Intent(mContext, LockPatternSetupActivity.class));
+			
+			finish();
+		}
 	}
 
 	@Override
@@ -61,11 +64,15 @@ public class LockPatternActivity extends BaseActivity implements OnPatternListen
 		super.onSaveInstanceState(outState);
 	}
 
+	private TextView mAlertView;
+
 	@Override
 	public void initViews() {
 		lockPatternView = (LockPatternView) findViewById(R.id.lockView);
 		patternTopDescription = (TextView) findViewById(R.id.patternTopDescription);
 		lockPatternView.setOnPatternListener(this);
+
+		mAlertView = (TextView) mInflater.inflate(R.layout.layout_alert_dialog_view, null);
 	}
 
 	@Override
@@ -77,26 +84,30 @@ public class LockPatternActivity extends BaseActivity implements OnPatternListen
 		switch (v.getId()) {
 		case R.id.patternForgotPwd:
 
-			new AlertDialog.Builder(mContext).setMessage(R.string.lock_pattern_error_reset_pattern_tips)
-					.setPositiveButton(R.string.lock_pattern_error_relogin, new OnClickListener() {
+			mAlertView.setText(getText(R.string.lock_pattern_error_reset_pattern_tips));
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
+			new SimpleDialogBuilder(mContext).setContentView(mAlertView).setNegativeButton(R.string.cancel, new OnClickListener() {
 
-							finish();
-						}
-					}).setNegativeButton(R.string.cancel, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					}).setCancelable(false).create().show();
+				}
+			}).setPositiveButton(R.string.lock_pattern_error_relogin, new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+					finish();
+				}
+			}).create().show();
 
 			break;
 
 		case R.id.btnSwitchAccount: // 登录其他账户/更换账户
 			
+			startActivity(new Intent(mContext, LoginActivity.class));
+			finish();
 
 			break;
 
@@ -104,7 +115,7 @@ public class LockPatternActivity extends BaseActivity implements OnPatternListen
 			break;
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// disable back key
@@ -132,29 +143,29 @@ public class LockPatternActivity extends BaseActivity implements OnPatternListen
 		if (StringUtils.isEmpty(mPatternStr)) {
 			return;
 		}
-		
+
 		Log.d("pattern", LockPatternView.patternToString(pattern));
 
 		if (CryptoUtils.MD5Encode(LockPatternView.patternToString(pattern)).equals(mPatternStr)) {
 			patternTopDescription.setVisibility(View.INVISIBLE);
-			startActivity(new Intent(mContext, LockPatternSetupActivity.class));
+			startActivity(new Intent(mContext, LoginActivity.class));
 
 			finish();
 
-			mErrorCount = 0;
 		} else {
 			mErrorCount--;
 
 			if (mErrorCount == 0) { // 重试次数已用完
 
-				new AlertDialog.Builder(mContext).setTitle(R.string.prompt).setMessage(R.string.lock_pattern_error_exceed_retry_times)
-						.setPositiveButton(R.string.confirm, new OnClickListener() {
+				new SimpleDialogBuilder(mContext).setContentView(mAlertView)
+						.setPositiveButton(R.string.lock_pattern_error_relogin, new OnClickListener() {
 
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 
-								finish();
+								startActivity(new Intent(mContext, LoginActivity.class));
 
+								finish();
 							}
 						}).setCancelable(false).create().show();
 
@@ -172,5 +183,5 @@ public class LockPatternActivity extends BaseActivity implements OnPatternListen
 		}
 
 	}
-	
+
 }

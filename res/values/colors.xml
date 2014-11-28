@@ -7,8 +7,8 @@
     <color name="skin_main_clr_white">#ffffffff</color>
     <color name="skin_main_clr_black">#ff000000</color>
     <color name="skin_main_txt_clr_white">#ffffffff</color>
-     <color name="skin_main_txt_clr_light_white">#ffc8effd</color>
-     <color name="skin_main_txt_clr_slight_white">#ff415771</color>
+    <color name="skin_main_txt_clr_light_white">#ffc8effd</color>
+    <color name="skin_main_txt_clr_slight_white">#ff415771</color>
     <color name="skin_main_txt_clr_black">#ff000000</color>
     <color name="skin_main_txt_clr_blue">#ff0000ff</color>
     <color name="skin_main_txt_clr_red">#ffff0000</color>
@@ -41,14 +41,18 @@
     <color name="skin_ripple_btn_clr_green_nor">#ff71b342</color>
     <color name="skin_ripple_btn_clr_green_hover">#ff76ff03</color>
     
-    <color name="skin_ripple_btn_clr_red_hover">#fff71595</color>
+    <color name="skin_main_btn_clr_lightblue_nor">#ff3fadaf</color>
+    <color name="skin_main_btn_clr_lightblue_pressed">#ff348C88</color> 
+    <color name="skin_ripple_btn_clr_lightblue_nor">#ff3fadaf</color>
+    <color name="skin_ripple_btn_clr_lightblue_hover">#ff44F970</color>
     
+    <color name="skin_ripple_btn_clr_red_hover">#fff71595</color>
     
     <color name="skin_date_picker_selected_clr">#ff252525</color>
     <color name="skin_date_picker_unselected_clr">#ffaaaaaa</color>
     
     <color name="skin_transparent">#00000000</color>
-    
+ 
     <!-- 二维码扫描颜色值 -->
 	<color name="contents_text">#ff000000</color>
 	<color name="encode_view">#ffffffff</color>
@@ -60,4 +64,8 @@
 	<color name="status_text">#ffffffff</color>
 	<color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
 	<color name="viewfinder_mask">#60000000</color>
+  
+	<!-- 离线地图 -->	
+	<color name="main_textcolor">#676767</color>   
+<color name="main_offinetextcolor">#313131</color>		
 </resources>

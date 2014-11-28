@@ -6,7 +6,7 @@ import android.os.Looper;
 import android.view.KeyEvent;
 
 import com.mapgoo.snowleopard.R;
-import com.mapgoo.snowleopard.widget.MyToast;
+import com.mapgoo.snowleopard.ui.widget.MyToast;
 
 /**
  * 双击退出 创建日期 2014-05-12

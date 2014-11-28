@@ -36,7 +36,7 @@ public class MsgNotifierSettingsActivity extends BaseActivity {
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.settings_msg_notify_set).toString(), 1, -1, -1);
+		super.setupActionBar(getText(R.string.settings_msg_notify_set).toString(), 1,R.drawable.ic_back_arrow_white, -1);
 
 	}
 

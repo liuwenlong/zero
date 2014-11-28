@@ -78,7 +78,7 @@ public class SplashActivity extends BaseActivity {
 	 * @created 2014年7月14日
 	 */
 	private void redirectTo() {
-		startActivity(new Intent(mContext, SettingsActivity.class));
+		startActivity(new Intent(mContext, LockPatternActivity.class));
 	}
 
 	@Override

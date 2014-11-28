@@ -14,7 +14,7 @@
     <dimen name="txt_size_34sp">34.0sp</dimen>
     
     <!-- slidingmenu dimens -->
-    <dimen name="slidingmenu_offset">60dp</dimen>
+    <dimen name="slidingmenu_offset">160dp</dimen>
     <dimen name="shadow_width">25dp</dimen>
 
 </resources>

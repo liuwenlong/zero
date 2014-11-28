@@ -42,7 +42,6 @@ public class SettingsActivity extends BaseActivity {
 		findViewById(R.id.rl_settings_msg_notify_set).setOnClickListener(this);
 		findViewById(R.id.rl_settings_offline_map).setOnClickListener(this);
 		findViewById(R.id.rl_settings_about).setOnClickListener(this);
-		
 	}
 
 	@Override
@@ -74,6 +73,15 @@ public class SettingsActivity extends BaseActivity {
 			break;
 		case R.id.rl_settings_msg_notify_set:
 			startActivity(new Intent(mContext, MsgNotifierSettingsActivity.class));
+			break;
+		case R.id.rl_settings_set_bd_pwd:
+			startActivity(new Intent(mContext, LockPatternActivity.class).putExtra("from", "settings"));
+			break;
+		case R.id.rl_settings_offline_map:
+			startActivity(new Intent(mContext, OfflineMapActivity.class));
+			break;
+		case R.id.rl_settings_about:
+			startActivity(new Intent(mContext, SettingsAboutActivity.class));
 			break;
 		default:
 			break;

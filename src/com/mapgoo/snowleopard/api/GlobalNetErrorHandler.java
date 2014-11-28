@@ -22,9 +22,9 @@ import com.mapgoo.snowleopard.MGApp;
 import com.mapgoo.snowleopard.R;
 import com.mapgoo.snowleopard.api.ApiClient.onReqStartListener;
 import com.mapgoo.snowleopard.bean.User;
+import com.mapgoo.snowleopard.ui.widget.MGProgressDialog;
+import com.mapgoo.snowleopard.ui.widget.MyToast;
 import com.mapgoo.snowleopard.utils.StringUtils;
-import com.mapgoo.snowleopard.widget.MGProgressDialog;
-import com.mapgoo.snowleopard.widget.MyToast;
 
 /**
  * 概述: 自定义Error处理、主要处理：拦截401(Authorization Error)错误， 重获token的机制

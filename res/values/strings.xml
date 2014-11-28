@@ -5,10 +5,6 @@
     
     <string name="click_again_to_exit_tip">再按一次退出</string>
     
-    <string name="hint_phone_invalid">手机号不合法</string>
-	<string name="account_check_info_tel_error_null">手机号码不能为空</string>
-    <string name="account_check_info_tel_error">请填写正确的11位手机号码</string>
-    
     <string name="bad_network">网络不给力啊!</string>
     <string name="network_timeout">网络请求超时!</string>
     <string name="network_timeout_req_again">网络请求超时!请重试</string>
@@ -40,8 +36,8 @@
     <string name="lock_pattern_error_reset_pattern_tips">忘记手势密码，需重新登录</string>
     <string name="lock_pattern_error_relogin">重新登录</string>
     <string name="lock_pattern_error_switch_account">登录其他账户</string>
-    <string name="lock_pattern_error_switch_account2">登录其他账户</string>
     
+
    <string name="settings_set_pwd">修改密码</string>
    <string name="settings_set_bd_pwd">设置本地安全密码</string>
    <string name="settings_offline_map">离线地图</string>
@@ -49,12 +45,27 @@
    <string name="settings_about">关于</string>
    <string name="settings_logout">退出登录</string>
    <string name="settings_title">设置</string>
-  
-     <string name="login">登录</string>
-      <string name="settings_modify_pw">修改密码</string>    
+   <string name="settings_about_company_name">寶時龍智能技术有限公司</string>
+   <string name="settings_about_hlep_note">帮助说明</string>
+   <string name="settings_about_with_us">关于我们</string> 
+   <string name="login">登录</string>
+   <string name="settings_modify_pw">修改密码</string>    
    <string name="settings_old_pw">输入旧密码</string>
    <string name="settings_new_pw">输入新密码</string>
-    
+
+    <string name="hint_login_user_account">手机号</string>
+    <string name="hint_login_user_pwd">密码</string>
+
+     <!-- 离线地图 s-->
+    <string name="offline_map_city_input_hint">输入城市名称,例如:深圳市</string>
+    <string name="download">下载</string>
+    <string name="how_much_downloaded">已下载:--</string>
+    <string name="already_download">(已下载)</string>
+    <string name="downloading">正在下载: </string>
+    <string name="wait_to_download">等待下载</string>
+    <string name="unfinished">未完成</string>
+    <!-- 离线地图 e-->   
+
    <string name="about_check_update">检查更新</string>
    <string name="about_no_new_ver">已是最新版</string>
    <string name="about_share_app">分享APP</string>
@@ -64,6 +75,51 @@
    
    <string name="set_notifier_do_not_disturb">免打扰</string>
    <string name="set_notifier_do_not_disturb_period">免打扰时段</string>
+
+    <string name="logout">退出登录</string>
+    <string name="register">注册</string>
+    <string name="remember_account">记住账号</string>
+    <string name="forgot_pwd">忘记密码？</string>
+    <string name="user_register">新用户注册</string>
+    <string name="get_verification_code">获取验证码</string>
+    <string name="hint_already_registered">该手机号码已注册，请直接登录</string>
+    <string name="hint_phone_invalid">手机号不合法</string>
+
+    
+
+    <string name="regist_num_result_success">验证码已发送到 %1$s</string>
+    <string name="regist_num_result_has_regist">此号码已注册过，请直接登录</string>
+    <string name="regist_password_hint">6–20位密码，支持字母和数字</string>
+    <string name="regist_sms_code_hint">6位短信验证码</string>
+    <string name="regist_loading">正在注册…</string>
+    <string name="regist_and_login_loading">注册成功，正在登录…</string>
+    <string name="login_num_hint">11位手机号</string>
+    <string name="login_password_hint">填写密码</string>
+    <string name="login_password_hide">隐藏</string>
+    <string name="login_password_show">显示</string>
+    <string name="login_sms_code_hint">6位短信验证码</string>
+    
+    <string name="login_forgot_num_result_success">验证码已发送到 %1$s</string>
+    <string name="login_find_password_title">忘记密码</string>
+    <string name="login_find_password">重置密码并登录</string>
+    <string name="login_new_password_hint">填写新密码</string>
+    <string name="login_find_info">您可以为此帐号设置新密码：</string>
+    <string name="login_loading">正在登录…</string>
+    <string name="uploading_headPhoto">正在上传头像…</string>
+    <string name="account_check_info_tel_error_null">手机号码不能为空</string>
+    <string name="account_check_info_tel_error">请填写正确的11位手机号码</string>
+    <string name="account_check_info_smscode_is_error_null">验证码不能为空</string>
+    <string name="account_check_info_smscode_is_error">请填写6位数字验证码</string>
+    <string name="account_check_info_password_error_null">密码不能为空</string>
+    <string name="account_check_info_password_error">请填写6–20位的密码，区分大小写</string>
+    <string name="resend">重新获取</string>
+    <string name="resend_with_time">%1$s秒</string>
+    
+    <string name="slide_menu_item_my_msg">我的消息</string>
+    <string name="slide_menu_item_my_car">我的车辆</string>
+    
+    <string name="slide_menu_item_settings">"设置        "</string>
     
     
+
 </resources>

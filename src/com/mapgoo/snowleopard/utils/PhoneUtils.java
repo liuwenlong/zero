@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import com.mapgoo.snowleopard.MGApp;
 import com.mapgoo.snowleopard.R;
-import com.mapgoo.snowleopard.widget.MyToast;
+import com.mapgoo.snowleopard.ui.widget.MyToast;
 
 public class PhoneUtils {
 

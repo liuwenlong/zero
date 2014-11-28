@@ -3,16 +3,13 @@ package com.mapgoo.snowleopard.ui;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
+
 import com.mapgoo.snowleopard.R;
-import com.mapgoo.snowleopard.widget.EditTextView;
+import com.mapgoo.snowleopard.ui.widget.EditTextView;
 
 /**
  * 概述: 模版

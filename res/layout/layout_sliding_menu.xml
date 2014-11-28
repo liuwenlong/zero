@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_main_bg_clr_grey"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/actionbar_bg_layers" >
+
+        <LinearLayout
+            android:id="@+id/ll_avatar_list_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="5.0dp"
+            android:paddingTop="5.0dp" >
+
+            <com.mapgoo.snowleopard.ui.widget.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/civ_avatar"
+                android:layout_width="90.0dp"
+                android:layout_height="90.0dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5.0dp"
+                android:layout_marginRight="5.0dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:src="@drawable/ic_avatar_holder"
+                app:border_color="#FFDDDDDD"
+                app:border_width="2.0dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dp"
+                android:text="张三"
+                android:textColor="@color/skin_main_txt_clr_slight_grey"
+                android:textSize="@dimen/txt_size_16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_wearer_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_avatar_list_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5.0dp"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+    </RelativeLayout>
+
+    <!-- 适配高度不够的屏幕 -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbarThumbVertical="@drawable/ic_scrollbar"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/skin_main_bg_clr_grey"
+            android:divider="@drawable/divider_linear_vertical_1px"
+            android:orientation="vertical"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:id="@+id/rl_menu_my_msg"
+                android:layout_width="match_parent"
+                android:layout_height="62.0dp"
+                android:background="@drawable/selector_item_card_top_sl_bg"
+                android:clickable="true"
+                android:gravity="center"
+                android:layout_marginLeft="-20.0dp"
+                android:onClick="onClick"
+                android:orientation="horizontal" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:layout_width="32.0dp"
+                        android:layout_height="32.0dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        android:src="@null" />
+
+                    <ImageView
+                        android:id="@+id/iv_trajectory_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right|center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_navibar_messagecenter_point"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10.0dip"
+                    android:gravity="center"
+                    android:text="@string/slide_menu_item_my_msg"
+                    android:textColor="@color/skin_main_txt_clr_light_grey"
+                    android:textSize="@dimen/txt_size_18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rl_menu_my_car"
+                android:layout_width="match_parent"
+                android:layout_height="62.0dp"
+                android:background="@drawable/selector_item_card_middle_sl_bg"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:layout_marginLeft="-20.0dp"
+                android:orientation="horizontal" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:layout_width="32.0dp"
+                        android:layout_height="32.0dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        android:src="@null" />
+
+                    <ImageView
+                        android:id="@+id/iv_family_members_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right|center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_navibar_messagecenter_point"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10.0dp"
+                    android:gravity="center"
+                    android:text="@string/slide_menu_item_my_car"
+                    android:textColor="@color/skin_main_txt_clr_light_grey"
+                    android:textSize="@dimen/txt_size_18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rl_menu_settings"
+                android:layout_width="match_parent"
+                android:layout_height="62.0dp"
+                android:background="@drawable/selector_item_card_bottom_sl_bg"
+                android:clickable="true"
+                android:gravity="center"
+                android:layout_marginLeft="-20.0dp"
+                android:onClick="onClick"
+                android:orientation="horizontal" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:layout_width="32.0dp"
+                        android:layout_height="32.0dp"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        android:src="@null" />
+
+                    <ImageView
+                        android:id="@+id/iv_safe_area_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right|center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_navibar_messagecenter_point"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10.0dp"
+                    android:gravity="center"
+                    android:text="@string/slide_menu_item_settings"
+                    android:textColor="@color/skin_main_txt_clr_light_grey"
+                    android:textSize="@dimen/txt_size_18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

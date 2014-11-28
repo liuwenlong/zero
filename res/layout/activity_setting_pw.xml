@@ -7,8 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,8 +17,6 @@
             android:layout_marginTop="15dip"
             android:orientation="vertical" >
 
-      
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +25,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
-                <com.mapgoo.snowleopard.widget.EditTextView
+                <com.mapgoo.snowleopard.ui.widget.EditTextView
                     android:id="@+id/old_pwd"
                     android:layout_width="0.0dp"
                     android:layout_height="56.0dp"
@@ -58,7 +55,8 @@
                     android:button="@drawable/selector_pwd_visable_checkbox"
                     android:checked="false" />
             </LinearLayout>
-<LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10.0dp"
@@ -66,7 +64,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
-                <com.mapgoo.snowleopard.widget.EditTextView
+                <com.mapgoo.snowleopard.ui.widget.EditTextView
                     android:id="@+id/new_pwd"
                     android:layout_width="0.0dp"
                     android:layout_height="56.0dp"
@@ -96,7 +94,6 @@
                     android:button="@drawable/selector_pwd_visable_checkbox"
                     android:checked="false" />
             </LinearLayout>
-         
         </LinearLayout>
 
         <android.support.v7.widget.CardView
@@ -109,7 +106,7 @@
             card_view:cardCornerRadius="3.0dp"
             card_view:cardElevation="4.0dp" >
 
-            <com.mapgoo.snowleopard.widget.RippleButton
+            <com.mapgoo.snowleopard.ui.widget.RippleButton
                 xmlns:ripple="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tv_btn_login"
                 android:layout_width="match_parent"
@@ -118,7 +115,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="onClick"
-                android:text="@string/login"
+                android:text="@string/prompt"
                 android:textColor="@color/skin_main_txt_clr_white"
                 android:textSize="@dimen/txt_size_18sp"
                 ripple:alphaFactor="0.8"
@@ -136,10 +133,6 @@
         android:divider="@drawable/divider_linear_horizontal"
         android:orientation="horizontal"
         android:showDividers="middle" >
-
-        
-
-        
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/control_progress_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/how_much_downloaded"
+            android:textColor="@color/main_textcolor"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/start"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_marginRight="30dip"
+            android:onClick="start"
+            android:padding="5dip"
+            android:src="@drawable/start_bg" />
+
+        <ImageView
+            android:id="@+id/del"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:onClick="remove"
+            android:padding="5dip"
+            android:src="@drawable/delete_map_bg"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/city_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:orientation="horizontal"
+        android:paddingTop="10dip" >
+
+        <Button
+            android:id="@+id/clButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tab_list_focus"
+            android:onClick="clickCityListButton"
+            android:text="城市列表"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/localButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/tab_list_normal"
+            android:onClick="clickLocalMapListButton"
+            android:text="下载管理"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/citylist_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:background="@drawable/tv_qgcs_bg"
+            android:paddingLeft="5dip"
+            android:paddingTop="8dip"
+            android:text="全国城市"
+            android:textColor="#ff8518" />
+
+        <ExpandableListView
+            android:id="@+id/allcitylist"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#00000000"
+            android:childDivider="@drawable/list_line"
+            android:divider="@drawable/list_line"
+            android:groupIndicator="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/localmap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:background="@drawable/tv_qgcs_bg"
+            android:paddingLeft="5dip"
+            android:paddingTop="8dip"
+            android:text="已下载城市"
+            android:textColor="#ff8518" />
+
+        <ListView
+            android:id="@+id/localmaplist"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@drawable/list_line" />
+    </LinearLayout>
+
+</LinearLayout>
