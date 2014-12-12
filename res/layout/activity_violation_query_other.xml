@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_main_bg_clr_grey"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/g_uitableview_top"
+        android:gravity="center_vertical"
+        android:padding="12.0dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/violation_qenalty_car_license_num"
+            android:textColor="@color/skin_main_txt_clr_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15.0dip" >
+
+            <TextView
+                android:id="@+id/tv_add_car_belong_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2.0dip"
+                android:clickable="true"
+                android:drawablePadding="5.0dip"
+                android:drawableRight="@drawable/main_add_car_belong_icon"
+                android:paddingRight="5.0dip"
+                android:text="粤"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_18sp" />
+
+            <EditText
+                android:id="@+id/add_car_num_et"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2.0dip"
+                android:layout_toRightOf="@id/tv_add_car_belong_key"
+                android:background="#00000000"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:hint="@string/violation_qenalty_car_license_num_hint"
+                android:maxLength="6"
+                android:singleLine="true"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/g_uitableview_top"
+        android:gravity="center_vertical"
+        android:padding="12.0dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/violation_qenalty_car_frame_num"
+            android:textColor="@color/skin_main_txt_clr_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+
+        <EditText
+            android:id="@+id/car_frame_num_et"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginLeft="17.0dip"
+            android:background="#00000000"
+            android:digits="0123456789"
+            android:hint="@string/violation_qenalty_car_frame_num_hint"
+            android:maxLength="6"
+            android:singleLine="true"
+            android:textColor="@color/skin_main_txt_clr_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/g_uitableview_top"
+        android:gravity="center_vertical"
+        android:padding="12.0dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/violation_qenalty_car_eng_num"
+            android:textColor="@color/skin_main_txt_clr_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+
+        <EditText
+            android:id="@+id/car_eng_num_et"
+            android:layout_width="fill_parent"
+            android:layout_height="32dp"
+            android:layout_marginLeft="17.0dip"
+            android:background="#00000000"
+            android:digits="0123456789"
+            android:hint="@string/violation_qenalty_car_eng_num_hint"
+            android:maxLength="6"
+            android:singleLine="true"
+            android:textColor="@color/skin_main_txt_clr_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0px"
+        android:background="@color/skin_divider_line_clr" />
+
+    <TextView
+        android:id="@+id/add_car_desc_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginTop="20.0dip"
+        android:drawableLeft="@drawable/add_car_desc_tv_icon"
+        android:drawablePadding="3.0dip"
+        android:gravity="top|left|center"
+        android:lineSpacingExtra="4.0dip"
+        android:text="@string/violation_qenalty_private_tips"
+        android:textColor="@color/skin_main_txt_clr_grey"
+        android:textSize="@dimen/txt_size_14sp" />
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dp"
+        android:layout_marginTop="10.0dp"
+        card_view:cardCornerRadius="3.0dp"
+        card_view:cardElevation="4.0dp" >
+
+        <com.mapgoo.zero.ui.widget.RippleButton
+            xmlns:ripple="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tv_btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="48.0dp"
+            android:background="@drawable/selector_service_btn_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/query"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_16sp"
+            ripple:alphaFactor="0.8"
+            ripple:hover="true"
+            ripple:rippleColor="@color/skin_ripple_btn_clr_servicebtn_hover" />
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

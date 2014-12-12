@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_main_bg_clr_white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/rl_4s_ads"
+            android:layout_width="match_parent"
+            android:layout_height="159.0dp"
+            android:layout_marginBottom="10.0dp"
+            android:layout_marginLeft="5.0dp"
+            android:layout_marginRight="5.0dp"
+            android:layout_marginTop="10.0dp" >
+
+            <com.mapgoo.zero.ui.widget.AutoScrollViewPager
+                android:id="@+id/vPager_banner"
+                android:layout_width="match_parent"
+                android:layout_height="159.0dp" />
+
+            <com.mapgoo.zero.ui.widget.CirclePageIndicator
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="2.0dp"
+                app:fillColor="#ff3a95db"
+                app:pageColor="#58585858"
+                app:radius="3dp"
+                app:strokeColor="#33000000"
+                app:strokeWidth="1dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@id/rl_4s_ads"
+            android:layout_marginTop="2.0dp"
+            android:background="@drawable/ic_4s_car_name_bg"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="@string/car_name_sample"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_14sp" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_my_4s_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dp"
+        android:layout_marginRight="5.0dp"
+        android:gravity="center"
+        android:horizontalSpacing="5.0dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5.0dp" />
+
+</LinearLayout>

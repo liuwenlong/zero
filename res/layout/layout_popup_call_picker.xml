@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#55000000"
+    android:gravity="bottom"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_call_picker_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:background="@drawable/shape_popup_picker_bg"
+            android:divider="@drawable/divider_linear_vertical_1px"
+            android:orientation="vertical"
+            android:showDividers="middle" >
+
+            <TextView
+                android:id="@+id/tv_onekey_service_call_4s"
+                android:layout_width="match_parent"
+                android:layout_height="48.0dp"
+                android:background="@drawable/selector_popup_top_item_bg"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:padding="10dip"
+                android:text="@string/onekey_service_call_4s"
+                android:textColor="@color/skin_main_txt_clr_green"
+                android:textSize="18.0sp"
+                android:typeface="monospace" />
+
+            <TextView
+                android:id="@+id/tv_onekey_service_call_help"
+                android:layout_width="match_parent"
+                android:layout_height="48.0dp"
+                android:background="@drawable/selector_popup_middle_item_bg"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:padding="10dip"
+                android:text="@string/onekey_service_call_help"
+                android:textColor="@color/skin_main_txt_clr_green"
+                android:textSize="18.0sp"
+                android:typeface="monospace" />
+
+            <TextView
+                android:id="@+id/tv_onekey_service_call_insurance"
+                android:layout_width="match_parent"
+                android:layout_height="48.0dp"
+                android:background="@drawable/selector_popup_bottom_item_bg"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:padding="10dip"
+                android:text="@string/onekey_service_call_insurance"
+                android:textColor="@color/skin_main_txt_clr_green"
+                android:textSize="18.0sp"
+                android:typeface="monospace" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_onekey_service_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="48.0dp"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="4dip"
+            android:background="@drawable/selector_popup_item_bg"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="@string/cancel"
+            android:textColor="@color/skin_main_txt_clr_green"
+            android:textSize="18.0sp"
+            android:typeface="monospace" />
+    </LinearLayout>
+
+</LinearLayout>

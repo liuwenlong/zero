@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">雪豹</string>
+    <string name="app_name">零距离</string>
     
     <string name="click_again_to_exit_tip">再按一次退出</string>
     
@@ -12,9 +12,11 @@
     <string name="token_reget_success_and_do_your_stuff_again">token获取成功，请再次操作</string>
     <string name="prompt">提示</string>
     <string name="confirm">确定</string>
+    <string name="query">查询</string>
     <string name="invite">邀请</string>
     <string name="cancel">取消</string>
     <string name="loading">正在加载，请您耐心等待…</string>
+    <string name="not_open_yet">暂未开放!</string>
     
    <string name="bdmap_key_error_tips">百度地图-key错误, 请检查key设置</string>
    <string name="bdmap_network_error_tips">百度地图-网络错误, 请检查网络设置</string>
@@ -53,7 +55,7 @@
    <string name="settings_old_pw">输入旧密码</string>
    <string name="settings_new_pw">输入新密码</string>
 
-    <string name="hint_login_user_account">手机号</string>
+    <string name="hint_login_user_account">巡视员</string>
     <string name="hint_login_user_pwd">密码</string>
 
      <!-- 离线地图 s-->
@@ -64,6 +66,10 @@
     <string name="downloading">正在下载: </string>
     <string name="wait_to_download">等待下载</string>
     <string name="unfinished">未完成</string>
+     <string name="offline_download_city">已下载城市</string>
+     <string name="offline_listof_city">城市列表</string>
+     <string name="offline_download_manage">下载管理</string>
+     <string name="offline_allof_city">全国城市</string>
     <!-- 离线地图 e-->   
 
    <string name="about_check_update">检查更新</string>
@@ -84,8 +90,6 @@
     <string name="get_verification_code">获取验证码</string>
     <string name="hint_already_registered">该手机号码已注册，请直接登录</string>
     <string name="hint_phone_invalid">手机号不合法</string>
-
-    
 
     <string name="regist_num_result_success">验证码已发送到 %1$s</string>
     <string name="regist_num_result_has_regist">此号码已注册过，请直接登录</string>
@@ -121,5 +125,213 @@
     <string name="slide_menu_item_settings">"设置        "</string>
     
     
+    <string name="onekey_service_call_4s">4S店总机(60123456)</string>
+    <string name="onekey_service_call_help">救援(60213456)</string>
+    <string name="onekey_service_call_insurance">救援(60312456)</string>
+    
+    <string name="car_name_sample">路虎揽胜</string>
+    
+    <string name="title_carcondtion_query">车况查询</string>
+    <string name="title_smart_handctrl">智能掌控</string>
+    <string name="title_convenient_service">便捷服务</string>
+    <string name="title_4s_default">我的4s店</string>
+    <string name="title_recharge_center">充值中心</string>
+    <string name="title_package_select">套餐选择</string>
+    <string name="title_payments_select">支付方式</string>
+    <string name="title_violation_query">违章查询</string>
+    <string name="title_prearrangements_records">预约记录</string>
+    <string name="title_prearrangements_call_rescue">一键救援</string>
+    <string name="title_loc_service">位置服务</string>
+    
+    <string name="loc_service_gps">GPS</string>
+    <string name="loc_service_desc">"车位查询  轨迹查询  电子围栏        "</string>
+    <string name="carservice_maintenance">保养到期</string>
+    <string name="carservice_insurrance">保险到期</string>
+    <string name="carservice_year_inspect">年间到期</string>
+    <string name="remain">剩余</string>
+    <string name="day">天</string>
+    
+    <string name="cs_cur_car">当前车辆</string>
+    <string name="cs_charging_model">计费模式：%1$s</string>
+    <string name="cs_charging_model_monthly">包月</string>
+    <string name="cs_charging_model_yearly">包年</string>
+    <string name="cs_package_remaining">套餐余额：%1$.1f 元</string>
+    
+    <string name="carcondtion_cur_status">当前状态</string>
+    <string name="carcondtion_door_status">车门: %1$s</string>
+    <string name="carcondtion_eng_status">引擎: %1$s</string>
+    <string name="carcondtion_window_status">车窗: %1$s</string>
+    <string name="carcondtion_tailbox_status">尾箱: %1$s</string>
+    <string name="carcondtion_light_status">车灯: %1$s</string>
+    <string name="carcondtion_battery_status">电瓶: %1$s</string>
+    <string name="carcondtion_mileage_status">里程: %1$s km</string>
+    <string name="full_of_power">充足</string>
+    <string name="less_power">亏电</string>
+    <string name="turn_on">开启</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    
+    <string name="url_link_error">链接有误，请重新进入</string>
+    <string name="dialog_call_warning_msg">是否拨打电话给%1$s？</string>
+    <string name="dialog_call_btn_call">拨打</string>
+    
+    
+    <string name="service_app_label_recharge_online">在线充值</string>
+    <string name="service_app_label_around_service">周边服务</string>
+    <string name="service_app_label_violation_query">违章查询</string>
+    <string name="service_app_label_more">更多定制</string>
+    
+    <string name="my_4s_app_label_prearrange_repair">预约维修</string>
+    <string name="my_4s_app_label_prearrange_carwash">预约洗车</string>
+    <string name="my_4s_app_label_prearrange_maintenance">预约保养</string>
+    <string name="my_4s_app_label_rodeside_drive">预约试驾</string>
+    <string name="my_4s_app_label_rodeside_rescue">道路救援</string>
+    <string name="my_4s_app_label_more">添加更多</string>
+    
+    <string name="recharge_select_targets_hint">选择充值车辆</string>
+    <string name="recharge_select_package">选择充值套餐</string>
+    <string name="recharge_check_order_info">确认订单信息</string>
+    
+    <string name="recharge_order_num">订单号：%1$s</string>
+    <string name="recharge_order_carname">车辆：%1$s</string>
+    <string name="recharge_order_package_name">套餐：%1$s</string>
+    <string name="recharge_order_price">
+        <![CDATA[
+        <font color="#777777">价格：￥</font>
+        <font color="#ff0000">%1$.1f</font>
+        ]]>
+    </string>
+    <string name="recharge_payments_select">选择支付方式</string>
+    <string name="recharge_payments_alipay">支付宝</string>
+    <string name="recharge_payments_weixinpay">微信支付</string>
+    
+    <string name="valid_remaining_days">
+        <![CDATA[
+        <font color="#777777">有效期剩余: </font>
+        <font color="#01a25f">%1$d</font>
+        <font color="#777777">天</font>
+        ]]>
+   </string>
+   
+    <string name="package_price">
+        <![CDATA[
+        <font color="#777777">￥</font>
+        <font color="#ff0000">%1$.1f</font>
+        ]]>
+   </string>
+   
+   <string name="btn_query_other_car">其他车辆查询</string>
+   <string name="violation_qenalty">罚款 %1$.1f 元，扣分 %2$d 分</string>
+   <string name="violation_qenalty_car_license_num">车牌号码</string>
+   <string name="violation_qenalty_car_license_num_hint">请输入车牌号码</string>
+   <string name="violation_qenalty_car_frame_num">车架号码</string>
+   <string name="violation_qenalty_car_frame_num_hint">请输入车架号后6位</string>
+   <string name="violation_qenalty_car_eng_num">发动机号</string>
+   <string name="violation_qenalty_car_eng_num_hint">请输入发动机号后6位</string>
+   <string name="violation_qenalty_private_tips">以上车辆信息仅用于违章查询，我们将严格保密，请您放心填写</string>
+   
+   
+   <string name="prearrange_info_store">商家</string>
+   <string name="prearrange_info_call">电话</string>
+   <string name="prearrange_info_vehicle_type">车型</string>
+   <string name="prearrange_info_time">预约时间</string>
+   <string name="prearrange_info_remarks">备注信息…</string>
+   <string name="prearrange_info_submit">提交预约</string>
+   
+   <string name="title_prearrange_repair">预约维修</string>
+   <string name="title_prearrange_car_wash">预约洗车</string>
+   <string name="title_prearrange_maintenance">预约保养</string>
+   <string name="title_prearrange_drive">预约试驾</string>
+   <string name="title_detail">详情</string>
+   
+   <string name="prearrangement_car">
+        <![CDATA[
+        <font color="#777777">车辆：</font>
+        <font color="#aaaaaa">%1$s %2$s</font>
+        ]]>
+   </string>
+   
+   <string name="prearrangement_store">
+        <![CDATA[
+        <font color="#777777">商家：</font>
+        <font color="#aaaaaa">%1$s</font>
+        ]]>
+   </string>
+   
+   <string name="prearrangement_time">
+        <![CDATA[
+        <font color="#777777">时间：</font>
+        <font color="#aaaaaa">%1$s</font>
+        ]]>
+   </string>
+   
+   <string name="prearrange_type">服务类型</string>
+   <string name="prearrange_time">服务时间</string>
+   <string name="prearrange_store">服务商家</string>
+   <string name="prearrange_car">车辆</string>
+   <string name="prearrange_car_type">试驾车型</string>
+   <string name="prearrange_accept_status">受理状态</string>
+   <string name="prearrange_customer">预约人</string>
+   <string name="prearrange_remarks">备注</string>
+   <string name="prearrange_cancle">取消预约</string>
+   <string name="prearrange_accept">已受理</string>
+   <string name="prearrange_unaccept">未受理</string>
+   
+   <string name="rescue_send_loc">发送位置给救援人员</string>
+   <string name="rescue_call_for_prearrange">电话预约</string>
 
+     <string name="home_action_title">老人</string> 
+ <string name="login_id_loading">读取中...</string>    
+ <string name="home_leixin">类型：</string>        
+  <string name="home_shenfenzhen">身份证号：</string>      
+   <string name="settings_message_tip_shenyin">提醒方式：声音</string>       
+ <string name="settings_message_tip_zhendong">提醒方式：震动</string>   
+ <string name="settings_message_modify_mima">修改密码</string>  
+   <string name="settings_message_about">关于</string>  
+   
+   <string name="home_yuyue">预约服务</string>  
+   <string name="home_weizhi">位置服务</string>  
+   <string name="home_rufu">入户巡视</string> 
+   <string name="home_dingdan">我的订单</string> 
+   <string name="home_laoren">老人</string>    
+   <string name="home_xiaoxi">消息</string>
+ 
+      <string name="ruhu_laoren_xinxi">老人信息</string>
+      <string name="ruhu_jiankang_xinxi">健康信息</string>
+      <string name="ruhu_anquan_xinxi">安全信息</string>
+      <string name="ruhu_qiandao">入户签到</string>
+      <string name="ruhu_likai">离开签退</string>      
+      
+      <string name="yuyue_jiazheng">家政</string>  
+      <string name="yuyue_yiliao">医疗</string>
+      <string name="yuyue_xiyu">洗浴</string>
+      <string name="yuyue_lihua">理发</string>
+      <string name="yuyue_canying">餐饮</string>
+      <string name="yuyue_chaoshi">超市</string>
+      <string name="yuyue_shucai">蔬菜水果</string>
+      <string name="yuyue_jiansheng">健身娱乐</string>
+      <string name="yuyue_zhiyuan">志愿者</string>
+      
+       <string name="ruhu_xinming">姓名:</string>
+        <string name="ruhu_leixin">类型:</string>
+        <string name="ruhu_leixin_normal">正常老人</string>
+         <string name="ruhu_nianling">年龄:</string>   
+       <string name="ruhu_xingbie">性别:</string>
+        <string name="ruhu_shenfenzheng">身份证:</string>
+         <string name="ruhu_dizhi">地址:</string>
+         
+          <string name="ruhu_dianhua_lianxiren">联系人:</string>
+         <string name="ruhu_dianhua_jianhuren">监护人:</string>
+         <string name="ruhu_dianhua_qinshu">亲属:</string>
+         <string name="ruhu_laoren_gaoya">高压:</string>
+          <string name="ruhu_laoren_diya">低压:</string>    
+          <string name="ruhu_tijiao_ziliao">提交资料</string>    
+          <string name="ruhu_xinxi_jiankang">健康状况</string>
+          
+          <string name="ruhu_jiating_anquan">家庭安全</string>
+         <string name="ruhu_jiating_qinshuru_chuli_jieguo">请输入处理信息</string>
+          <string name="ruhu_jiating_tianjia_zhaopian">添加照片（最多四张）</string>
+          
+
+          
 </resources>

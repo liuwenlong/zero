@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/divider_linear_vertical_1px"
+    android:showDividers="middle"
+    android:orientation="vertical" >
+    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_weight="1.0"
+    android:layout_height="wrap_content"    
+    android:divider="@drawable/divider_linear_vertical_1px"
+    android:showDividers="middle" 
+    android:orientation="horizontal">
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_jiazheng"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_jiazheng"
+                android:text="@string/yuyue_jiazheng"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+<View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent" 
+                android:background="@drawable/divider_linear_vertical_1px"
+    />
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_yiliao"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_yiliao"
+                android:text="@string/yuyue_yiliao"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+<View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent" 
+                android:background="@drawable/divider_linear_vertical_1px"
+    />
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_xiyu"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_xiyu"
+                android:text="@string/yuyue_xiyu"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_weight="1.0"
+    android:layout_height="wrap_content"    
+    android:divider="@drawable/divider_linear_vertical_1px"
+    android:showDividers="middle" 
+    android:orientation="horizontal">
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_lihua"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_lihua"
+                android:text="@string/yuyue_lihua"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+<View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent" 
+                android:background="@drawable/divider_linear_vertical_1px"
+    />
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_canying"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_canyin"
+                android:text="@string/yuyue_canying"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+<View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent" 
+                android:background="@drawable/divider_linear_vertical_1px"
+    />
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_chaoshi"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_chaoshi"
+                android:text="@string/yuyue_chaoshi"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_weight="1.0"
+    android:layout_height="wrap_content"    
+    android:divider="@drawable/divider_linear_vertical_1px"
+    android:showDividers="middle" 
+    android:orientation="horizontal">
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_shucai"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_shucai"
+                android:text="@string/yuyue_shucai"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+<View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent" 
+                android:background="@drawable/divider_linear_vertical_1px"
+    />
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_jiansheng"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_jiansheng"
+                android:text="@string/yuyue_jiansheng"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+<View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent" 
+                android:background="@drawable/divider_linear_vertical_1px"
+    />
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_weight="1.0"
+    android:layout_height="match_parent"    
+	android:background="@drawable/selector_item_card_bottom_bg"
+	android:id="@+id/yuyue_zhiyuan"
+	android:onClick="onClick"
+	android:clickable="true"
+    android:orientation="horizontal">    
+<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	           	android:drawablePadding="5.0dp" 
+    			android:layout_weight="1.0"
+    			android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/yuyue_zhiyuan"
+                android:text="@string/yuyue_zhiyuan"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+</LinearLayout>
+</LinearLayout>
+
+
+
+</LinearLayout>

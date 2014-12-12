@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_item_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_item_card_top_bg"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="10.0dp"
+    android:paddingLeft="20.0dp"
+    android:paddingRight="10.0dp"
+    android:paddingTop="10.0dp" >
+
+    <TextView
+        android:id="@+id/tv_prearrangement_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6.0dp"
+        android:textColor="@color/skin_main_hint_txt_clr_grey_7"
+        android:textSize="@dimen/txt_size_18sp"
+        android:textStyle="bold"
+        tools:text="[预约洗车]" />
+
+    <TextView
+        android:id="@+id/tv_prearrangement_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5.0dp"
+        android:layout_marginTop="5.0dp"
+        android:textColor="@color/skin_main_txt_clr_slight_grey"
+        android:textSize="@dimen/txt_size_16sp"
+        tools:text="车辆：路虎揽胜 粤B888888" />
+
+    <TextView
+        android:id="@+id/tv_prearrangement_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5.0dp"
+        android:layout_marginTop="5.0dp"
+        android:textColor="@color/skin_main_txt_clr_slight_grey"
+        android:textSize="@dimen/txt_size_16sp"
+        tools:text="时间：2014-12-03 09:06" />
+
+</LinearLayout>

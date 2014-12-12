@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_main_bg_clr_white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="160.5dp"
+            android:layout_marginBottom="10.0dp"
+            android:layout_marginLeft="5.0dp"
+            android:layout_marginRight="5.0dp"
+            android:layout_marginTop="10.0dp"
+            android:background="@drawable/ic_convinient_service_info_bg"
+            android:paddingLeft="20.0dp"
+            android:paddingRight="20.0dp" >
+
+            <TextView
+                android:id="@+id/tv_location_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16.0dp"
+                android:drawableLeft="@drawable/ic_locate"
+                android:drawablePadding="6.0dp"
+                android:gravity="bottom"
+                android:text="深圳"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/tv_location_name"
+                android:layout_marginTop="-6.0dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="26"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_34sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dp"
+                    android:text="℃"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_cur_car_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="20.0dp"
+                android:gravity="left"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cs_cur_car"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dp"
+                    android:text="@string/cs_charging_model"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cs_package_remaining"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_date_and_degree_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/ll_cur_car_info"
+                android:layout_alignParentRight="true"
+                android:text="11月28日 21~26℃"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_14sp" />
+
+            <TextView
+                android:id="@+id/tv_weater_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="36.0dp"
+                android:drawableLeft="@drawable/ic_weather_default"
+                android:drawablePadding="5.0dp"
+                android:gravity="bottom"
+                android:text="多云"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_14sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@id/ll_info"
+            android:layout_marginTop="4.0dp"
+            android:background="@drawable/ic_convinientservice_car_name_bg"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="@string/car_name_sample"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_14sp" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_convenient_service_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dp"
+        android:layout_marginRight="5.0dp"
+        android:gravity="center"
+        android:horizontalSpacing="5.0dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5.0dp" />
+
+</LinearLayout>

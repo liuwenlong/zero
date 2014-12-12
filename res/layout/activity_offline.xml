@@ -59,7 +59,7 @@
             android:layout_weight="1"
             android:background="@drawable/tab_list_focus"
             android:onClick="clickCityListButton"
-            android:text="城市列表"
+            android:text="@string/offline_listof_city"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -71,7 +71,7 @@
             android:layout_weight="1"
             android:background="@drawable/tab_list_normal"
             android:onClick="clickLocalMapListButton"
-            android:text="下载管理"
+            android:text="@string/offline_download_manage"
             android:textColor="#ffffff"
             android:textSize="18sp" />
     </LinearLayout>
@@ -88,7 +88,7 @@
             android:background="@drawable/tv_qgcs_bg"
             android:paddingLeft="5dip"
             android:paddingTop="8dip"
-            android:text="全国城市"
+            android:text="@string/offline_allof_city"
             android:textColor="#ff8518" />
 
         <ExpandableListView
@@ -113,7 +113,7 @@
             android:background="@drawable/tv_qgcs_bg"
             android:paddingLeft="5dip"
             android:paddingTop="8dip"
-            android:text="已下载城市"
+            android:text="@string/offline_download_city"
             android:textColor="#ff8518" />
 
         <ListView

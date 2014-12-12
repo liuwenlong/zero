@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="vertical" >
+<TextView 
+    android:id="@+id/ruhu_xinxi_item_0"
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:textColor="@color/normal_color_text"
+    android:textSize="20sp"  
+    android:text="@string/ruhu_xinxi_jiankang"
+    />    
+<View 
+                android:layout_width="match_parent"
+                android:layout_height="1.0dp" 
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/divider_linear_vertical_1px"
+    />    
+    
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/ruhu_xinxi_item_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_ruhu_checkbox"
+            android:gravity="center_vertical|left"
+            android:text="@string/ruhu_xinxi_jiankang"
+            android:textColor="@color/setting_color_text"
+            android:textSize="@dimen/txt_size_14sp" />
+<View 
+                android:layout_width="10dp"
+                android:layout_height="match_parent" 
+                android:background="#00000000"
+    />    
+        <CheckBox
+            android:id="@+id/ruhu_xinxi_item_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:layout_weight="1.0"
+            android:drawableRight="@drawable/selector_ruhu_checkbox"
+            android:gravity="center_vertical|left"
+            android:text="@string/ruhu_xinxi_jiankang"
+            android:textColor="@color/setting_color_text"
+            android:textSize="@dimen/txt_size_14sp" /> 
+    </LinearLayout>
+
+        <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/ruhu_xinxi_item_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_ruhu_checkbox"
+            android:gravity="center_vertical|left"
+            android:text="@string/ruhu_xinxi_jiankang"
+            android:textColor="@color/setting_color_text"
+            android:textSize="@dimen/txt_size_14sp" />
+<View 
+                android:layout_width="10dp"
+                android:layout_height="match_parent" 
+                android:background="#00000000"
+    />    
+        <CheckBox
+            android:id="@+id/ruhu_xinxi_item_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:layout_weight="1.0"
+            android:drawableRight="@drawable/selector_ruhu_checkbox"
+            android:gravity="center_vertical|left"
+            android:text="@string/ruhu_xinxi_jiankang"
+            android:textColor="@color/setting_color_text"
+            android:textSize="@dimen/txt_size_14sp" /> 
+    </LinearLayout>
+        <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/ruhu_xinxi_item_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_ruhu_checkbox"
+            android:gravity="center_vertical|left"
+            android:text="@string/ruhu_xinxi_jiankang"
+            android:textColor="@color/setting_color_text"
+            android:textSize="@dimen/txt_size_14sp" />
+<View 
+                android:layout_width="10dp"
+                android:layout_height="match_parent" 
+                android:background="#00000000"
+    />    
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:layout_weight="1.0"
+            android:drawableRight="@drawable/selector_ruhu_checkbox"
+            android:gravity="center_vertical|left"
+            android:text="@string/ruhu_xinxi_jiankang"
+            android:textColor="@color/setting_color_text"
+            android:visibility="invisible"
+            android:textSize="@dimen/txt_size_14sp" /> 
+    </LinearLayout>
+<View 
+                android:layout_width="match_parent"
+                android:layout_height="1.0dp" 
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/divider_linear_vertical_1px"
+    />        
+</LinearLayout>

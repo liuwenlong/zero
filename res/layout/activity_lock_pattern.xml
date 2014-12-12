@@ -26,7 +26,7 @@
         android:textSize="@dimen/txt_size_16sp"
         android:visibility="invisible" />
 
-    <com.mapgoo.snowleopard.ui.widget.LockPatternView
+    <com.mapgoo.zero.ui.widget.LockPatternView
         android:id="@+id/lockView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

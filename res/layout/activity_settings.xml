@@ -183,7 +183,7 @@
             card_view:cardCornerRadius="3.0dp"
             card_view:cardElevation="4.0dp" >
 
-            <com.mapgoo.snowleopard.ui.widget.RippleButton
+            <com.mapgoo.zero.ui.widget.RippleButton
                 xmlns:ripple="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tv_btn_logout"
                 android:layout_width="match_parent"

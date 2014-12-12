@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skin_main_bg_clr_grey"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/divider_linear_vertical_1px"
+                android:orientation="vertical"
+                android:showDividers="middle" >
+
+                <RelativeLayout
+                    android:id="@+id/rl_prearrange_store"
+                    android:layout_width="match_parent"
+                    android:layout_height="54.0dp"
+                    android:background="@drawable/selector_item_card_top_bg"
+                    android:clickable="true"
+                    android:onClick="onClick"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/prearrange_info_store"
+                        android:textColor="@color/skin_main_txt_clr_grey"
+                        android:textSize="@dimen/txt_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_store_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="42.0dp"
+                        android:gravity="center|right"
+                        android:text="路虎南山4s店"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10.0dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/common_icon_arrow" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_prearrange_call"
+                    android:layout_width="match_parent"
+                    android:layout_height="54.0dp"
+                    android:background="@drawable/selector_item_card_middle_bg"
+                    android:clickable="true"
+                    android:onClick="onClick"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/prearrange_info_call"
+                        android:textColor="@color/skin_main_txt_clr_grey"
+                        android:textSize="@dimen/txt_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_call_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="42.0dp"
+                        android:gravity="center|right"
+                        android:text="69696969"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10.0dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_prearrange_call" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_prearrange_vehicle_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="54.0dp"
+                    android:background="@drawable/selector_item_card_bottom_bg"
+                    android:clickable="true"
+                    android:onClick="onClick"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/prearrange_info_vehicle_type"
+                        android:textColor="@color/skin_main_txt_clr_grey"
+                        android:textSize="@dimen/txt_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_prearrange_vehicle_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="42.0dp"
+                        android:gravity="center|right"
+                        android:text="路虎揽胜"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10.0dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/common_icon_arrow" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.0px"
+                android:layout_marginTop="16.0dp"
+                android:background="@color/skin_divider_line_clr" />
+
+            <RelativeLayout
+                android:id="@+id/rl_prearrange_time"
+                android:layout_width="match_parent"
+                android:layout_height="54.0dp"
+                android:layout_marginBottom="16.0dp"
+                android:background="@drawable/selector_item_card_bottom_bg"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/prearrange_info_time"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_16sp" />
+
+                <TextView
+                    android:id="@+id/tv_prearrange_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="42.0dp"
+                    android:gravity="center|right"
+                    android:text="2014.12.02 12:00"
+                    android:textColor="@color/skin_main_txt_clr_light_grey"
+                    android:textSize="@dimen/txt_size_16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10.0dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/common_icon_arrow" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.0px"
+                android:layout_marginTop="16.0dp"
+                android:background="@color/skin_divider_line_clr" />
+
+            <EditText
+                android:id="@+id/et_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="140.0dp"
+                android:background="@drawable/common_card_top_background"
+                android:gravity="top"
+                android:hint="@string/prearrange_info_remarks"
+                android:padding="10.0dp"
+                android:textColor="@color/skin_main_txt_clr_grey"
+                android:textSize="@dimen/txt_size_16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.0px"
+                android:background="@color/skin_divider_line_clr" />
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10.0dp"
+                android:layout_marginLeft="10.0dp"
+                android:layout_marginRight="10.0dp"
+                android:layout_marginTop="30.0dp"
+                card_view:cardCornerRadius="3.0dp"
+                card_view:cardElevation="4.0dp" >
+
+                <com.mapgoo.zero.ui.widget.RippleButton
+                    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/tv_btn_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="48.0dp"
+                    android:background="@drawable/selector_redbtn_bg"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="@string/prearrange_info_submit"
+                    android:textColor="@color/skin_main_txt_clr_white"
+                    android:textSize="@dimen/txt_size_16sp"
+                    ripple:alphaFactor="0.8"
+                    ripple:hover="true"
+                    ripple:rippleColor="@color/skin_main_btn_clr_redblue_hover" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

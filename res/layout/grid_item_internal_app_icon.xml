@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_app_item_wrapper"
+    android:layout_width="105.5dp"
+    android:layout_height="105.5dp"
+    android:background="@drawable/selector_internal_app_btn_bg"
+    android:gravity="center" >
+
+    <TextView
+        android:id="@+id/tv_app_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_service_app_recharge_online"
+        android:text="@string/service_app_label_recharge_online"
+        android:textColor="@color/skin_main_txt_clr_grey"
+        android:textSize="@dimen/txt_size_16sp" />
+
+</RelativeLayout>

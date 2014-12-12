@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_item_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="80.0dp"
+    android:background="@drawable/selector_item_card_top_bg"
+    android:gravity="center_vertical"
+    android:minHeight="80.0dp"
+    android:padding="10.0dp" >
+
+    <TextView
+        android:id="@+id/tv_package_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16.0dp"
+        android:textColor="@color/skin_main_txt_clr_grey"
+        android:textSize="@dimen/txt_size_18sp"
+        tools:text="一年套餐" />
+
+    <TextView
+        android:id="@+id/tv_package_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20.0dp"
+        android:layout_toLeftOf="@+id/item_checkbox"
+        android:textSize="@dimen/txt_size_18sp"
+        tools:text="￥60.0" />
+
+    <CheckBox
+        android:id="@+id/item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="48.0dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:button="@drawable/selector_service_checkbox_icon"
+        android:checked="true"
+        android:clickable="false"
+        android:enabled="false"
+        android:gravity="center" />
+
+</RelativeLayout>

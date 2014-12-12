@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?android:attr/buttonBarButtonStyle"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/widget_softkeyboard_bg"
+    android:orientation="vertical"
+    android:padding="5.0dip" >
+
+    <LinearLayout
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/widget_belong_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="京"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="沪"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="浙"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="苏"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="粤"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_06"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="鲁"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_07"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="晋"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_08"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="冀"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/widget_belong_09"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="豫"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="川"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="渝"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="辽"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="吉"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="黑"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="皖"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="鄂"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/widget_belong_17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="湘"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="赣"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="闽"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="陕"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="甘"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="宁"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="蒙"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="津"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/widget_belong_25"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="贵"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_26"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="云"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_27"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="桂"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_28"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="琼"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_29"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="青"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_30"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="新"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            android:id="@+id/widget_belong_31"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:layout_marginTop="4.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_widget_softkeyboarddialog_btn"
+            android:text="藏"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="#00000000"
+            android:clickable="false"
+            android:textColor="#00000000" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dialog_cancel_btn"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15.0dip"
+        android:background="@drawable/selector_service_btn_bg"
+        android:padding="6.0dip"
+        android:text="@string/cancel"
+        android:textColor="@color/skin_main_txt_clr_white"
+        android:textSize="@dimen/txt_size_20sp" />
+
+</LinearLayout>

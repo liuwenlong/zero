@@ -32,7 +32,7 @@
                 android:textColor="@color/skin_main_txt_clr_grey"
                 android:textSize="@dimen/txt_size_16sp" />
 
-            <com.mapgoo.snowleopard.ui.widget.SwitchButton
+            <com.mapgoo.zero.ui.widget.SwitchButton
                 android:id="@+id/sb_do_not_disturb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

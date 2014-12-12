@@ -21,7 +21,7 @@
             android:textColor="@color/skin_main_txt_clr_white"
             android:textSize="@dimen/txt_size_18sp" />
 
-        <com.mapgoo.snowleopard.ui.widget.PatternIndicatorView
+        <com.mapgoo.zero.ui.widget.PatternIndicatorView
             android:id="@+id/patternIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:textColor="@color/skin_main_txt_clr_light_white"
         android:textSize="@dimen/txt_size_16sp" />
 
-    <com.mapgoo.snowleopard.ui.widget.LockPatternView
+    <com.mapgoo.zero.ui.widget.LockPatternView
         android:id="@+id/lockView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

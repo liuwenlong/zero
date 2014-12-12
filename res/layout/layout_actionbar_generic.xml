@@ -3,7 +3,7 @@
     android:id="@+id/rl_actionbar_root"
     android:layout_width="match_parent"
     android:layout_height="48.0dp"
-    android:background="@drawable/ic_actionbar_bg"
+    android:background="@drawable/ic_home_actionbar_bg"
     android:gravity="center_vertical" >
 
     <ImageView
@@ -18,20 +18,30 @@
         android:onClick="onClick"
         android:src="@drawable/ic_menu" />
 
-    <TextView
-        android:id="@+id/tv_ab_title"
+    <RelativeLayout
+        android:id="@+id/rl_ab_title_bg_wrapper"
         android:layout_width="wrap_content"
-        android:layout_height="48.0dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:background="@drawable/ic_car_box"
-        android:clickable="true"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:singleLine="true"
-        android:textColor="@color/skin_main_txt_clr_white"
-        android:textSize="@dimen/txt_size_16sp" />
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/tv_ab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="48.0dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_button_titlebar_bg"
+            android:clickable="true"
+            android:drawablePadding="5.0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:singleLine="true"
+            android:textColor="@color/skin_main_txt_clr_white"
+            android:textSize="@dimen/txt_size_18sp" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/iv_ab_right_btn"
@@ -43,6 +53,6 @@
         android:clickable="true"
         android:contentDescription="@null"
         android:onClick="onClick"
-        android:src="@drawable/ic_main_share" />
+        android:src="@drawable/ic_add" />
 
 </RelativeLayout>

@@ -25,7 +25,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
-                <com.mapgoo.snowleopard.ui.widget.EditTextView
+                <com.mapgoo.zero.ui.widget.EditTextView
                     android:id="@+id/old_pwd"
                     android:layout_width="0.0dp"
                     android:layout_height="56.0dp"
@@ -64,7 +64,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
-                <com.mapgoo.snowleopard.ui.widget.EditTextView
+                <com.mapgoo.zero.ui.widget.EditTextView
                     android:id="@+id/new_pwd"
                     android:layout_width="0.0dp"
                     android:layout_height="56.0dp"
@@ -106,7 +106,7 @@
             card_view:cardCornerRadius="3.0dp"
             card_view:cardElevation="4.0dp" >
 
-            <com.mapgoo.snowleopard.ui.widget.RippleButton
+            <com.mapgoo.zero.ui.widget.RippleButton
                 xmlns:ripple="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tv_btn_login"
                 android:layout_width="match_parent"

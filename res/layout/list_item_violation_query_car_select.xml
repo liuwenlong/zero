@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_item_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="80.0dp"
+    android:background="@drawable/selector_item_card_top_bg"
+    android:gravity="center_vertical"
+    android:minHeight="80.0dp"
+    android:padding="10.0dp" >
+
+    <ImageView
+        android:id="@+id/iv_car_logo"
+        android:layout_width="50.0dp"
+        android:layout_height="50.0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10.0dp"
+        android:layout_toRightOf="@id/iv_car_logo"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_car_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="路虎揽胜"
+            android:textColor="@color/skin_main_txt_clr_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+
+        <TextView
+            android:id="@+id/tv_carLicenseNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.0dp"
+            android:text="粤B88888"
+            android:textColor="@color/skin_main_txt_clr_deep_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10.0dp"
+        android:contentDescription="@null"
+        android:gravity="center"
+        android:src="@drawable/common_icon_arrow" />
+
+</RelativeLayout>

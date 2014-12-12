@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/skin_main_bg_clr_grey"
+    android:background="@color/normal_color_bgd" >
+    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/actionbar_bg_layers" >
+        android:layout_height="200dp" 
+        android:background="#12b1c2">
 
         <LinearLayout
             android:id="@+id/ll_avatar_list_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
+            android:layout_marginBottom="16.0dp"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingBottom="5.0dp"
             android:paddingTop="5.0dp" >
 
-            <com.mapgoo.snowleopard.ui.widget.CircleImageView
+            <com.mapgoo.zero.ui.widget.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/civ_avatar"
                 android:layout_width="90.0dp"
@@ -40,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10.0dp"
                 android:text="张三"
-                android:textColor="@color/skin_main_txt_clr_slight_grey"
+                android:textColor="@color/skin_main_txt_clr_white"
                 android:textSize="@dimen/txt_size_16sp" />
         </LinearLayout>
 
@@ -55,153 +61,128 @@
             android:textSize="@dimen/txt_size_18sp" />
     </RelativeLayout>
 
-    <!-- 适配高度不够的屏幕 -->
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbarThumbVertical="@drawable/ic_scrollbar"
-        android:scrollbars="vertical" >
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_linear_vertical_1px"
+        android:orientation="vertical"
+        android:showDividers="middle" >
 
         <LinearLayout
+            android:id="@+id/settings_msg_shengying"
+            android:layout_width="match_parent"
+            android:layout_height="62.0dp"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:orientation="horizontal"
+            android:paddingLeft="26.0dp" >
+        <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/skin_main_bg_clr_grey"
-            android:divider="@drawable/divider_linear_vertical_1px"
-            android:orientation="vertical"
-            android:showDividers="middle" >
+            android:layout_gravity="center|left"
+            android:layout_marginRight="@dimen/setting_mar_right"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_checkbox_icon"
+            android:drawablePadding="5.0dp"
+            android:gravity="center_vertical|left"
+            android:text="@string/settings_message_tip_shenyin"
+            android:textColor="@color/setting_color_text"
+            android:textSize="@dimen/txt_size_16sp" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/settings_msg_zhendong"
+            android:layout_width="match_parent"
+            android:layout_height="62.0dp"
+            android:clickable="true"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:orientation="horizontal"
+            android:paddingLeft="26.0dp" >
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginRight="@dimen/setting_mar_right"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_checkbox_icon"
+            android:drawablePadding="5.0dp"
+            android:gravity="center_vertical|left"
+            android:text="@string/settings_message_tip_zhendong"
+            android:textColor="@color/setting_color_text"
+            android:textSize="@dimen/txt_size_16sp" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/setting_modify_password"
+            android:layout_width="match_parent"
+            android:layout_height="62.0dp"
+            android:clickable="true"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:orientation="horizontal"
+            android:paddingLeft="26.0dp" >
 
-            <LinearLayout
-                android:id="@+id/rl_menu_my_msg"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="62.0dp"
-                android:background="@drawable/selector_item_card_top_sl_bg"
-                android:clickable="true"
-                android:gravity="center"
-                android:layout_marginLeft="-20.0dp"
-                android:onClick="onClick"
-                android:orientation="horizontal" >
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/setting_mar_right"
+	            android:drawableRight="@drawable/setting_right_arrow"
+	           	android:drawablePadding="5.0dp"                
+                android:gravity="center_vertical"
+                android:text="@string/settings_message_modify_mima"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+            
+        </LinearLayout>
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <ImageView
-                        android:layout_width="32.0dp"
-                        android:layout_height="32.0dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@null" />
-
-                    <ImageView
-                        android:id="@+id/iv_trajectory_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top|right|center"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_navibar_messagecenter_point"
-                        android:visibility="gone" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10.0dip"
-                    android:gravity="center"
-                    android:text="@string/slide_menu_item_my_msg"
-                    android:textColor="@color/skin_main_txt_clr_light_grey"
-                    android:textSize="@dimen/txt_size_18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rl_menu_my_car"
+           <LinearLayout
+             android:id="@+id/setting_about"
+            android:layout_width="match_parent"
+            android:layout_height="62.0dp"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:orientation="horizontal"
+            android:paddingLeft="26.0dp" >
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="62.0dp"
-                android:background="@drawable/selector_item_card_middle_sl_bg"
-                android:clickable="true"
-                android:gravity="center"
-                android:onClick="onClick"
-                android:layout_marginLeft="-20.0dp"
-                android:orientation="horizontal" >
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <ImageView
-                        android:layout_width="32.0dp"
-                        android:layout_height="32.0dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@null" />
-
-                    <ImageView
-                        android:id="@+id/iv_family_members_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top|right|center"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_navibar_messagecenter_point"
-                        android:visibility="gone" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10.0dp"
-                    android:gravity="center"
-                    android:text="@string/slide_menu_item_my_car"
-                    android:textColor="@color/skin_main_txt_clr_light_grey"
-                    android:textSize="@dimen/txt_size_18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rl_menu_settings"
-                android:layout_width="match_parent"
-                android:layout_height="62.0dp"
-                android:background="@drawable/selector_item_card_bottom_sl_bg"
-                android:clickable="true"
-                android:gravity="center"
-                android:layout_marginLeft="-20.0dp"
-                android:onClick="onClick"
-                android:orientation="horizontal" >
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <ImageView
-                        android:layout_width="32.0dp"
-                        android:layout_height="32.0dp"
-                        android:contentDescription="@null"
-                        android:scaleType="centerCrop"
-                        android:src="@null" />
-
-                    <ImageView
-                        android:id="@+id/iv_safe_area_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top|right|center"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_navibar_messagecenter_point"
-                        android:visibility="gone" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10.0dp"
-                    android:gravity="center"
-                    android:text="@string/slide_menu_item_settings"
-                    android:textColor="@color/skin_main_txt_clr_light_grey"
-                    android:textSize="@dimen/txt_size_18sp" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/setting_mar_right"
+	            android:drawableRight="@drawable/setting_right_arrow"
+	           	android:drawablePadding="5.0dp"                
+                android:gravity="center_vertical"
+                android:text="@string/settings_about"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+        </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>
+
+<LinearLayout 
+                 android:layout_width="match_parent"
+                 android:padding="20dp"
+                 android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content"   >
+<Button 
+ 		     android:layout_width="130dp"
+		    android:layout_height="wrap_content"
+		    android:layout_centerHorizontal="true"
+		    android:text="@string/ruhu_tijiao_ziliao"
+		       android:background="@drawable/selector_button_ruhu_tijiao"
+    />
+</LinearLayout>
+
+
+    </RelativeLayout>
+
+

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/ll_buttom"
+    android:background="@drawable/ic_carcondtion_query_main_bg"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_buttom" >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_carcondition_car_name_bg"
+                        android:gravity="center"
+                        android:singleLine="false"
+                        android:text="@string/car_name_sample"
+                        android:textColor="@color/skin_main_txt_clr_white"
+                        android:textSize="@dimen/txt_size_14sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20.0dp"
+                        android:divider="@drawable/divider_vertical_transparent_8dp"
+                        android:orientation="vertical"
+                        android:paddingLeft="20.0dp"
+                        android:showDividers="middle" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_cur_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_car_door_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_door_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_car_eng_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_eng_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_car_window_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_window_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_car_tailbox_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_tailbox_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_car_light_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_light_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_car_battery_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_battery_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_mileage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carcondtion_mileage_status"
+                            android:textColor="@color/skin_main_txt_clr_white"
+                            android:textSize="@dimen/txt_size_12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_car_bg" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_car_body" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_car_body" />
+
+                <ImageView
+                    android:id="@+id/iv_car_door_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_car_door_open" />
+
+                <ImageView
+                    android:id="@+id/iv_car_light_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_car_light_open" />
+
+                <ImageView
+                    android:id="@+id/iv_car_tail_box_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_car_tail_box_open" />
+
+                <ImageView
+                    android:id="@+id/iv_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_carcondtion_refresh_bg"
+                    android:clickable="true"
+                    android:contentDescription="@null"
+                    android:onClick="onClick"
+                    android:src="@drawable/ic_carcondtion_refresh_btn_ic" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_buttom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:divider="@drawable/divider_linear_vertical_1px"
+            android:orientation="vertical"
+            android:showDividers="middle" >
+
+            <RelativeLayout
+                android:id="@+id/rl_carservice_maintenance"
+                android:layout_width="match_parent"
+                android:layout_height="56.0dp"
+                android:background="@drawable/selector_item_card_top_bg"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:paddingLeft="25.0dp"
+                android:paddingRight="25.0dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/carservice_maintenance"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="bottom"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remain"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_maintainus_remain_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2.0dp"
+                        android:layout_marginRight="2.0dp"
+                        android:text="86"
+                        android:textColor="@color/skin_main_txt_clr_grey"
+                        android:textSize="@dimen/txt_size_22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/day"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_carservice_insurrance"
+                android:layout_width="match_parent"
+                android:layout_height="56.0dp"
+                android:background="@drawable/selector_item_card_middle_bg"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:paddingLeft="25.0dp"
+                android:paddingRight="25.0dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/carservice_insurrance"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="bottom"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remain"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_insurrance_remain_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2.0dp"
+                        android:layout_marginRight="2.0dp"
+                        android:text="86"
+                        android:textColor="@color/skin_main_txt_clr_grey"
+                        android:textSize="@dimen/txt_size_22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/day"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_carservice_year_inspect"
+                android:layout_width="match_parent"
+                android:layout_height="56.0dp"
+                android:background="@drawable/selector_item_card_middle_bg"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:paddingLeft="25.0dp"
+                android:paddingRight="25.0dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/carservice_year_inspect"
+                    android:textColor="@color/skin_main_txt_clr_grey"
+                    android:textSize="@dimen/txt_size_16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="bottom"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remain"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_year_inspect_remain_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2.0dp"
+                        android:layout_marginRight="2.0dp"
+                        android:text="86"
+                        android:textColor="@color/skin_main_txt_clr_grey"
+                        android:textSize="@dimen/txt_size_22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/day"
+                        android:textColor="@color/skin_main_txt_clr_light_grey"
+                        android:textSize="@dimen/txt_size_12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_loc_service"
+                android:layout_width="match_parent"
+                android:layout_height="63.5dp"
+                android:background="@drawable/ic_loc_service_btn_ic"
+                android:clickable="true"
+                android:contentDescription="@null"
+                android:gravity="center_vertical"
+                android:onClick="onClick"
+                android:paddingLeft="25.0dp"
+                android:paddingRight="25.0dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

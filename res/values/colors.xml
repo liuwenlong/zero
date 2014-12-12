@@ -15,10 +15,12 @@
     <color name="skin_main_txt_clr_grey">#ff545454</color>
     <color name="skin_main_txt_clr_deep_grey">#ff333333</color>
     <color name="skin_main_hint_txt_clr_grey">#ff888888</color>
+    <color name="skin_main_hint_txt_clr_grey_7">#ff777777</color>
     <color name="skin_main_txt_clr_light_grey">#ff888888</color>
     <color name="skin_main_compose_tabbar_text_color">#ff828282</color>
     <color name="skin_main_txt_clr_slight_grey">#ffaaaaaa</color>
     <color name="skin_main_txt_clr_green">#ff71b342</color>
+    <color name="skin_main_txt_clr_skin_green">#ff02a35d</color>
     <color name="skin_main_bg_clr_grey">#fff5f5f5</color>
     <color name="skin_main_bg_clr_white">#ffffffff</color>
     <color name="skin_main_btn_clr_green_nor">#ff71b342</color>
@@ -34,17 +36,25 @@
     <color name="skin_dialog_btn_txt_clr">#ff70b442</color>
     <color name="skin_divider_line_clr">#ffe0e0e0</color>
     <color name="skin_divider_line_clr_light_white">#fff0f0f0</color>
+    
     <color name="skin_line_clr">#ffe0e0e0</color>
-    <color name="skin_card_bg_clr">#ffffffff</color>
-    <color name="skin_card_bg_shadow_clr">#ffe8e8e8</color>
+    
+    <color name="skin_card_bg_clr">#ffe1e2e9</color>
+    <color name="skin_card_bg_shadow_clr">#ffcacbd2</color>
     
     <color name="skin_ripple_btn_clr_green_nor">#ff71b342</color>
     <color name="skin_ripple_btn_clr_green_hover">#ff76ff03</color>
     
-    <color name="skin_main_btn_clr_lightblue_nor">#ff3fadaf</color>
-    <color name="skin_main_btn_clr_lightblue_pressed">#ff348C88</color> 
-    <color name="skin_ripple_btn_clr_lightblue_nor">#ff3fadaf</color>
-    <color name="skin_ripple_btn_clr_lightblue_hover">#ff44F970</color>
+    <color name="skin_main_btn_clr_lightblue_nor">#ff12b1c2</color>
+    <color name="skin_main_btn_clr_lightblue_pressed">#ff18c4d7</color> <!-- 差值：B2127 -->
+    
+    <color name="skin_main_btn_clr_redblue_nor">#ffffa196</color>
+    <color name="skin_main_btn_clr_redblue_pressed">#ffeef848</color> <!-- 差值：B2127 -->
+    <color name="skin_main_btn_clr_redblue_hover">#fffa55d5</color> <!-- 差值：B2127 -->
+    
+    <color name="skin_ripple_btn_clr_lightblue_nor">#ff3fadaf</color>	
+    <color name="skin_ripple_btn_clr_lightblue_hover">#ff44F970</color>	<!-- 差值：54BC1 -->
+    <color name="skin_ripple_btn_clr_servicebtn_hover">#ff4B7CD8</color>
     
     <color name="skin_ripple_btn_clr_red_hover">#fff71595</color>
     
@@ -64,8 +74,36 @@
 	<color name="status_text">#ffffffff</color>
 	<color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
 	<color name="viewfinder_mask">#60000000</color>
+
   
 	<!-- 离线地图 -->	
 	<color name="main_textcolor">#676767</color>   
 <color name="main_offinetextcolor">#313131</color>		
+
+	
+	<!-- for circlepage indicator -->
+	<color name="default_circle_indicator_page_color">#00000000</color>
+	<color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
+	<color name="default_circle_indicator_stroke_color">#FFDDDDDD</color>
+	<integer name="default_circle_indicator_orientation">0</integer>
+	<dimen name="default_circle_indicator_stroke_width">1dp</dimen>
+	<dimen name="default_circle_indicator_radius">3dp</dimen>
+	<bool name="default_circle_indicator_centered">true</bool>
+	<bool name="default_circle_indicator_snap">false</bool>
+	<!-- for circlepage indicator -->
+	
+	
+	<color name="home_color_carcondtion_query">#ff17a3eb</color>
+	<color name="home_color_carservice">#ff49d07c</color>
+	<color name="home_color_4s_store">#ffeb5e4c</color>
+	<color name="home_color_handctrl">#ffeb5e4c</color>
+	
+<color name="home_color_line">#ffdddddd</color>
+<color name="setting_color_text">#ff777777</color>
+
+<color name="normal_color_bgd">#fff5f5f5</color>
+
+<color name="normal_color_text">#ff777777</color>
+<color name="dark_color_text">#ff444444</color>
+<color name="color_main_blue">#ff12b1c2</color>
 </resources>

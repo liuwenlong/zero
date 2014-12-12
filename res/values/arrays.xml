@@ -1,4 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <array name="ad_imgs">
+        <item>@drawable/ic_ad_img1</item>
+        <item>@drawable/ic_ad_img2</item>
+    </array>
+    
+    <array name="ad_4s_imgs">
+        <item>@drawable/ic_4s_ad_img1</item>
+        <item>@drawable/ic_4s_ad_img2</item>
+    </array>
+    
+    
+    <array name="convenient_app_label">
+        <item>@string/service_app_label_recharge_online</item>
+        <item>@string/service_app_label_around_service</item>
+        <item>@string/service_app_label_violation_query</item>
+        <item>@string/service_app_label_more</item>
+    </array>
+    
+    <array name="convenient_app_icon">
+        <item>@drawable/ic_service_app_recharge_online</item>
+        <item>@drawable/ic_service_app_around_service</item>
+        <item>@drawable/ic_service_app_violation_query</item>
+        <item>@drawable/ic_service_app_more</item>
+    </array>
+    
+    
+    <array name="my_4s_app_label">
+        <item>@string/my_4s_app_label_prearrange_repair</item>
+        <item>@string/my_4s_app_label_prearrange_carwash</item>
+        <item>@string/my_4s_app_label_prearrange_maintenance</item>
+        <item>@string/my_4s_app_label_rodeside_drive</item>
+        <item>@string/my_4s_app_label_rodeside_rescue</item>
+        <item>@string/my_4s_app_label_more</item>
+    </array>
+    
+    <array name="my_4s_app_icon">
+        <item>@drawable/ic_4s_app_prearrange_repair</item>
+        <item>@drawable/ic_4s_app_prearrange_carwash</item>
+        <item>@drawable/ic_4s_app_prearrange_maintenance</item>
+        <item>@drawable/ic_4s_app_preorder_drive</item>
+        <item>@drawable/ic_4s_app_roadside_rescue</item>
+        <item>@drawable/ic_4s_app_more</item>
+    </array>
+    
+    <array name="ruhu_jiankan_xinxi">
+        <item>健康信息</item>
+        <item>听说表达</item>
+        <item>进食状况</item>
+        <item>行动能力</item>
+        <item>就医状况</item>
+        <item>疾病状况</item>
+    </array>    
+ 
+    <array name="ruhu_weisheng_xinxi">
+        <item>卫生状况</item>
+        <item>个人卫生</item>
+        <item>衣着卫生</item>
+        <item>气味卫生</item>
+        <item>周边卫生</item>
+        <item>居住卫生</item>
+    </array>    
+
+    <array name="ruhu_juzhu_xinxi">
+        <item>居住环境</item>
+        <item>室内环境</item>
+        <item>室外环境</item>
+        <item>邻里关系</item>
+        <item>废品收集</item>
+        <item>房屋破损</item>
+    </array>
+ 
+    <array name="ruhu_shuidian_xinxi">
+        <item>水电煤气使用安全</item>
+        <item>煤气安全</item>
+        <item>煤火安全</item>
+        <item>水管安全</item>
+        <item>电气安全</item>
+        <item>电路安全</item>
+    </array>
+    
+   <array name="ruhu_jingsheng_xinxi">
+        <item>精神状态</item>
+        <item>自闭状态</item>
+        <item>记忆状态</item>
+        <item>情绪状态</item>
+        <item>思维状态</item>
+        <item>压力状态</item>
+    </array>
+       
 </resources>
