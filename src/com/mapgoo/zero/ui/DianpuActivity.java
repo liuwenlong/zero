@@ -14,20 +14,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mapgoo.zero.R;
-import com.mapgoo.zero.bean.LaorenInfo;
-import com.mapgoo.zero.bean.OrderFormInfo;
-import com.mapgoo.zero.ui.LaorenActivity.LaorenAdapter;
+import com.mapgoo.zero.bean.DianpuInfo;
+import com.mapgoo.zero.bean.MessageInfo;
+import com.mapgoo.zero.ui.XiaoxiActivity.MessageAdapter;
 
 /**
  * 概述: 模版
  * 
  * @Author yao
  */
-public class WodedingdanActivity extends BaseActivity implements OnItemClickListener {
+public class DianpuActivity extends BaseActivity implements OnItemClickListener {
 
 	private ListView mListView;
-	private ArrayList<OrderFormInfo> mOrderFormList = new ArrayList<OrderFormInfo>();
-	private OrderFormAdapter mOrderFormAdapter;
+	private ArrayList<DianpuInfo> mDianpuList = new ArrayList<DianpuInfo>();
+	private DianpuAdapter mMessageAdapter;
 	
 	@Override
 	public void setContentView() {
@@ -56,25 +56,23 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
-		if(mOrderFormList.isEmpty()){
-			OrderFormInfo info = new OrderFormInfo();
-			info.mForName="张三";
+		if(mDianpuList.isEmpty()){
+			DianpuInfo info = new DianpuInfo();
 			info.mFromName="飘香餐馆";
-			info.mOrderName="鱼";
-			info.mOrderStatus="已接受";
+			info.mFuwuTime = "8:30-19:30";
 			info.mUnitPrice="200元";
-			info.mCount="3";
-			info.mOrderTime="2014-10-13 18:30";
-			info.mAppointment="2014-10-19 15:30";
-			
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
+			info.mPayType="刷卡";
+			info.mPhone="78455454";
+			info.mAdress="北京西城区椿树街道102号";
+			info.mShanMen="是";
+			mDianpuList.add(info);
+			mDianpuList.add(info);
+			mDianpuList.add(info);
+			mDianpuList.add(info);
+			mDianpuList.add(info);
 		}
-		mOrderFormAdapter = new OrderFormAdapter(mContext, mOrderFormList);
-		mListView.setAdapter(mOrderFormAdapter);
+		mMessageAdapter = new DianpuAdapter(mContext, mDianpuList);
+		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnItemClickListener(this);
 	}
 
@@ -94,10 +92,10 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 		}
 	}
 	
-	public class OrderFormAdapter extends BaseAdapter{
-		ArrayList<OrderFormInfo> mDataList;	
+	public class DianpuAdapter extends BaseAdapter{
+		ArrayList<DianpuInfo> mDataList;	
 		Context mContext;
-		public OrderFormAdapter(Context context, ArrayList<OrderFormInfo> list){
+		public DianpuAdapter(Context context, ArrayList< DianpuInfo> list){
 			mDataList = list;
 			mContext = context;
 		}
@@ -116,15 +114,20 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if(convertView == null)
-				convertView = View.inflate(mContext, R.layout.list_item_orderform, null);
+				convertView = View.inflate(mContext, R.layout.list_item_dianpu, null);
 			inflateView(convertView,mDataList.get(position));
 			return convertView;
 		}
 		
-		void inflateView(View view,OrderFormInfo info){
-			((TextView)view.findViewById(R.id.order_list_item_title)).setText(info.getOrderTitle());
-			((TextView)view.findViewById(R.id.order_list_item_status)).setText(info.mOrderStatus);
-			((TextView)view.findViewById(R.id.order_list_item_time)).setText(info.getOrderTime());
+		void inflateView(View view,DianpuInfo info){
+			
+			((TextView)view.findViewById(R.id.dianpu_item_from_name)).setText(info.mFromName);
+			((TextView)view.findViewById(R.id.dianpu_item_unit_price)).setText(info.mUnitPrice);
+			((TextView)view.findViewById(R.id.dianpu_item_avail_time)).setText(info.mFuwuTime);
+			((TextView)view.findViewById(R.id.dianpu_item_pay_type)).setText(info.mPayType);
+			((TextView)view.findViewById(R.id.dianpu_item_shang_men)).setText(info.mShanMen);
+			((TextView)view.findViewById(R.id.dianpu_item_from_phone)).setText(info.mPhone);
+			((TextView)view.findViewById(R.id.dianpu_item_from_adress)).setText(info.mAdress);
 		}
 		
 	}
@@ -133,13 +136,12 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 		Intent forwardIntent = new Intent();
-		forwardIntent.setClass(mContext, OrderformDetailActivity.class);
+		forwardIntent.setClass(mContext, ShangpinActivity.class);
 
 		Bundle mBundle = new Bundle();
-		mBundle.putSerializable("OrderFormInfo", mOrderFormList.get(arg2));
+		mBundle.putSerializable("DianpuInfo", mDianpuList.get(arg2));
 		forwardIntent.putExtras(mBundle);
 		
-		startActivity(forwardIntent);	
+		startActivity(forwardIntent);
 	}
-
 }

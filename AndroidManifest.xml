@@ -308,7 +308,19 @@
             android:screenOrientation="portrait" />      
         <activity
             android:name="com.mapgoo.zero.ui.MessageReadActivity"
-            android:screenOrientation="portrait" />              
+            android:screenOrientation="portrait" />          
+        <activity
+            android:name="com.mapgoo.zero.ui.OrderformDetailActivity"
+            android:screenOrientation="portrait" />                    
+         <activity
+            android:name="com.mapgoo.zero.ui.DianpuActivity"
+            android:screenOrientation="portrait" />
+         <activity
+            android:name="com.mapgoo.zero.ui.ShangpinActivity"            
+            android:screenOrientation="portrait" />  
+         <activity
+            android:name="com.mapgoo.zero.ui.OrderCreateActivity"            
+            android:screenOrientation="portrait" />                         
         <!-- App组件 e-->
         
 

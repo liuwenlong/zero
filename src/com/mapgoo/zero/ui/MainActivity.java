@@ -32,6 +32,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.mapgoo.zero.R;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.ui.widget.AutoScrollViewPager;
 import com.mapgoo.zero.ui.widget.CircleImageView;
@@ -46,6 +47,9 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 	private CircleImageView civ_avatar;
 	private TextView tv_wearer_nickname;
 
+	private ArrayList<LaorenInfo> mLaorenList = new ArrayList<LaorenInfo>();
+	LaorenInfo mLaorenInfo;
+	
 	private void initSlideMenu() {
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
 		tv_wearer_nickname = (TextView) mMenuView.findViewById(R.id.tv_wearer_nickname);
@@ -106,10 +110,29 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		initSlideMenu();
 	}
 
+	private void inflateLaoren(){
+		
+	}
+	
 	@Override
 	protected void initData(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		
+		if(mLaorenList.isEmpty()){
+			LaorenInfo info = new LaorenInfo();
+			info.mAdress="北京市西城区陶然亭";
+			info.mXingbie="男";	
+			info.mLeixing="正常";	
+			info.mPhone="13712345678";	
+			info.mShenfen="430123456789";	
+			info.mName="张三";
+			info.mOld="86岁";
+			mLaorenList.add(info);
+			mLaorenList.add(info);
+			mLaorenList.add(info);
+			mLaorenList.add(info);
+			mLaorenList.add(info);
+		}
+		mLaorenInfo = mLaorenList.get(0);
 	}
 
 	@Override
@@ -117,13 +140,17 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		// TODO Auto-generated method stub
 		super.setupActionBar(getText(R.string.home_action_title).toString(), 4, R.drawable.ic_menu, R.drawable.home_action_bar_xinxi,
 				R.drawable.home_actionbar_bgd, -1);
-
+		handleData();
 	}
 
 	@Override
 	protected void handleData() {
 		// TODO Auto-generated method stub
-		
+		((TextView)findViewById(R.id.man_name)).setText(mLaorenInfo.getHomeTitle());
+		((TextView)findViewById(R.id.home_leixing_content)).setText(mLaorenInfo.mLeixing);
+		((TextView)findViewById(R.id.home_shenfenzhen_content)).setText(mLaorenInfo.mShenfen);
+		((TextView)findViewById(R.id.home_zhuzhi)).setText(mLaorenInfo.mAdress);
+		((TextView)findViewById(R.id.home_dianhua)).setText(mLaorenInfo.mPhone);
 	}
 	@Override
 	public void onClosed() {

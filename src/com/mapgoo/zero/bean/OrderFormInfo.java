@@ -16,7 +16,7 @@ public class OrderFormInfo implements Serializable {
 	public String mID;//ID
 	
 	public String getOrderTitle(){
-		return  mForName+mFromName;
+		return  mForName+" - "+mFromName;
 	}
 	public String getOrderTime(){
 		return  "提交:"+mOrderTime;

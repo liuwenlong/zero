@@ -117,7 +117,9 @@
  	         android:padding="2dp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"  	
-	        android:drawableRight="@drawable/home_man_dizhi"    
+	        android:drawableLeft="@drawable/home_man_dizhi"    
+	        android:textSize="18sp"
+	        android:gravity="center_vertical"
 	        android:textColor="@color/normal_color_text"
  	    />
  	<TextView 
@@ -126,7 +128,9 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textColor="@color/normal_color_text"
-	        android:drawableRight="@drawable/home_man_dianhua"
+	        android:textSize="18sp"
+	        android:gravity="center_vertical"
+	        android:drawableLeft="@drawable/home_man_dianhua"
  	    /> 	
  	<View 
 	  android:layout_width="match_parent"

@@ -40,7 +40,7 @@ public class MessageReadActivity extends BaseActivity {
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.home_xiaoxi).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar(getText(R.string.order_form_detail).toString(), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		
 		((TextView)findViewById(R.id.msg_read_msg)).setText(mMsg.mMessage);

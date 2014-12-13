@@ -332,6 +332,25 @@
          <string name="ruhu_jiating_qinshuru_chuli_jieguo">请输入处理信息</string>
           <string name="ruhu_jiating_tianjia_zhaopian">添加照片（最多四张）</string>
           
-
+          <string name="order_form_detail_for_name">服务老人</string>
+		  <string name="order_form_detail_from_name">商品/服务</string>
+		   <string name="order_form_detail_unit_price">单价</string>
+		    <string name="order_form_detail_count">数量</string>
+		     <string name="order_form_detail_appointment">预约时间</string>
+		      <string name="order_form_detail_note">备注</string>
+		      
+          <string name="order_form_detail">订单详情</string>
+          <string name="order_form_detail_Confirm">确认完成</string>
+           <string name="order_form_detail_Cancel">取消订单</string>
           
+           <string name="dianpu_item_from_name">餐馆</string>
+           <string name="dianpu_item_unit_price">70元</string>
+           <string name="dianpu_item_avail_time">服务时间:</string>
+           <string name="dianpu_item_shang_men">上门服务:</string>
+           <string name="dianpu_item_pay_type">付款方式:</string>
+           <string name="dianpu_item_from_phone">电话:</string>
+            <string name="dianpu_item_from_adress">地址:</string>
+           
+              <string name="shang_ping_fuwu_time">服务时间:</string>
+              <string name="shang_ping_note">备注:</string>
 </resources>

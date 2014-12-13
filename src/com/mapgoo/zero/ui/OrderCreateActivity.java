@@ -1,5 +1,6 @@
 package com.mapgoo.zero.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -15,7 +16,8 @@ import android.widget.TextView;
 
 import com.mapgoo.zero.R;
 import com.mapgoo.zero.bean.LaorenInfo;
-import com.mapgoo.zero.bean.OrderFormInfo;
+import com.mapgoo.zero.bean.MessageInfo;
+import com.mapgoo.zero.bean.ShangpinInfo;
 import com.mapgoo.zero.ui.LaorenActivity.LaorenAdapter;
 
 /**
@@ -23,15 +25,15 @@ import com.mapgoo.zero.ui.LaorenActivity.LaorenAdapter;
  * 
  * @Author yao
  */
-public class WodedingdanActivity extends BaseActivity implements OnItemClickListener {
+public class OrderCreateActivity extends BaseActivity implements OnItemClickListener {
 
 	private ListView mListView;
-	private ArrayList<OrderFormInfo> mOrderFormList = new ArrayList<OrderFormInfo>();
-	private OrderFormAdapter mOrderFormAdapter;
+	private ArrayList<ShangpinInfo> mShangpinList = new ArrayList<ShangpinInfo>();
+	private ShangpinAdapter mShanpinAdapter;
 	
 	@Override
 	public void setContentView() {
-		setContentView(R.layout.activity_laoren);
+		setContentView(R.layout.activity_order_form_create);
 	}
 
 	@Override
@@ -56,25 +58,21 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
-		if(mOrderFormList.isEmpty()){
-			OrderFormInfo info = new OrderFormInfo();
-			info.mForName="张三";
-			info.mFromName="飘香餐馆";
-			info.mOrderName="鱼";
-			info.mOrderStatus="已接受";
-			info.mUnitPrice="200元";
-			info.mCount="3";
-			info.mOrderTime="2014-10-13 18:30";
-			info.mAppointment="2014-10-19 15:30";
-			
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
+		if(mShangpinList.isEmpty()){
+			ShangpinInfo info = new ShangpinInfo();
+			info.mFromName = "测试消息，请忽略！";
+			info.mShangpinName = "麻婆豆腐";
+			info.mUnitPrice="80元/份";
+			info.mFuwuTime="15:30-20:30";
+			info.mNote="无";
+			mShangpinList.add(info);
+			mShangpinList.add(info);
+			mShangpinList.add(info);
+			mShangpinList.add(info);
+			mShangpinList.add(info);
 		}
-		mOrderFormAdapter = new OrderFormAdapter(mContext, mOrderFormList);
-		mListView.setAdapter(mOrderFormAdapter);
+		mShanpinAdapter = new ShangpinAdapter(mContext, mShangpinList);
+		mListView.setAdapter(mShanpinAdapter);
 		mListView.setOnItemClickListener(this);
 	}
 
@@ -94,10 +92,10 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 		}
 	}
 	
-	public class OrderFormAdapter extends BaseAdapter{
-		ArrayList<OrderFormInfo> mDataList;	
+	public class ShangpinAdapter extends BaseAdapter{
+		ArrayList<ShangpinInfo> mDataList;	
 		Context mContext;
-		public OrderFormAdapter(Context context, ArrayList<OrderFormInfo> list){
+		public ShangpinAdapter(Context context, ArrayList<ShangpinInfo> list){
 			mDataList = list;
 			mContext = context;
 		}
@@ -116,15 +114,15 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if(convertView == null)
-				convertView = View.inflate(mContext, R.layout.list_item_orderform, null);
+				convertView = View.inflate(mContext, R.layout.list_item_order_create, null);
 			inflateView(convertView,mDataList.get(position));
 			return convertView;
 		}
 		
-		void inflateView(View view,OrderFormInfo info){
-			((TextView)view.findViewById(R.id.order_list_item_title)).setText(info.getOrderTitle());
-			((TextView)view.findViewById(R.id.order_list_item_status)).setText(info.mOrderStatus);
-			((TextView)view.findViewById(R.id.order_list_item_time)).setText(info.getOrderTime());
+		void inflateView(View view,ShangpinInfo info){
+			
+			((TextView)view.findViewById(R.id.order_form_order_name)).setText(info.mShangpinName);
+			((TextView)view.findViewById(R.id.order_form_unit_price)).setText(info.mUnitPrice);
 		}
 		
 	}
@@ -132,14 +130,14 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
+		
 		Intent forwardIntent = new Intent();
-		forwardIntent.setClass(mContext, OrderformDetailActivity.class);
+		forwardIntent.setClass(mContext, MessageReadActivity.class);
 
 		Bundle mBundle = new Bundle();
-		mBundle.putSerializable("OrderFormInfo", mOrderFormList.get(arg2));
+		mBundle.putSerializable("mMsg", mShangpinList.get(arg2));
 		forwardIntent.putExtras(mBundle);
 		
-		startActivity(forwardIntent);	
+		//startActivity(forwardIntent);		
 	}
-
 }

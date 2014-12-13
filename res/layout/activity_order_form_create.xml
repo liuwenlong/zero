@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+<ListView 
+    android:id="@+id/laoren_list"
+    android:layout_weight="1.0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"    
+    ></ListView>
+
+    <Button 
+        android:id="@+id/shangpin_yuyue"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/order_form_detail_Confirm"
+    android:layout_margin="20dp"
+    android:background="@drawable/selector_button_ruhu_tijiao"
+    android:textColor="@color/white_color_text"
+    android:onClick="onClick"
+        />
+</LinearLayout>

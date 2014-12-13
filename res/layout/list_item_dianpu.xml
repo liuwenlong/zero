@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical" >
+ <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">   
+  <TextView 
+      android:id="@+id/dianpu_item_from_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:layout_weight="1.0"
+    android:textSize="20sp"
+    android:textColor="@color/dark_color_text"
+      />  
+   <TextView 
+      android:id="@+id/dianpu_item_unit_price"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:layout_weight="3.0"
+    android:textSize="20sp"
+    android:textColor="@color/color_main_blue"
+      />       
+</LinearLayout>      
+		<View 
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"		
+		    android:background="@color/home_color_line"    
+		    />
+		
+<FrameLayout 
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+ <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">  
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  
+    android:layout_weight="0.9"
+    android:text="@string/dianpu_item_avail_time" 
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/dianpu_item_avail_time" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="0.8"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  
+    android:layout_weight="0.9"
+    android:text="@string/dianpu_item_shang_men" 
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/dianpu_item_shang_men" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.1"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  
+    android:layout_weight="2.5"
+    android:text="@string/dianpu_item_pay_type" 
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/dianpu_item_pay_type" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  
+    android:layout_weight="2.5"
+    android:text="@string/dianpu_item_from_phone" 
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/dianpu_item_from_phone" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  
+    android:layout_weight="2.5"
+    android:text="@string/dianpu_item_from_adress" 
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/dianpu_item_from_adress" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+</LinearLayout>
+
+ <ImageView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"       
+    android:layout_gravity="right|center_vertical"
+    android:src="@drawable/shangpin_item_arrow"
+     />
+</FrameLayout>		
+
+</LinearLayout>
+

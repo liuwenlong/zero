@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+ <FrameLayout 
+     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"    
+     >
+	<LinearLayout
+	     android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >   
+<ImageView 
+    	android:id="@+id/number_control_left"
+	     android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"   
+		android:clickable="true"
+	    android:src="@drawable/dingdan_number_control_left" 
+    />
+<ImageView 
+
+	     android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"   
+		android:layout_weight="1.0"
+	    android:background="@drawable/dingdan_number_control_middle" 
+    />
+<ImageView 
+    	android:id="@+id/number_control_right"
+	     android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"   
+		android:clickable="true"
+	    android:src="@drawable/dingdan_number_control_right" 
+    />   
+	 </LinearLayout>
+	 
+	<TextView 
+    	android:id="@+id/number_control_middle"	    
+	     android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"   
+	    android:layout_gravity="center"
+	    android:text="3"
+	    />
+</FrameLayout>
+</LinearLayout>
