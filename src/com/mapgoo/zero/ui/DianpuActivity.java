@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.mapgoo.zero.R;
 import com.mapgoo.zero.bean.DianpuInfo;
 import com.mapgoo.zero.bean.MessageInfo;
+import com.mapgoo.zero.bean.ZhiyuanzheInfo;
 import com.mapgoo.zero.ui.XiaoxiActivity.MessageAdapter;
 
 /**
@@ -27,8 +28,10 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 
 	private ListView mListView;
 	private ArrayList<DianpuInfo> mDianpuList = new ArrayList<DianpuInfo>();
+	private ArrayList<ZhiyuanzheInfo> mZhiyuanzheList = new ArrayList<ZhiyuanzheInfo>();
 	private DianpuAdapter mMessageAdapter;
-	
+	private ZhiyuanzheAdapter mZhiyuanzheAdapter;
+	private int mFuwuType;
 	@Override
 	public void setContentView() {
 		setContentView(R.layout.activity_laoren);
@@ -40,7 +43,7 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 		if (savedInstanceState != null) {
 
 		} else {
-
+			mFuwuType = getIntent().getIntExtra("fuwutype", -1);
 		}
 	}
 
@@ -56,6 +59,14 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
+		if(mFuwuType == YuyuefuwuActivity.YUYUE_FUWU_ZHIYUANZHE){
+			zhiyuanzheInit();
+		}else{
+			dianpuInit();
+		}
+	}
+	
+	void dianpuInit(){
 		if(mDianpuList.isEmpty()){
 			DianpuInfo info = new DianpuInfo();
 			info.mFromName="飘香餐馆";
@@ -73,9 +84,27 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 		}
 		mMessageAdapter = new DianpuAdapter(mContext, mDianpuList);
 		mListView.setAdapter(mMessageAdapter);
-		mListView.setOnItemClickListener(this);
+		mListView.setOnItemClickListener(this);		
 	}
 
+	void zhiyuanzheInit(){
+		if(mZhiyuanzheList.isEmpty()){
+			ZhiyuanzheInfo info = new ZhiyuanzheInfo();
+			info.mZhiyuanzheName="李四";
+			info.mFuwuName="做饭";
+			info.mXingbie="男";
+			info.mFuwuTime="11:00-12:30";
+			info.mPhone="87541236";
+			mZhiyuanzheList.add(info);
+			mZhiyuanzheList.add(info);
+			mZhiyuanzheList.add(info);
+			mZhiyuanzheList.add(info);
+		}
+		mZhiyuanzheAdapter = new ZhiyuanzheAdapter(mContext, mZhiyuanzheList);
+		mListView.setAdapter(mZhiyuanzheAdapter);
+		mListView.setOnItemClickListener(this);			
+	}
+	
 	@Override
 	public void handleData() {
 
@@ -132,16 +161,63 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 		
 	}
 
+	public class ZhiyuanzheAdapter extends BaseAdapter{
+		ArrayList<ZhiyuanzheInfo> mDataList;	
+		Context mContext;
+		public ZhiyuanzheAdapter(Context context, ArrayList< ZhiyuanzheInfo> list){
+			mDataList = list;
+			mContext = context;
+		}
+		@Override
+		public int getCount() {
+			return mDataList.size();
+		}
+		@Override
+		public Object getItem(int position) {
+			return mDataList.get(position);
+		}
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if(convertView == null)
+				convertView = View.inflate(mContext, R.layout.list_item_zhiyuan_zhe, null);
+			inflateView(convertView,mDataList.get(position));
+			return convertView;
+		}
+		
+		void inflateView(View view,ZhiyuanzheInfo info){
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_name)).setText(info.mZhiyuanzheName);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_phone)).setText(info.mPhone);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_do)).setText(info.mFuwuName);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_time)).setText(info.mFuwuTime);
+		}
+		
+	}	
+	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-		Intent forwardIntent = new Intent();
-		forwardIntent.setClass(mContext, ShangpinActivity.class);
+		if(mFuwuType == YuyuefuwuActivity.YUYUE_FUWU_ZHIYUANZHE){
+			Intent forwardIntent = new Intent();
+			forwardIntent.setClass(mContext, OrderCreateActivity.class);
 
-		Bundle mBundle = new Bundle();
-		mBundle.putSerializable("DianpuInfo", mDianpuList.get(arg2));
-		forwardIntent.putExtras(mBundle);
-		
-		startActivity(forwardIntent);
+			Bundle mBundle = new Bundle();
+			mBundle.putSerializable("Zhiyuanzhe", mZhiyuanzheList.get(arg2));
+			forwardIntent.putExtras(mBundle);
+			
+			startActivity(forwardIntent);
+		}else{
+			Intent forwardIntent = new Intent();
+			forwardIntent.setClass(mContext, ShangpinActivity.class);
+
+			Bundle mBundle = new Bundle();
+			mBundle.putSerializable("DianpuInfo", mDianpuList.get(arg2));
+			forwardIntent.putExtras(mBundle);
+			
+			startActivity(forwardIntent);
+		}
 	}
 }

@@ -1,8 +1,18 @@
 package com.mapgoo.zero.api;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import android.graphics.Bitmap;
@@ -491,4 +501,30 @@ public class ApiClient {
 		_POST(URLs.InviteUserRelation, reqHeaderParams, null, reqBodyParams);
 	}
 
+	public static InputStream getResponse(String url) {
+		try {
+			HttpParams httpParameters;
+			httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters, 30000);
+			HttpConnectionParams.setSoTimeout(httpParameters, 60000);
+			DefaultHttpClient mClient = new DefaultHttpClient(httpParameters);
+			url = url.replace(" ", "%20");
+			HttpGet getMethod = new HttpGet(url);
+			HttpResponse response = mClient.execute(getMethod);
+			StatusLine statusLine = response.getStatusLine();
+			
+			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+				getMethod.abort();
+				return null;
+			}
+			
+			HttpEntity entry = response.getEntity();
+			InputStream mInputStream = entry.getContent();
+
+			return mInputStream;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

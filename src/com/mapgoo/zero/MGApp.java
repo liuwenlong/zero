@@ -6,6 +6,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.baidu.mapapi.SDKInitializer;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.mapgoo.zero.api.MyVolley;
+import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.utils.DatabaseHelper;
 
 public class MGApp extends Application {
@@ -29,9 +30,10 @@ public class MGApp extends Application {
 		initMap();
 
 		// 初始化极光推送
-		initJpush();
+		//initJpush();
 
 		// 初始化 UIL(Universal Image Loader)
+		QuickShPref.init(getBaseContext());
 	}
 
 	/**
@@ -43,7 +45,7 @@ public class MGApp extends Application {
 
 	private void initMap() {
 		// 在使用SDK各组件之前初始化context信息，传入ApplicationContext
-		SDKInitializer.initialize(getApplicationContext());
+		SDKInitializer.initialize(this);
 	}
 
 	private void initJpush() {

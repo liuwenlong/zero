@@ -1,5 +1,6 @@
 package com.mapgoo.zero.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -62,7 +63,17 @@ public class OrderformDetailActivity extends BaseActivity {
 			finish();
 
 			break;
+			
+		case R.id.order_form_detail_btn:{
+				Intent forwardIntent = new Intent();
+				forwardIntent.setClass(mContext, PingjiaActivity.class);
 
+				Bundle mBundle = new Bundle();
+				mBundle.putSerializable("OrderFormInfo", mOrderFormInfo);
+				forwardIntent.putExtras(mBundle);
+				
+				startActivity(forwardIntent);	
+			break;}
 		default:
 			break;
 		}

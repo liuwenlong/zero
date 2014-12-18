@@ -12,6 +12,10 @@ public class LaorenInfo implements Serializable {
 	public String mAdress;//地址
 	public String mPhone;//电话
 	public String mImage;//头像
+	public String mLocationTime;//头像
+	public String mLocationAdress;//头像
+	public String mLocationLat;//头像
+	public String mLocationLng;//头像
 	
 	public  String getHomeTitle(){
 		return mName+"         ("+mXingbie+")"+mOld;

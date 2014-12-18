@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical" >
+    
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:text="@string/ping_jia_note"     
+    android:textColor="@color/normal_color_text"
+    />
+
+<View 
+     android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/home_color_line"   />
+
+<LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="horizontal" >
+  		<CheckBox
+ 		    android:id="@+id/pingjia_feichang_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_checkbox_icon"/>
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="18sp"
+    android:paddingLeft="10dp"
+    android:text="@string/ping_jia_feichang_manyi"
+    android:textColor="@color/normal_color_text"
+    /> 
+</LinearLayout>
+
+<LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="horizontal" >
+  		<CheckBox
+ 		    android:id="@+id/manyi_feichang_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_checkbox_icon"/>
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="18sp"
+    android:text="@string/ping_jia_manyi"
+    android:paddingLeft="10dp"
+    android:textColor="@color/normal_color_text"
+    /> 
+</LinearLayout>
+
+<LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="horizontal" >
+  		<CheckBox
+ 		    android:id="@+id/yiban_feichang_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_checkbox_icon"/>
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="18sp"
+    android:text="@string/ping_jia_yiban"
+    android:paddingLeft="10dp"
+    android:textColor="@color/normal_color_text"
+    /> 
+</LinearLayout>
+
+<View 
+     android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/home_color_line"   />
+
+<View 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:layout_weight="1.0"   
+    />
+    <Button 
+        android:id="@+id/shangpin_yuyue"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/order_form_detail_Confirm"
+    android:layout_margin="20dp"
+    android:background="@drawable/selector_button_ruhu_tijiao"
+    android:textColor="@color/white_color_text"
+    android:onClick="onClick"
+        />
+
+</LinearLayout>

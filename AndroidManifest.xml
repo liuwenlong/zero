@@ -91,18 +91,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
-        <!-- 百度地图sdk s -->
-        <!-- 发布Key -->
-        <!--
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="nc6KFkZQe0sRCOqx29m2DBpQ" />
-        -->
-
-        <!-- 调试 -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="9gwheAVvdN46u3xQLGyyB6Ue" />
+            android:value="88Tv8sGMiiG1MxGOkWoaw67V" />
        <!-- 百度地图sdk e -->
         
         <!-- App组件 s-->
@@ -320,9 +311,20 @@
             android:screenOrientation="portrait" />  
          <activity
             android:name="com.mapgoo.zero.ui.OrderCreateActivity"            
-            android:screenOrientation="portrait" />                         
+            android:screenOrientation="portrait" /> 
+         <activity
+            android:name="com.mapgoo.zero.ui.PingjiaActivity"            
+            android:screenOrientation="portrait" />                                     
         <!-- App组件 e-->
-        
+         <activity
+            android:name="com.mapgoo.zero.ui.LoactionActivity"            
+            android:screenOrientation="portrait" />             
+          <!-- 右边指令窗口 -->
+        <activity
+            android:name="com.mapgoo.zero.ui.RightDialogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyRightDialogStyleBottom"
+            android:windowSoftInputMode="adjustPan" />      
 
         <!-- 百度定位服务 -->
         <service

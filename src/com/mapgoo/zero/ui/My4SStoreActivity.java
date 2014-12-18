@@ -178,7 +178,7 @@ public class My4SStoreActivity extends BaseActivity {
 					break;
 					
 				case 4: // 道路救援/一键救援
-					intent.setClass(mContext, CallRescueActivity.class);
+					//intent.setClass(mContext, CallRescueActivity.class);
 					startActivity(intent);
 					
 					break;

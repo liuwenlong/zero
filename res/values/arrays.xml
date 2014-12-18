@@ -2,13 +2,9 @@
 <resources>
     
     <array name="ad_imgs">
-        <item>@drawable/ic_ad_img1</item>
-        <item>@drawable/ic_ad_img2</item>
     </array>
     
     <array name="ad_4s_imgs">
-        <item>@drawable/ic_4s_ad_img1</item>
-        <item>@drawable/ic_4s_ad_img2</item>
     </array>
     
     

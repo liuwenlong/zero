@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="65dip"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip" >
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="fill_parent"
+        android:layout_height="170dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/right_dialog_view"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="35dip" >
+
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="25dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dip"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:src="@drawable/icon_close"
+                android:text="@string/instruction_menu"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="35dip"
+                android:layout_alignParentRight="true"
+                android:onClick="exitbutton0"
+                android:src="@drawable/icon_close" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dip" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="90dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/btn_sforchengfan"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/menu_bg"
+                        android:drawableTop="@drawable/icon_shefang"
+                        android:gravity="bottom|center"
+                        android:onClick="onClick"
+                        android:paddingBottom="10dip"
+                        android:paddingTop="10dip"
+                        android:text="zhaoxiang" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="10dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/menu_bg"
+                        android:gravity="bottom|center"
+                        android:onClick="dzwlbutton"
+                        android:paddingBottom="10dip"
+                        android:paddingTop="10dip"
+                        android:visibility="gone"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="10dip"
+                        android:layout_weight="1" >
+
+                        <Button
+                            android:id="@+id/btn_cs"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@drawable/menu_bg"
+                            android:gravity="bottom|center"
+                            android:onClick="csbutton"
+                            android:paddingBottom="10dip"
+                            android:paddingTop="10dip" />
+                    </RelativeLayout>
+                    
+ 						<Button
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="10dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/menu_bg"
+                        android:gravity="bottom|center"
+                        android:onClick="hmszbutton"
+                        android:paddingBottom="10dip"
+                        android:paddingTop="10dip"/>                   
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

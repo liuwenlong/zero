@@ -14,5 +14,9 @@ public class ShangpinInfo  implements Serializable {
 	public String mPhone;//电话
 	public String mNote;//电话
 	public String mID;//ID
-	public String isCheck;//选定
+	public boolean isCheck;//选定
+	
+	public ShangpinInfo(){
+		isCheck = false;
+	}
 }

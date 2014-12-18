@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
@@ -29,9 +30,11 @@ import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.ui.widget.EditTextView;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
+import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.utils.CryptoUtils;
 import com.mapgoo.zero.utils.LoadPref;
 import com.mapgoo.zero.utils.PhoneUtils;
@@ -58,7 +61,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		mProgressDialog = new MGProgressDialog(mContext);
 		mProgressDialog.setCancelable(true);
 		
-		
+		GlobalNetErrorHandler.getInstance(mContext, null, null);
 	}
 	
 	// TIPS 注意设置监听器
@@ -169,7 +172,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		finish();
 
 //		reqCode = REQ_LOGIN;
-//		ApiClient.login(mTelNum, mEncodedPwd);
+		ApiClient.login(mTelNum, mEncodedPwd);
 	}
 
 	// 点击空白区域 隐藏键盘
@@ -248,5 +251,13 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 
 		mToast.toastMsg(getText(R.string.bad_network).toString());
 	}
-
+	
+	public String getIMEI(){
+		String imei = QuickShPref.getString(QuickShPref.IEMI);
+		if(imei == null){
+			imei =((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
+			QuickShPref.putValueObject(QuickShPref.IEMI, imei);
+		}
+		return imei;
+	}
 }

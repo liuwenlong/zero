@@ -13,8 +13,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:visibility="gone"
-        android:src="@drawable/ic_splash" />
+        android:visibility="gone"/>
     
 <TextView 
          android:id="@+id/splashlogo"

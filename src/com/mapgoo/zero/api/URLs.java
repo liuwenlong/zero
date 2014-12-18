@@ -92,5 +92,7 @@ public class URLs implements Serializable {
 	
 	// 管理员邀请他人关注设备
 	public final static String InviteUserRelation = URL_API_HTTP_HOST + "InviteUserRelation";
-	
+
+	// get user name
+	public final static String getusername = URL_API_HTTP_HOST + "vehicledelete";
 }

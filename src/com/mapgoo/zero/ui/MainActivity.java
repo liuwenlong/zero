@@ -32,6 +32,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.mapgoo.zero.R;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.api.VersionUpdate;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.ui.widget.AutoScrollViewPager;
@@ -86,7 +87,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			startActivity(new Intent(mContext, YuyuefuwuActivity.class));
 			break;
 		case R.id.home_weizhi:
-			startActivity(new Intent(mContext, LocServiceActivity.class));
+			myStartActivity(LoactionActivity.class);
 			break;
 		case R.id.home_rufu:
 			startActivity(new Intent(mContext, RufuxunshiActivity.class));
@@ -102,7 +103,17 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			break;
 		}
 	}
-
+void myStartActivity(Class<?> c){
+	Intent forwardIntent = new Intent();
+	forwardIntent.setClass(mContext, c);
+	
+	Bundle mBundle = new Bundle();
+	mBundle.putSerializable("mLaorenInfo", mLaorenInfo);
+	forwardIntent.putExtras(mBundle);
+	
+	startActivity(forwardIntent);			
+}
+	
 	@Override
 	protected void setContentView() {
 		// TODO Auto-generated method stub
@@ -126,6 +137,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			info.mShenfen="430123456789";	
 			info.mName="张三";
 			info.mOld="86岁";
+			info.mLocationTime="2014/12/17  15:23";
 			mLaorenList.add(info);
 			mLaorenList.add(info);
 			mLaorenList.add(info);
@@ -141,6 +153,8 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		super.setupActionBar(getText(R.string.home_action_title).toString(), 4, R.drawable.ic_menu, R.drawable.home_action_bar_xinxi,
 				R.drawable.home_actionbar_bgd, -1);
 		handleData();
+		VersionUpdate synctask = new VersionUpdate(mContext);
+		synctask.execute("0201001");
 	}
 
 	@Override
