@@ -2,9 +2,14 @@ package com.mapgoo.zero.ui;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,8 +18,14 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.DianpuInfo;
+import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.bean.ZhiyuanzheInfo;
 import com.mapgoo.zero.ui.XiaoxiActivity.MessageAdapter;
@@ -29,7 +40,7 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 	private ListView mListView;
 	private ArrayList<DianpuInfo> mDianpuList = new ArrayList<DianpuInfo>();
 	private ArrayList<ZhiyuanzheInfo> mZhiyuanzheList = new ArrayList<ZhiyuanzheInfo>();
-	private DianpuAdapter mMessageAdapter;
+	private DianpuAdapter mDianpuAdapter;
 	private ZhiyuanzheAdapter mZhiyuanzheAdapter;
 	private int mFuwuType;
 	@Override
@@ -63,6 +74,7 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 			zhiyuanzheInit();
 		}else{
 			dianpuInit();
+			getFuwuInfoList();
 		}
 	}
 	
@@ -82,8 +94,8 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 			mDianpuList.add(info);
 			mDianpuList.add(info);
 		}
-		mMessageAdapter = new DianpuAdapter(mContext, mDianpuList);
-		mListView.setAdapter(mMessageAdapter);
+		mDianpuAdapter = new DianpuAdapter(mContext, mDianpuList);
+		mListView.setAdapter(mDianpuAdapter);
 		mListView.setOnItemClickListener(this);		
 	}
 
@@ -150,13 +162,13 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 		
 		void inflateView(View view,DianpuInfo info){
 			
-			((TextView)view.findViewById(R.id.dianpu_item_from_name)).setText(info.mFromName);
-			((TextView)view.findViewById(R.id.dianpu_item_unit_price)).setText(info.mUnitPrice);
-			((TextView)view.findViewById(R.id.dianpu_item_avail_time)).setText(info.mFuwuTime);
-			((TextView)view.findViewById(R.id.dianpu_item_pay_type)).setText(info.mPayType);
-			((TextView)view.findViewById(R.id.dianpu_item_shang_men)).setText(info.mShanMen);
-			((TextView)view.findViewById(R.id.dianpu_item_from_phone)).setText(info.mPhone);
-			((TextView)view.findViewById(R.id.dianpu_item_from_adress)).setText(info.mAdress);
+			((TextView)view.findViewById(R.id.dianpu_item_from_name)).setText(info.CompanyName);
+			((TextView)view.findViewById(R.id.dianpu_item_unit_price)).setText(info.Charges);
+			((TextView)view.findViewById(R.id.dianpu_item_avail_time)).setText(info.ServiceTime);
+			((TextView)view.findViewById(R.id.dianpu_item_pay_type)).setText(info.PayMent);
+			((TextView)view.findViewById(R.id.dianpu_item_shang_men)).setText(info.ServiceType);
+			((TextView)view.findViewById(R.id.dianpu_item_from_phone)).setText(info.Phone);
+			((TextView)view.findViewById(R.id.dianpu_item_from_adress)).setText(info.Address);
 		}
 		
 	}
@@ -219,5 +231,39 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 			
 			startActivity(forwardIntent);
 		}
+	}
+	
+	private void getFuwuInfoList(){
+		ApiClient.getFuwuList(YuyuefuwuActivity.UrlType[mFuwuType]
+				, 1, Integer.MAX_VALUE,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										JSONArray array = response.getJSONArray("result");
+										if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+											 mDianpuList = (ArrayList<DianpuInfo>) JSON.parseArray(array.get(1).toString(), DianpuInfo.class);
+											 //refresLastLaoren();
+											 mDianpuAdapter.mDataList = mDianpuList;
+											 mDianpuAdapter.notifyDataSetChanged();
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
 	}
 }

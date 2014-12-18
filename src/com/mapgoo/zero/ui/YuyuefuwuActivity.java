@@ -22,7 +22,7 @@ public class YuyuefuwuActivity extends BaseActivity {
 	public final static int YUYUE_FUWU_SHUCAI = 7;
 	public final static int YUYUE_FUWU_JIANSHENG = 8;
 	public final static int YUYUE_FUWU_ZHIYUANZHE = 9;
-
+	public final static String[] UrlType={"2","5","4","3","1,8","9","6,7","10","4"};
 	@Override
 	public void setContentView() {
 		setContentView(R.layout.activity_yuyuefuwu);
@@ -99,4 +99,6 @@ public class YuyuefuwuActivity extends BaseActivity {
 		intent.putExtra("fuwutype", type);
 		startActivity(intent);
 	}
+	
+	
 }

@@ -3,14 +3,20 @@ package com.mapgoo.zero.ui;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.bean.LaorenInfo;
 
 /**
@@ -18,7 +24,7 @@ import com.mapgoo.zero.bean.LaorenInfo;
  * 
  * @Author yao
  */
-public class LaorenActivity extends BaseActivity {
+public class LaorenActivity extends BaseActivity implements OnItemClickListener {
 
 	private ListView mListView;
 	private ArrayList<LaorenInfo> mLaorenList = new ArrayList<LaorenInfo>();
@@ -35,7 +41,7 @@ public class LaorenActivity extends BaseActivity {
 		if (savedInstanceState != null) {
 
 		} else {
-
+			mLaorenList = (ArrayList<LaorenInfo>)getIntent().getExtras().getSerializable("laoren");
 		}
 	}
 
@@ -50,24 +56,9 @@ public class LaorenActivity extends BaseActivity {
 		super.setupActionBar(getText(R.string.home_laoren).toString(), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
-		
-		if(mLaorenList.isEmpty()){
-			LaorenInfo info = new LaorenInfo();
-			info.mAdress="北京市西城区陶然亭";
-			info.mXingbie="男";	
-			info.mLeixing="正常";	
-			info.mPhone="13712345678";	
-			info.mShenfen="430123456789";	
-			info.mName="张三";
-			info.mOld="86";
-			mLaorenList.add(info);
-			mLaorenList.add(info);
-			mLaorenList.add(info);
-			mLaorenList.add(info);
-			mLaorenList.add(info);
-		}
 		mLaorenAdapter = new LaorenAdapter(mContext, mLaorenList);
 		mListView.setAdapter(mLaorenAdapter);
+		mListView.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -119,14 +110,28 @@ public class LaorenActivity extends BaseActivity {
 		}
 		
 		void inflateView(View view,LaorenInfo info){
-			((TextView)view.findViewById(R.id.laoren_list_item_xinming)).setText(info.mName);
-			((TextView)view.findViewById(R.id.laoren_list_item_xingbie)).setText(info.mXingbie);
-			((TextView)view.findViewById(R.id.laoren_list_item_leixing)).setText(info.mLeixing);
-			((TextView)view.findViewById(R.id.laoren_list_item_dizhi)).setText(info.mAdress);
-			((TextView)view.findViewById(R.id.laoren_list_item_dianhua)).setText(info.mPhone);
-			((TextView)view.findViewById(R.id.laoren_list_item_nianling)).setText(info.mOld);
-			((TextView)view.findViewById(R.id.laoren_list_item_shenfenzheng)).setText(info.mShenfen);
+			((TextView)view.findViewById(R.id.laoren_list_item_xinming)).setText(info.HumanName);
+			((TextView)view.findViewById(R.id.laoren_list_item_xingbie)).setText(info.getSexString());
+			((TextView)view.findViewById(R.id.laoren_list_item_leixing)).setText(info.HumanType);
+			((TextView)view.findViewById(R.id.laoren_list_item_dizhi)).setText(info.Address);
+			((TextView)view.findViewById(R.id.laoren_list_item_dianhua)).setText(info.AlldayTel);
+			((TextView)view.findViewById(R.id.laoren_list_item_nianling)).setText(info.Birthday);
+			((TextView)view.findViewById(R.id.laoren_list_item_shenfenzheng)).setText(info.IDCardNo);
+			MyVolley.getImageLoader().get(info.AvatarImage, 
+					ImageLoader.getImageListener((ImageView) view.findViewById(R.id.ruhu_laoren_touxiang), 
+							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
 		}
 		
+	}
+
+
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		intent.putExtra("select", mLaorenList.get(arg2));
+		setResult(RESULT_OK, intent);
+		finish();
 	}
 }

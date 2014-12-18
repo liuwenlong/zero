@@ -128,7 +128,8 @@ public class ViewHolder {
 	public ViewHolder setImageByUrl(int viewId, String url, int imgHoldDrawId, int imgErrDrawId) {
 
 		// 图片，加载图片
-		MyVolley.getImageLoader().get(url, ImageLoader.getImageListener((ImageView) getView(viewId), imgHoldDrawId, imgErrDrawId));
+		MyVolley.getImageLoader().get(url, 
+				ImageLoader.getImageListener((ImageView) getView(viewId), imgHoldDrawId, imgErrDrawId));
 
 		return this;
 	}

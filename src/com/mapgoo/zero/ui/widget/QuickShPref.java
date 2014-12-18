@@ -6,6 +6,9 @@ import android.content.SharedPreferences.Editor;
 
 public class QuickShPref {
 public static String IEMI = "imei";
+public static String PASS_WORD = "password";
+public static String Last_Laoren_objectId = "lastObjectID";
+
 	
 private static SharedPreferences sSharedPreferences;
 private static Editor sEditor;

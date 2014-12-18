@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.ErrorListener;
@@ -31,7 +35,9 @@ import com.mapgoo.zero.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.RequestUtils;
 import com.mapgoo.zero.bean.User;
+import com.mapgoo.zero.bean.XsyUser;
 import com.mapgoo.zero.ui.widget.EditTextView;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.QuickShPref;
@@ -48,7 +54,6 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 	}
 
 	private Context mContext;
-	private MGProgressDialog mProgressDialog;
 	// 自定义的请求码 标示当前是哪一个请求
 	private int reqCode = -1;
 	private final int REQ_LOGIN = 999;
@@ -83,6 +88,10 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		et_tel_num = (EditTextView) findViewById(R.id.et_tel_num);
 		et_tel_num.setSelection(et_tel_num.getText().length());
 		et_pwd = (EditTextView) findViewById(R.id.et_pwd);
+		
+		if(QuickShPref.getString(QuickShPref.PASS_WORD)!=null)
+			et_pwd.setText(QuickShPref.getString(QuickShPref.PASS_WORD));
+			
 		et_pwd.setOnEditorActionListener(new OnEditorActionListener() {
 			
 			@Override
@@ -108,71 +117,80 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 				SoftInputUtils.requestFocus(mContext, et_pwd);
 			}
 		});
+		getUserNmae();
 	}
 
+	private void getUserNmae(){
+		ApiClient.getUserName(getIMEI(), new onReqStartListener(){
+			public void onReqStart() {
+				getmProgressDialog().setMessage("正在获取用户名");
+				getmProgressDialog().show();
+			}},
+			new Listener<JSONObject>(){
+				public void onResponse(JSONObject response) {
+					Log.d("getUserName", response.toString());
+					if (response.has("error")) {
+						try {
+							if (response.getInt("error") == 0) {
+								if (mProgressDialog != null && mProgressDialog.isShowing())
+									mProgressDialog.dismiss();
+								String result = response.getString("result");
+								et_tel_num.setText(result);
+							}else if(response.getInt("error") == 1){
+								Toast.makeText(mContext, response.getString("reason"), Toast.LENGTH_SHORT).show();
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					getmProgressDialog().dismiss();
+			}}, 
+				GlobalNetErrorHandler.getInstance(mContext, null, getmProgressDialog())
+			);		
+	}
+	
 	@Override
 	public void handleData() {
-		
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-
 		case R.id.tv_btn_login:
-
 			handleLogin();
-
 			break;
-
-//		case R.id.tv_btn_forgot_pwd:
-//
-//			startActivity(new Intent(mContext, SetNewPwdActivity.class));
-//			break;
-
 		case R.id.tv_btn_register:
-
-//			startActivity(new Intent(mContext, RegisterActivity.class));
-
 			break;
-
 		default:
 			break;
 		}
 	}
-
 	
 	private String mTelNum;
 	private String mEncodedPwd;	// 加密后的密码
 	
 	// 登录处理
 	private void handleLogin() {
-//		mTelNum = et_tel_num.getText().toString();
-//		String originalPwd = et_pwd.getText().toString();
-//
-//		// 验证手机号
-//		if(!PhoneUtils.validatePhoneNum(mTelNum, et_tel_num))
-//			return ;
-//
-//		// 验证密码格式
-//		if (originalPwd.length() == 0) {
-//			mToast.toastMsg(R.string.account_check_info_password_error_null);
-//			SoftInputUtils.requestFocus(mContext, et_pwd);
-//
-//			return;
-//		}
-//		
-//		mEncodedPwd = CryptoUtils.MD5Encode(originalPwd);
-		
-		
-		// TODO For Test
-		Intent intent = new Intent(mContext, MainActivity.class);
-		startActivity(intent);
-		
-		finish();
+		String mTelNum = et_tel_num.getText().toString();
+		String originalPwd = et_pwd.getText().toString();
 
-//		reqCode = REQ_LOGIN;
-		ApiClient.login(mTelNum, mEncodedPwd);
+		// 验证手机号
+		if(TextUtils.isEmpty(mTelNum))
+			return ;
+
+		// 验证密码格式
+		if (TextUtils.isEmpty(originalPwd)) {
+			mToast.toastMsg(R.string.account_check_info_password_error_null);
+			SoftInputUtils.requestFocus(mContext, et_pwd);
+
+			return;
+		}
+		
+//		mEncodedPwd = CryptoUtils.MD5Encode(originalPwd);
+		reqCode = REQ_LOGIN;
+		ApiClient.login(getIMEI(), originalPwd);
 	}
 
 	// 点击空白区域 隐藏键盘
@@ -181,7 +199,6 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			SoftInputUtils.hideSoftInput(mContext);
 		}
-
 		return super.onTouchEvent(event);
 	}
 
@@ -197,33 +214,23 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 	@Override
 	public void onResponse(JSONObject response) {
 		if (reqCode == REQ_LOGIN) {
+			Log.d("onResponse", response.toString());
 			try {
 				if (response.has("error")) {
 					if (response.getInt("error") == 0) {
 						if (mProgressDialog != null && mProgressDialog.isShowing())
 							mProgressDialog.dismiss();
 
-						User user = JSON.parseObject(response.getJSONObject("result").toString(), User.class);
-						user.setUserPwd(mEncodedPwd);
+						mXsyUser = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+						mXsyUser.mPassword =  et_pwd.getText().toString();;
 						
-						Dao<User, String> userDaoUser = User.getDao(MGApp.getHelper());
-
-						// 用户资料入库操作
-						if (userDaoUser.queryForId(mTelNum) != null)
-							// 存在？->更新
-							userDaoUser.update(user);
-						else
-							// 不存在？->添加
-							userDaoUser.createIfNotExists(user);
-
-					
+						RequestUtils.setToken(mXsyUser.token);
+						QuickShPref.putValueObject(QuickShPref.PASS_WORD, mXsyUser.mPassword);
+						Log.d("onResponse", "token="+mXsyUser.token);
+						
 						Intent intent = new Intent(mContext, MainActivity.class);
-						intent.putExtra("telNum", user.getUserMobile());
 						
 						startActivity(intent);
-
-						// 写入最后登录的用户id
-						LoadPref.getInstance(mContext).beginTransaction().setLastLoginUserId(user.getUserMobile()).commit();
 						
 						finish();
 					} else {
@@ -236,8 +243,6 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 						
 				}
 			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
@@ -258,6 +263,10 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 			imei =((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
 			QuickShPref.putValueObject(QuickShPref.IEMI, imei);
 		}
+		if(imei.equalsIgnoreCase("355002057640887"))
+			imei = "56456456";
 		return imei;
 	}
+	
+	
 }

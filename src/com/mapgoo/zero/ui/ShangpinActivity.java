@@ -3,6 +3,10 @@ package com.mapgoo.zero.ui;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +22,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.DianpuInfo;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.bean.ShangpinInfo;
@@ -86,6 +96,7 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 		mShanpinAdapter = new ShangpinAdapter(mContext, mShangpinList);
 		mListView.setAdapter(mShanpinAdapter);
 		mListView.setOnItemClickListener(this);
+		getShangpinInfoList();
 	}
 
 	@Override
@@ -173,5 +184,39 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 	
+	}
+	
+	private void getShangpinInfoList(){
+		ApiClient.getShangpinList("8"
+				, 1, Integer.MAX_VALUE,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										JSONArray array = response.getJSONArray("result");
+										if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+											 //mDianpuList = (ArrayList<DianpuInfo>) JSON.parseArray(array.get(1).toString(), DianpuInfo.class);
+											 //refresLastLaoren();
+											 //mDianpuAdapter.mDataList = mDianpuList;
+											 //mDianpuAdapter.notifyDataSetChanged();
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
 	}
 }

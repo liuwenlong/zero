@@ -22,6 +22,7 @@ import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.R;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.User;
+import com.mapgoo.zero.bean.XsyUser;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyToast;
 import com.mapgoo.zero.utils.StringUtils;
@@ -130,7 +131,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		 * @return
 		 */
 		private static String handleServerError(VolleyError error, final Context context, final User curUser) {
-
+			XsyUser cUser;
 			NetworkResponse response = error.networkResponse;
 
 			if (response != null) {
@@ -142,8 +143,10 @@ public class GlobalNetErrorHandler implements ErrorListener {
 					final MGProgressDialog progressDialog = new MGProgressDialog(context);
 					progressDialog.setCancelable(true);
 					
+					if(curUser instanceof XsyUser){
+						cUser = (XsyUser)curUser;
 					// 重新获取token
-					ApiClient.loginInternel(curUser.getUserMobile(), curUser.getUserPwd(), new onReqStartListener() {
+					ApiClient.loginInternel(cUser.userName, cUser.mPassword, new onReqStartListener() {
 
 						@Override
 						public void onReqStart() {
@@ -160,30 +163,15 @@ public class GlobalNetErrorHandler implements ErrorListener {
 						public void onResponse(JSONObject response) {
 
 							try {
-								User user = JSON.parseObject(response.getJSONObject("result").toString(), User.class);
+								XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
 								
-								curUser.setAuthToken(user.getAuthToken());
-								curUser.setLoginDate(user.getLoginDate());
-								curUser.setLoginCount(user.getLoginCount());
-
-								Dao<User, String> userDaoUser = User.getDao(MGApp.getHelper());
-
-								// 用户资料入库操作
-								if (userDaoUser.queryForId(curUser.getUserMobile()) != null)
-									// 存在？->更新
-									userDaoUser.update(curUser);
-								else
-									// 不存在？->添加
-									userDaoUser.createIfNotExists(curUser);
-								
+								RequestUtils.setToken(user.token);
 
 								if (progressDialog != null && progressDialog.isShowing())
 									progressDialog.dismiss();
 
 								MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
 
-							} catch (SQLException e) {
-								e.printStackTrace();
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
@@ -191,7 +179,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 						}
 
 					}, GlobalNetErrorHandler.getInstance(context, curUser, null));
-					
+					}
 					return "";
 					
 				default:

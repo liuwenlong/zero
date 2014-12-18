@@ -87,7 +87,19 @@ public class ApiClient {
 					mErrorListener));
 		}
 	}
+	
+	private static void _GET_WITH_LISTENERS(String url, Map<String, String> headerParams, Map<String, String> reqParams,
+			onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
 
+		if (responseListener != null && errorListener != null) {
+			if (reqStartListener != null)	// 这个包容性太棒了，不用监听的话，我可以直接传null了
+				reqStartListener.onReqStart(); // 请求开始的回调
+
+			MyVolley.addToRequestQueue(RequestUtils.getJsonObjectRequest(Method.GET, url, headerParams, reqParams, null, responseListener,
+					errorListener));
+		}
+	}
 	/**
 	 * 概述: POST请求
 	 * 
@@ -208,7 +220,7 @@ public class ApiClient {
 	 */
 	public static void login(String telNum, String encodedPwd) {
 		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
-		reqBodyParams.put("mobile", telNum);
+		reqBodyParams.put("uid", telNum);
 		reqBodyParams.put("pwd", encodedPwd);
 
 		_POST(URLs.USER_LOGIN, null, null, reqBodyParams);
@@ -225,7 +237,7 @@ public class ApiClient {
 	 */
 	public static void loginInternel(String telNum, String encodedPwd, onReqStartListener reqStartListener, Listener<JSONObject> responseListener, ErrorListener errorListener) {
 		Map<String, Object> reqBodyParams = new HashMap<String, Object>();
-		reqBodyParams.put("mobile", telNum);
+		reqBodyParams.put("uid", telNum);
 		reqBodyParams.put("pwd", encodedPwd);
 
 		_POST_WITH_LISTENERS(URLs.USER_LOGIN, null, null, reqBodyParams, reqStartListener, responseListener, errorListener);
@@ -527,4 +539,49 @@ public class ApiClient {
 		}
 		return null;
 	}
+	
+	/**
+	 * 概述: get user name
+	 * 
+	 * @auther liu
+	 * @param string of imei
+	 * @param reqStartListener
+	 * @param responseListener
+	 * @param errorListener
+	 */
+	public static void getUserName(String imei,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("imei", imei);
+		
+		_GET_WITH_LISTENERS(URLs.getusername, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
+	
+	public static void getLoarenInfoList(String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("peopleNo", "0");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.LaorenInfoList, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
+	public static void getFuwuList(String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("serviceTypes", "");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.FuwuList, null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void getShangpinList(String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("serviceId", "8");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.ShangpinList, null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
 }

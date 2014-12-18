@@ -14,4 +14,83 @@ public class DianpuInfo  implements Serializable {
 	public String mPhone;//电话
 	public String mID;//ID
 	
+	public String PayMent;//ID
+	public String Phone;//ID
+	public String HoldID;//ID
+	public String ServiceID;//ID
+	public String Address;//ID
+	public String ServiceTime;//ID
+	public String ServiceType;//ID
+	public String IfOnSite;//ID
+	public String CompanyName;//ID
+	public String Charges;//ID
+	public void setPhone(String str){
+		Phone = str;
+	}
+	public String getPhone(){
+		return Phone;
+	}	
+	
+	public void setHoldID(String str){
+		HoldID = str;
+	}
+	public String getHoldID(){
+		return Address;
+	}	
+	
+	public void setServiceID(String str){
+		ServiceID = str;
+	}
+	public String getServiceID(){
+		return Address;
+	}		
+	
+	public void setAddress(String str){
+		Address = str;
+	}
+	public String getAddress(){
+		return Address;
+	}		
+	
+	public void setServiceTime(String str){
+		ServiceTime = str;
+	}
+	public String getServiceTime(){
+		return ServiceTime;
+	}	
+	
+	public void setServiceType(String str){
+		ServiceType = str;
+	}
+	public String getServiceType(){
+		return IfOnSite;
+	}
+	public void setIfOnSite(String str){
+		IfOnSite = str;
+	}
+	public String getIfOnSite(){
+		return IfOnSite;
+	}
+	
+	public void setPayMent(String str){
+		PayMent = str;
+	}
+	public String getPayMent(){
+		return PayMent;
+	}
+	
+	public void setCharges(String str){
+		Charges = str;
+	}
+	public String getCharges(){
+		return Charges;
+	}	
+	
+	public void setCompanyName(String str){
+		CompanyName = str;
+	}
+	public String getCompanyName(){
+		return CompanyName;
+	}
+	
 }

@@ -19,6 +19,8 @@ import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.R;
 import com.mapgoo.zero.bean.MGObject;
 import com.mapgoo.zero.bean.User;
+import com.mapgoo.zero.bean.XsyUser;
+import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyToast;
 import com.mapgoo.zero.utils.LoadPref;
 
@@ -218,8 +220,8 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	}
 
 	
-	
-	private User mCurUser;
+	protected static XsyUser mXsyUser; // 静态，全局公用
+	protected static User mCurUser; // 静态，全局公用
 
 	/**
 	 * 概述: 获取当前已登录的用户信息
@@ -242,6 +244,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		return mCurUser;
 	}
 
+	
 	private MGObject mCurObject; // 当前选中的设备
 
 	/**
@@ -266,7 +269,13 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		return mCurObject;
 	}
 
-	
+	protected MGProgressDialog mProgressDialog;
+	protected MGProgressDialog getmProgressDialog(){
+		if(mProgressDialog == null){
+			mProgressDialog = new MGProgressDialog(mContext);
+		}
+		return mProgressDialog;
+	}	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

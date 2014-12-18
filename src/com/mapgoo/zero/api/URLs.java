@@ -16,7 +16,7 @@ public class URLs implements Serializable {
 	// 公网/生产服务器
 	private final static String SERVER_PRODUCT = "app001.u12580.com";
 
-	// 局域网服务器
+	// 局域网服务器http://192.168.1.99/ecareapp/api/Login?IMEI=56456456
 	private final static String LOCAL_TEST_SERVER = "192.168.1.99";
 
 	// 内测服务器
@@ -47,11 +47,11 @@ public class URLs implements Serializable {
 
 	private final static String URL_SPLITTER = "/";
 
-	public final static String PRODUCT_NAME = "life365";
+	public final static String PRODUCT_NAME = "ecareapp";
 	public final static String API = "api";
 	public final static String PRODUCT_API_PATH = PRODUCT_NAME + URL_SPLITTER + API;
 
-	private final static String URL_API_HTTP_HOST = HTTP + HOST + URL_SPLITTER + PRODUCT_API_PATH + URL_SPLITTER;
+	private final static String URL_API_HTTP_HOST = HTTP + LOCAL_TEST_SERVER + URL_SPLITTER + PRODUCT_API_PATH + URL_SPLITTER;
 //	private final static String URL_API_HTTPS_HOST = HTTPS + HOST + URL_SPLITTER + PRODUCT_API_PATH + URL_SPLITTER;
 
 	// 获取短信验证码
@@ -61,7 +61,7 @@ public class URLs implements Serializable {
 	public final static String USER_REGISTER = URL_API_HTTP_HOST + "userRegister";
 	
 	// 登录
-	public final static String USER_LOGIN = URL_API_HTTP_HOST + "userLogin";
+	public final static String USER_LOGIN = URL_API_HTTP_HOST + "Login";
 	
 	// 获取帐号下设备列表 
 	public final static String UserObjList = URL_API_HTTP_HOST + "userObjList";
@@ -94,5 +94,14 @@ public class URLs implements Serializable {
 	public final static String InviteUserRelation = URL_API_HTTP_HOST + "InviteUserRelation";
 
 	// get user name
-	public final static String getusername = URL_API_HTTP_HOST + "vehicledelete";
+	public final static String getusername = URL_API_HTTP_HOST + "Login";
+	
+	// get laoren list
+	public final static String LaorenInfoList = URL_API_HTTP_HOST + "AgedBasic";	
+	
+	// get fuwushang list
+	public final static String FuwuList = URL_API_HTTP_HOST + "ServiceBasic";	
+	
+	// get shanpin list
+	public final static String ShangpinList = URL_API_HTTP_HOST + "ServiceProjectBasic";	
 }
