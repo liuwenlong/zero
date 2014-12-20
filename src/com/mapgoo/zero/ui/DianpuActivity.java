@@ -72,6 +72,7 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 		
 		if(mFuwuType == YuyuefuwuActivity.YUYUE_FUWU_ZHIYUANZHE){
 			zhiyuanzheInit();
+			getZhiyuanzhe();
 		}else{
 			dianpuInit();
 			getFuwuInfoList();
@@ -201,10 +202,10 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 		}
 		
 		void inflateView(View view,ZhiyuanzheInfo info){
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_name)).setText(info.mZhiyuanzheName);
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_phone)).setText(info.mPhone);
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_do)).setText(info.mFuwuName);
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_time)).setText(info.mFuwuTime);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_name)).setText(info.PeopleName);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_phone)).setText(info.MobilePhone);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_do)).setText(info.ServiceContent);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_time)).setText(info.ServiceTime);
 		}
 		
 	}	
@@ -231,6 +232,37 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 			
 			startActivity(forwardIntent);
 		}
+	}
+	
+	private void getZhiyuanzhe(){
+		ApiClient.getZhiyuanzheList(1, Integer.MAX_VALUE,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										JSONArray array = response.getJSONArray("result");
+										if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+											 mZhiyuanzheList = (ArrayList<ZhiyuanzheInfo>) JSON.parseArray(array.get(1).toString(), ZhiyuanzheInfo.class);
+											 //refresLastLaoren();
+											 mZhiyuanzheAdapter.mDataList = mZhiyuanzheList;
+											 mZhiyuanzheAdapter.notifyDataSetChanged();
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 	
 	private void getFuwuInfoList(){

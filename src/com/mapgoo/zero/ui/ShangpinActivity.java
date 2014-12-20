@@ -44,6 +44,7 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 	private ListView mListView;
 	private ArrayList<ShangpinInfo> mShangpinList = new ArrayList<ShangpinInfo>();
 	private ShangpinAdapter mShanpinAdapter;
+	private DianpuInfo mDianpuInfo;
 	
 	@Override
 	public void setContentView() {
@@ -56,7 +57,7 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 		if (savedInstanceState != null) {
 
 		} else {
-
+			mDianpuInfo = (DianpuInfo)getIntent().getExtras().getSerializable("DianpuInfo");
 		}
 	}
 
@@ -76,20 +77,20 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 			ShangpinInfo info;
 			
 			info = new ShangpinInfo();
-			info.mFromName = "测试消息，请忽略！";
-			info.mShangpinName = "麻婆豆腐";
-			info.mUnitPrice="81元/份";
-			info.mFuwuTime="15:30-20:30";
-			info.mNote="无";
-			
-			mShangpinList.add(info);
-			
-			info = new ShangpinInfo();
-			info.mFromName = "测试消息，请忽略！";
-			info.mShangpinName = "麻婆豆腐";
-			info.mUnitPrice="21元/份";
-			info.mFuwuTime="15:30-20:30";
-			info.mNote="无";
+//			info.mFromName = "测试消息，请忽略！";
+//			info.mShangpinName = "麻婆豆腐";
+//			info.mUnitPrice="81元/份";
+//			info.mFuwuTime="15:30-20:30";
+//			info.mNote="无";
+//			
+//			mShangpinList.add(info);
+//			
+//			info = new ShangpinInfo();
+//			info.mFromName = "测试消息，请忽略！";
+//			info.mShangpinName = "麻婆豆腐";
+//			info.mUnitPrice="21元/份";
+//			info.mFuwuTime="15:30-20:30";
+//			info.mNote="无";
 			
 			mShangpinList.add(info);
 		}
@@ -115,6 +116,8 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 			Intent forwardIntent = new Intent();
 			forwardIntent.setClass(mContext, OrderCreateActivity.class);
 			forwardIntent.putExtra("mMsg", getSelectShangpin());
+			forwardIntent.putExtra("DianpuInfo", mDianpuInfo);
+			
 			startActivity(forwardIntent);	
 			break;
 		default:
@@ -162,10 +165,10 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 		void inflateView(View view,ShangpinInfo info,int position){
 			CheckBox  box = (CheckBox)view.findViewById(R.id.shangpin_checkbox);
 			
-			((TextView)view.findViewById(R.id.shangpin_name)).setText(info.mShangpinName);
-			((TextView)view.findViewById(R.id.shangpin_unit_price)).setText(info.mUnitPrice);
-			((TextView)view.findViewById(R.id.shangpin_fuwu_time)).setText(info.mFuwuTime);
-			((TextView)view.findViewById(R.id.shangping_note)).setText(info.mNote);
+			((TextView)view.findViewById(R.id.shangpin_name)).setText(info.ProjectName);
+			((TextView)view.findViewById(R.id.shangpin_unit_price)).setText(info.Price);
+			((TextView)view.findViewById(R.id.shangpin_fuwu_time)).setText(info.Period);
+			((TextView)view.findViewById(R.id.shangping_note)).setText(info.Remark);
 			
 			box.setTag(position);
 			box.setOnCheckedChangeListener(new OnCheckedChangeListener(){
@@ -187,7 +190,7 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 	}
 	
 	private void getShangpinInfoList(){
-		ApiClient.getShangpinList("8"
+		ApiClient.getShangpinList(mDianpuInfo.ServiceID
 				, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
@@ -201,12 +204,14 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 								try {
 									if (response.getInt("error") == 0) {
 										JSONArray array = response.getJSONArray("result");
-										if(array!=null&&array.length()>1){
-											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
-											 //mDianpuList = (ArrayList<DianpuInfo>) JSON.parseArray(array.get(1).toString(), DianpuInfo.class);
+										if(array!=null&&array.length()>0){
+										//ShangpinInfo info = JSON.parseObject(array.get(0).toString(),ShangpinInfo.class);
+											//mShangpinList = (ArrayList<ShangpinInfo>) JSON.parseArray(response.getJSONObject("result").toString(), ShangpinInfo.class);
+											mShangpinList = (ArrayList<ShangpinInfo>) JSON.parseArray(array.toString(), ShangpinInfo.class);
 											 //refresLastLaoren();
-											 //mDianpuAdapter.mDataList = mDianpuList;
-											 //mDianpuAdapter.notifyDataSetChanged();
+											//mShangpinList.add(info);
+											 mShanpinAdapter.mDataList = mShangpinList;
+											 mShanpinAdapter.notifyDataSetChanged();
 										}
 									}else{
 										mToast.toastMsg(response.getString("reason"));

@@ -14,6 +14,22 @@ public class NumberCtrlView  extends RelativeLayout {
 	TextView mNumber;
 	int mCount;
 	
+	public interface onNumberChangeListener {
+		/**
+		 * 概述: 请求开始的回调方法
+		 * 
+		 * @auther yao
+		 * @param reqCode
+		 *            请求的reqCode
+		 */
+		public void onNumberChange(View v,int num);
+	}
+	private onNumberChangeListener monNumberChangeListener;
+	
+	public void setOnNumberChangeListener(onNumberChangeListener listern){
+		monNumberChangeListener = listern;
+	}
+	
 	public NumberCtrlView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
@@ -46,6 +62,8 @@ public class NumberCtrlView  extends RelativeLayout {
 	private void setNumBer(int num){
 		mCount = num;
 		mNumber.setText(num+"");
+		if(monNumberChangeListener != null)
+			monNumberChangeListener.onNumberChange(this,mCount);
 	}
 	
 	public int getNumber(){

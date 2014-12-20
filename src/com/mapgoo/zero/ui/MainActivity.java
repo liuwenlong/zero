@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.VolleyError;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
@@ -37,6 +38,7 @@ import com.mapgoo.zero.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.VersionUpdate;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.User;
@@ -58,7 +60,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 	private TextView tv_wearer_nickname;
 
 	private ArrayList<LaorenInfo> mLaorenList = new ArrayList<LaorenInfo>();
-	LaorenInfo mLaorenInfo;
+	public static LaorenInfo mLaorenInfo;
 	
 	private void initSlideMenu() {
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
@@ -211,6 +213,14 @@ void myStartActivity(Class<?> c){
 		((TextView)findViewById(R.id.home_dianhua)).setText(mLaorenInfo.AlldayTel);	
 		
 		QuickShPref.putValueObject(QuickShPref.Last_Laoren_objectId, mLaorenInfo.ObjectID);
+		
+		if(mLaorenInfo.AvatarImage != null){
+			MyVolley.getImageLoader().get(mLaorenInfo.AvatarImage, 
+					ImageLoader.getImageListener((ImageView) findViewById(R.id.avatar), 
+							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
+		}else{
+			((ImageView) findViewById(R.id.avatar)).setImageResource(R.drawable.ic_avatar_holder);
+		}
 	}
 	
 	@Override

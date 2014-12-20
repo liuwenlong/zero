@@ -22,6 +22,8 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.mapgoo.zero.MGApp;
+import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
+import com.mapgoo.zero.bean.VolunteerOrderSubmitInfo;
 import com.mapgoo.zero.utils.ImageUtils;
 
 /**
@@ -38,7 +40,8 @@ public class ApiClient {
 	private static Listener<JSONObject> mListener;
 	private static ErrorListener mErrorListener;
 	private static onReqStartListener mOnStartListener;
-
+	public  static final boolean isDebuge = true;
+	
 	/**
 	 * 概述: 每个activity请求网络之前必须要先设置Listeners <br>
 	 * 用于每个请求成功或者失败的回调 <br>
@@ -560,7 +563,11 @@ public class ApiClient {
 	public static void getLoarenInfoList(String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, String> reqParams = new HashMap<String, String>();
-		reqParams.put("peopleNo", "0");
+		if(isDebuge)
+			reqParams.put("peopleNo", "0");
+		else
+			reqParams.put("peopleNo", peopleNo);
+		
 		reqParams.put("p", pager+"");
 		reqParams.put("pRowCount", rawcount+"");
 		
@@ -569,19 +576,97 @@ public class ApiClient {
 	public static void getFuwuList(String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, String> reqParams = new HashMap<String, String>();
-		reqParams.put("serviceTypes", "");
+		if(isDebuge)
+			reqParams.put("serviceTypes", "");
+		else
+			reqParams.put("serviceTypes", peopleNo);
+		
 		reqParams.put("p", pager+"");
 		reqParams.put("pRowCount", rawcount+"");
 		
 		_GET_WITH_LISTENERS(URLs.FuwuList, null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
-	public static void getShangpinList(String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+	public static void getShangpinList(String serviceId,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, String> reqParams = new HashMap<String, String>();
-		reqParams.put("serviceId", "8");
+		if(isDebuge)
+			reqParams.put("serviceId", "8");
+		else
+			reqParams.put("serviceId", serviceId);
+		
 		reqParams.put("p", pager+"");
 		reqParams.put("pRowCount", rawcount+"");
 		
 		_GET_WITH_LISTENERS(URLs.ShangpinList, null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	
+	public static void postServiceOrderSubmit(ServiceOrderSubmitInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		if(isDebuge)
+			;
+		reqParams.put("BusinessID", info.BusinessID);
+		reqParams.put("HoldID", info.HoldID);
+		reqParams.put("ObjectID", info.ObjectID);
+		reqParams.put("OrderTime", info.OrderTime);
+		
+		reqParams.put("PeopleNo", info.PeopleNo);
+		reqParams.put("Remark", info.Remark);
+		reqParams.put("ServiceFee", info.ServiceFee);
+		reqParams.put("Serviceltem", info.Serviceltem);
+		
+		reqParams.put("UserID", info.UserID);
+		
+		
+		_POST_WITH_LISTENERS(URLs.ServiceOrderSubmit, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void postVolunteerOrderSubmit(VolunteerOrderSubmitInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		if(isDebuge)
+			;
+		reqParams.put("BusinessID", info.BusinessID);
+		reqParams.put("HoldID", info.HoldID);
+		reqParams.put("ObjectID", info.ObjectID);
+		reqParams.put("OrderTime", info.OrderTime);
+		
+		reqParams.put("PeopleNo", info.PeopleNo);
+		reqParams.put("Remark", info.Remark);
+		reqParams.put("OrderContent ", info.OrderContent );
+		reqParams.put("UserID", info.UserID);
+		
+		_POST_WITH_LISTENERS(URLs.VolunteerOrderSubmit, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
+	public static void getZhiyuanzheList(int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.VolunteerBasic, null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	
+	public static void getOrderFormList(String peopleNo, int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("peopleNo", peopleNo);
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.OrderBasic, null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void getOrderFormDetailList(int  recId, int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("recId", recId+"");
+		_GET_WITH_LISTENERS(URLs.OrderBasic, null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void getPatrolBasic(String  humanId, String peopleNo,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("humanId", humanId);
+		reqParams.put("peopleNo", peopleNo);
+		_GET_WITH_LISTENERS(URLs.PatrolBasic, null, reqParams, reqStartListener, responseListener, errorListener);		
 	}	
 }

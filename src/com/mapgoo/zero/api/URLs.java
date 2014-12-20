@@ -104,4 +104,16 @@ public class URLs implements Serializable {
 	
 	// get shanpin list
 	public final static String ShangpinList = URL_API_HTTP_HOST + "ServiceProjectBasic";	
+	
+	// get shanpin list
+	public final static String ServiceOrderSubmit = URL_API_HTTP_HOST +	"ServiceOrderSubmit";
+	
+	public final static String VolunteerBasic= URL_API_HTTP_HOST +	"VolunteerBasic";
+	
+	// get shanpin list
+	public final static String VolunteerOrderSubmit = URL_API_HTTP_HOST +	"VolunteerOrderSubmit";	
+	
+	public final static String OrderBasic = URL_API_HTTP_HOST +	"OrderBasic";
+	public final static String PatrolBasic = URL_API_HTTP_HOST +"PatrolBasic";
+	
 }

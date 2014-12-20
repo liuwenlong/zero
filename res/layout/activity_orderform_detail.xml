@@ -4,35 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
  
+ <ScrollView 
+        android:layout_width="match_parent"
+    android:layout_height="match_parent"    
+    android:layout_weight="1.0"
+     >
 <include 
-        android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1.0"
-    layout="@layout/order_form_detail_huwu"
-    />    
-    
-<LinearLayout 
-        android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1.0"
-    android:orientation="vertical">
-    
-    <Button 
-        android:id="@+id/order_form_detail_btn"
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/order_form_detail_Confirm"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:onClick="onClick"
-    android:background="@drawable/selector_button_ruhu_tijiao"
-    android:textColor="@color/white_color_text"
-        />
-  <TextView 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-	android:layout_weight="1.0"
-      />    
+    layout="@layout/order_form_detail_huwu"
+    />
+ </ScrollView>      
+
+<LinearLayout 
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical">
+   
   <TextView 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

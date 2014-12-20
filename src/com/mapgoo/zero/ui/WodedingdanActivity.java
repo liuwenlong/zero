@@ -2,9 +2,14 @@ package com.mapgoo.zero.ui;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,9 +18,15 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.OrderFormInfo;
+import com.mapgoo.zero.bean.ZhiyuanzheInfo;
 import com.mapgoo.zero.ui.LaorenActivity.LaorenAdapter;
 
 /**
@@ -76,6 +87,7 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 		mOrderFormAdapter = new OrderFormAdapter(mContext, mOrderFormList);
 		mListView.setAdapter(mOrderFormAdapter);
 		mListView.setOnItemClickListener(this);
+		getOrderformList();
 	}
 
 	@Override
@@ -123,10 +135,9 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 		
 		void inflateView(View view,OrderFormInfo info){
 			((TextView)view.findViewById(R.id.order_list_item_title)).setText(info.getOrderTitle());
-			((TextView)view.findViewById(R.id.order_list_item_status)).setText(info.mOrderStatus);
+			((TextView)view.findViewById(R.id.order_list_item_status)).setText(info.OrderStatus);
 			((TextView)view.findViewById(R.id.order_list_item_time)).setText(info.getOrderTime());
 		}
-		
 	}
 
 	@Override
@@ -142,4 +153,34 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 		startActivity(forwardIntent);	
 	}
 
+	private void getOrderformList(){
+		ApiClient.getOrderFormList(mXsyUser.peopleNo,1, Integer.MAX_VALUE,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										JSONArray array = response.getJSONArray("result");
+										if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+											 mOrderFormList = (ArrayList<OrderFormInfo>) JSON.parseArray(array.get(1).toString(), OrderFormInfo.class);
+											 mOrderFormAdapter.mDataList = mOrderFormList;
+											 mOrderFormAdapter.notifyDataSetChanged();
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+	}
+	
 }

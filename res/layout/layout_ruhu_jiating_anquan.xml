@@ -26,7 +26,7 @@
     android:padding="5.0dp"
     android:singleLine="true" 
     android:hint="@string/ruhu_jiating_qinshuru_chuli_jieguo"
-    
+    android:id="@+id/ruhu_jiankang_xinxi"
     /> 
 
 <TextView 
@@ -40,13 +40,17 @@
     />
 
 <LinearLayout 
+    android:id="@+id/ruhu_jiating_tianjia_zhaopian_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     android:orientation="horizontal">
+    
 <ImageView 
+    android:id="@+id/ruhu_jiating_tianjia_zhaopian_btn"
     android:layout_width="60dp"
     android:layout_height="60dp"  
+    android:onClick="onClick"
     android:src="@drawable/ruhu_jiating_tianjia_zhaopian_btn"
     />
 </LinearLayout>

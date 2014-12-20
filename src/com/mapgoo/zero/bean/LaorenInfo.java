@@ -28,7 +28,7 @@ public class LaorenInfo implements Serializable {
 	public String HumanType;
 	public String AlldayTel;
 	public boolean HumanSex =false;
-	public String AvatarImage;
+	public String AvatarImage=null;
 	public boolean HasSOSMDT;
 	
 	public LaorenInfo(){

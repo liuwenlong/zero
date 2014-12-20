@@ -229,9 +229,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 						Log.d("onResponse", "token="+mXsyUser.token);
 						
 						Intent intent = new Intent(mContext, MainActivity.class);
-						
 						startActivity(intent);
-						
 						finish();
 					} else {
 						if (mProgressDialog != null && mProgressDialog.isShowing())
@@ -263,7 +261,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 			imei =((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
 			QuickShPref.putValueObject(QuickShPref.IEMI, imei);
 		}
-		if(imei.equalsIgnoreCase("355002057640887"))
+		if(ApiClient.isDebuge)
 			imei = "56456456";
 		return imei;
 	}

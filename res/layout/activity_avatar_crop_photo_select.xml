@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/normal_color_bgd" >
+
+    <!-- 先写固定列数，后期适配:auto_fit -->
+    <GridView
+        android:id="@+id/child_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:fadingEdge="none"
+        android:gravity="center"
+        android:horizontalSpacing="2.0dip"
+        android:listSelector="@color/transparent"
+        android:numColumns="3"
+        android:paddingLeft="1.0dip"
+        android:paddingRight="1.0dip"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbarThumbVertical="@drawable/qzone_scrollbar"
+        android:scrollingCache="false"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="4.0dip" />
+
+</RelativeLayout>

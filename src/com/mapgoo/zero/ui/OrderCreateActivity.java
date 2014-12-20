@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -22,12 +26,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
+import com.j256.ormlite.stmt.query.In;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.DianpuInfo;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.MessageInfo;
+import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
 import com.mapgoo.zero.bean.ShangpinInfo;
+import com.mapgoo.zero.bean.VolunteerOrderSubmitInfo;
 import com.mapgoo.zero.bean.ZhiyuanzheInfo;
 import com.mapgoo.zero.ui.LaorenActivity.LaorenAdapter;
+import com.mapgoo.zero.ui.widget.NumberCtrlView;
+import com.mapgoo.zero.ui.widget.NumberCtrlView.onNumberChangeListener;
 
 /**
  * 概述: 模版
@@ -42,6 +57,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 	private ShangpinAdapter mShanpinAdapter;
 	private ZhiyuanzheAdapter mZhiyuanzheAdapter;
 	private ZhiyuanzheInfo mZhiyuanzheInfo;
+	private DianpuInfo mDianpuInfo;
 	TextView mInputDate;
 	TextView mInputTime;	
 	
@@ -57,6 +73,8 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 
 		} else {
 			mShangpinList = (ArrayList<ShangpinInfo>) getIntent().getSerializableExtra("mMsg");
+			mDianpuInfo = (DianpuInfo)getIntent().getSerializableExtra("DianpuInfo");
+			
 			mZhiyuanzheInfo = (ZhiyuanzheInfo) getIntent().getSerializableExtra("Zhiyuanzhe");
 		}
 	}
@@ -75,6 +93,8 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		
 		mInputDate = (TextView)findViewById(R.id.order_create_data_show);
 		mInputTime = (TextView)findViewById(R.id.order_create_time_show);
+		((TextView)findViewById(R.id.order_create_for_laoren)).setText(MainActivity.mLaorenInfo.getHumanName());
+		
 		
 		ZhiyuanzheInit();
 		shanpinInit();
@@ -96,6 +116,114 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		}	
 	}
 
+	private String getOrderTime(){
+		String time ;
+		time = mInputTime.getText().toString();
+		time +=  " "+mInputDate.getText().toString();
+		return time;
+	}
+	
+	int getLaorenObjectId(){
+		int id = 0;
+		if(MainActivity.mLaorenInfo!=null)
+			id = MainActivity.mLaorenInfo.ObjectID;
+		return id;
+	}
+	
+	String getServiceltem(){
+		String str= "" ;
+		ShangpinInfo info;
+		for(int i=0;i<mShangpinList.size();i++){
+			info = mShangpinList.get(i);
+			if(i!=0)
+				str =str+",";
+			str =str+info.ProjectName+"_"+info.mNumber;
+		}
+		
+		return str;
+	}
+	
+	private void VolunteerOrderSubmit(){
+		if(mZhiyuanzheInfo!=null){
+			VolunteerOrderSubmitInfo info = new VolunteerOrderSubmitInfo();
+			info.BusinessID = mZhiyuanzheInfo.getPeopleNo();
+			info.HoldID =  mZhiyuanzheInfo.getHoldID();
+			info.ObjectID = getLaorenObjectId();
+			info.OrderTime = getOrderTime();
+			info.PeopleNo = Integer.parseInt(mXsyUser.getpeopleNo(null));
+			info.Remark = "null";
+			info.OrderContent=mZhiyuanzheInfo.getServiceContent();
+			info.UserID = mXsyUser.getUserId();
+			ApiClient.postVolunteerOrderSubmit(info, new onReqStartListener(){
+				public void onReqStart() {
+					getmProgressDialog().show();
+				}}, 
+				new Listener<JSONObject> (){
+					public void onResponse(JSONObject response) {
+						getmProgressDialog().dismiss();
+						Log.d("onResponse",response.toString());
+						if (response.has("error")) {
+							try {
+								if (response.getInt("error") == 0) {
+									mToast.toastMsg("提交成功");
+									OrderSubmitSucesse();
+								}else{
+									mToast.toastMsg(response.getString("reason"));
+								}
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+						}
+						
+					}},
+				GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));	
+		}
+	}
+	
+	private void serviceOrderSubmit(){
+		if(mShangpinList!=null){
+			ServiceOrderSubmitInfo info = new ServiceOrderSubmitInfo();
+			info.BusinessID = Integer.parseInt( mDianpuInfo.ServiceID);
+			info.HoldID = Integer.parseInt( mDianpuInfo.HoldID);
+			info.ObjectID = getLaorenObjectId();
+			info.OrderTime = getOrderTime();
+			info.PeopleNo = Integer.parseInt(mXsyUser.getpeopleNo(null));
+			info.Remark = "null";
+			info.ServiceFee="30";
+			info.Serviceltem=getServiceltem();
+			info.UserID = mXsyUser.getUserId();
+			
+			
+			ApiClient.postServiceOrderSubmit(info, new onReqStartListener(){
+				public void onReqStart() {
+					getmProgressDialog().show();
+				}}, 
+				new Listener<JSONObject> (){
+					public void onResponse(JSONObject response) {
+						getmProgressDialog().dismiss();
+						Log.d("onResponse",response.toString());
+						if (response.has("error")) {
+							try {
+								if (response.getInt("error") == 0) {
+									mToast.toastMsg("提交成功");
+									OrderSubmitSucesse();
+								}else{
+									mToast.toastMsg(response.getString("reason"));
+								}
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+						}
+						
+					}},
+				GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
+		}
+	}
+	
+	private void OrderSubmitSucesse(){
+		finish();
+	}
+	
 	@Override
 	public void handleData() {
 
@@ -144,6 +272,10 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			dialog.show();
 			break;
 		}
+		case R.id.shangpin_yuyue:
+			serviceOrderSubmit();
+			VolunteerOrderSubmit();
+			break;
 		default:
 			break;
 		}
@@ -172,14 +304,22 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if(convertView == null)
 				convertView = View.inflate(mContext, R.layout.list_item_order_create, null);
-			inflateView(convertView,mDataList.get(position));
+			inflateView(convertView,mDataList.get(position),position);
 			return convertView;
 		}
 		
-		void inflateView(View view,ShangpinInfo info){
-			
-			((TextView)view.findViewById(R.id.order_form_order_name)).setText(info.mShangpinName);
-			((TextView)view.findViewById(R.id.order_form_unit_price)).setText(info.mUnitPrice);
+		void inflateView(View view,ShangpinInfo info,int position){
+			NumberCtrlView v;
+			((TextView)view.findViewById(R.id.order_form_order_name)).setText(info.ProjectName);
+			((TextView)view.findViewById(R.id.order_form_unit_price)).setText(info.Price);
+			v = ((NumberCtrlView)
+					view.findViewById(R.id.order_form_number));
+			v.setTag(position);
+			v.setOnNumberChangeListener(new onNumberChangeListener() {
+				public void onNumberChange(View v, int num) {
+					int position = (int)v.getTag();
+					mDataList.get(position).mNumber = num;
+				}});
 		}
 		
 	}
@@ -211,25 +351,15 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		}
 		
 		void inflateView(View view,ZhiyuanzheInfo info){
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_name)).setText(info.mZhiyuanzheName);
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_phone)).setText(info.mPhone);
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_do)).setText(info.mFuwuName);
-			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_time)).setText(info.mFuwuTime);
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_name)).setText(info.getPeopleName());
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_phone)).setText(info.getMobilePhone());
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_do)).setText(info.getServiceContent());
+			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_time)).setText(info.getServiceTime());
 			(view.findViewById(R.id.zhiyuan_zhe_arrow)).setVisibility(View.INVISIBLE);
 		}
-		
 	}	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-		
-//		Intent forwardIntent = new Intent();
-//		forwardIntent.setClass(mContext, MessageReadActivity.class);
-//
-//		Bundle mBundle = new Bundle();
-//		mBundle.putSerializable("mMsg", mShangpinList.get(arg2));
-//		forwardIntent.putExtras(mBundle);
-		
-		//startActivity(forwardIntent);		
 	}
 }

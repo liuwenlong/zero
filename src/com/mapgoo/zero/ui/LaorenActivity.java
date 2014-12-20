@@ -2,9 +2,15 @@ package com.mapgoo.zero.ui;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,9 +20,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.ImageLoader;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.MyVolley;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.LaorenInfo;
 
 /**
@@ -59,6 +70,7 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 		mLaorenAdapter = new LaorenAdapter(mContext, mLaorenList);
 		mListView.setAdapter(mLaorenAdapter);
 		mListView.setOnItemClickListener(this);
+		getLoaorenInfo();
 	}
 
 	@Override
@@ -117,14 +129,18 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 			((TextView)view.findViewById(R.id.laoren_list_item_dianhua)).setText(info.AlldayTel);
 			((TextView)view.findViewById(R.id.laoren_list_item_nianling)).setText(info.Birthday);
 			((TextView)view.findViewById(R.id.laoren_list_item_shenfenzheng)).setText(info.IDCardNo);
-			MyVolley.getImageLoader().get(info.AvatarImage, 
-					ImageLoader.getImageListener((ImageView) view.findViewById(R.id.ruhu_laoren_touxiang), 
-							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
+			if(info.AvatarImage != null){
+				Log.d("onResponse","info.AvatarImage="+ info.AvatarImage);
+				MyVolley.getImageLoader().get(info.AvatarImage, 
+						ImageLoader.getImageListener((ImageView) view.findViewById(R.id.ruhu_laoren_touxiang), 
+								R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
+			}else{
+				Log.d("onResponse","info.AvatarImage is null.");
+				((ImageView) view.findViewById(R.id.ruhu_laoren_touxiang)).setImageResource(R.drawable.ic_avatar_holder);
+			}
 		}
 		
 	}
-
-
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -133,5 +149,38 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 		intent.putExtra("select", mLaorenList.get(arg2));
 		setResult(RESULT_OK, intent);
 		finish();
+	}
+	
+	private void getLoaorenInfo(){
+		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, 10,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										JSONArray array = response.getJSONArray("result");
+										if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+											 mLaorenList = (ArrayList<LaorenInfo>) JSON.parseArray(array.get(1).toString(), LaorenInfo.class);
+											 //refresLastLaoren();
+											 mLaorenAdapter.mDataList = mLaorenList;
+											 mLaorenAdapter.notifyDataSetChanged();
+											 Log.d("onResponse",array.get(1).toString());
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
 	}
 }
