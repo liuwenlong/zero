@@ -1,6 +1,7 @@
 package com.mapgoo.zero.ui;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -54,7 +55,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		mInflater = getLayoutInflater();
 		mContext = this;
-		
+		getRestoredData(savedInstanceState);
 		setContentView();
 		
 		_init(savedInstanceState);
@@ -63,7 +64,22 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 
 		handleData();
 	}
-	
+	@SuppressWarnings("unchecked")
+	private void getRestoredData(Bundle savedInstanceState) {
+		// 保存
+		if (savedInstanceState != null) {
+			mXsyUser = (XsyUser) savedInstanceState.getSerializable("mXsyUser");
+		} else {
+		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+
+		outState.putSerializable("mXsyUser", mXsyUser);
+
+		super.onSaveInstanceState(outState);
+	}	
 
 	private void _init(Bundle savedInstanceState) {
 

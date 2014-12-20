@@ -163,6 +163,9 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 			break;
 		case R.id.tv_btn_register:
 			break;
+		case R.id.login_refresh_btn:
+			getUserNmae();
+			break;
 		default:
 			break;
 		}

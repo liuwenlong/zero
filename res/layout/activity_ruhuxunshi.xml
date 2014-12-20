@@ -12,17 +12,18 @@
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content" 
-    android:orientation="vertical">    
+    android:orientation="vertical">
+     
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content" 
     android:padding="10dp"
     android:orientation="horizontal"    >
 <TextView 
+    android:id="@+id/ruhu_xinxi_pager_0"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
 	android:background="@drawable/selector_item_card_bottom_bg"
-	android:id="@+id/xinxi_laoren"
 	android:onClick="onClick"
 	android:clickable="true"
     android:layout_weight="1.0" 
@@ -31,30 +32,66 @@
     android:text="@string/ruhu_laoren_xinxi"   
     />    
 <TextView 
+    android:id="@+id/ruhu_xinxi_pager_1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
     android:layout_weight="1.0" 
     android:gravity="center"
 	android:background="@drawable/selector_item_card_bottom_bg"
-	android:id="@+id/xinxi_jiankang"
 	android:onClick="onClick"
 	android:clickable="true"
     android:textSize="@dimen/ruhu_xinxi_title_size"
     android:text="@string/ruhu_jiankang_xinxi"   
     />  
 <TextView 
+    android:id="@+id/ruhu_xinxi_pager_2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
     android:layout_weight="1.0" 
     android:gravity="center"
 	android:background="@drawable/selector_item_card_bottom_bg"
-	android:id="@+id/xinxi_anquan"
 	android:onClick="onClick"
 	android:clickable="true"
     android:textSize="@dimen/ruhu_xinxi_title_size"
     android:text="@string/ruhu_anquan_xinxi"   
     /> 
-</LinearLayout>    
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="2dp" 
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:orientation="horizontal"    >
+<View 
+    android:id="@+id/ruhu_xinxi_pager_line_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:layout_weight="1.0" 
+	android:background="@color/color_main_blue"
+	android:onClick="onClick"
+	android:clickable="true"
+    /> 
+<View 
+    android:id="@+id/ruhu_xinxi_pager_line_1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:layout_weight="1.0" 
+	android:background="@color/color_main_blue"
+	android:onClick="onClick"
+	android:clickable="true"
+    /> 
+<View 
+    android:id="@+id/ruhu_xinxi_pager_line_2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:layout_weight="1.0" 
+	android:background="@color/color_main_blue"
+	android:onClick="onClick"
+	android:clickable="true"
+    /> 
+</LinearLayout>
+
 <View 
                 android:layout_width="match_parent"
                 android:layout_height="1.0dp" 
@@ -76,6 +113,7 @@
     android:layout_gravity="bottom"
     android:orientation="horizontal">
 <TextView 
+    android:id="@+id/ruhu_xunshi_sign_in"
     android:layout_width="wrap_content"
     android:layout_height="match_parent" 
     android:layout_weight="1.0" 
@@ -93,6 +131,7 @@
                 android:background="#00000000"
     />
 <TextView 
+    android:id="@+id/ruhu_xunshi_sign_out"    
     android:layout_width="wrap_content"
     android:layout_height="match_parent" 
     android:layout_weight="1.0" 

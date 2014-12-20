@@ -66,6 +66,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5.0dp"
                 android:background="#00ffffff"
+                android:onClick="onClick"
                 android:src="@drawable/login_id_refresh"     	    
         	    />
  </LinearLayout>       

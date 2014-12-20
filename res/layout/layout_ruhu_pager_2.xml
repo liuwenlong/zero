@@ -42,6 +42,8 @@
  		     android:layout_width="230dp"
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
+		    		    android:id="@+id/ruhu_xinxi_tijiao_2"
+		    android:onClick="onClick"
 		    android:text="@string/ruhu_tijiao_ziliao"
 		       android:background="@drawable/selector_button_ruhu_tijiao"
     />

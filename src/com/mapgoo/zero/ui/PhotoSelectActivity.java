@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -17,6 +18,8 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -34,7 +37,7 @@ import com.mapgoo.zero.utils.DimenUtils;
  * 
  * @Author yao
  */
-public class PhotoSelectActivity extends BaseActivity {
+public class PhotoSelectActivity extends BaseActivity implements OnItemClickListener {
 
 	ArrayList<String> mImageList = new ArrayList<String>();
 	PhotoAdapter mPhotoAdapter; 
@@ -69,6 +72,7 @@ public class PhotoSelectActivity extends BaseActivity {
 		mGridView = (GridView)findViewById(R.id.child_grid);
 		mPhotoAdapter = new PhotoAdapter(mContext, mImageList);
 		mGridView.setAdapter(mPhotoAdapter);
+		mGridView.setOnItemClickListener(this);
 		getRecentImages();
 	}
 
@@ -198,6 +202,13 @@ public class PhotoSelectActivity extends BaseActivity {
 			return convertView;
 		}
 		
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// TODO Auto-generated method stub
+		setResult(RESULT_OK, new Intent().putExtra("photo", mImageList.get(arg2)));
+		finish();
 	}
 	
 }

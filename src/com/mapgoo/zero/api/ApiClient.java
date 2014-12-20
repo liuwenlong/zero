@@ -22,6 +22,7 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.mapgoo.zero.MGApp;
+import com.mapgoo.zero.bean.PatrolBasicInfo;
 import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
 import com.mapgoo.zero.bean.VolunteerOrderSubmitInfo;
 import com.mapgoo.zero.utils.ImageUtils;
@@ -668,5 +669,53 @@ public class ApiClient {
 		reqParams.put("humanId", humanId);
 		reqParams.put("peopleNo", peopleNo);
 		_GET_WITH_LISTENERS(URLs.PatrolBasic, null, reqParams, reqStartListener, responseListener, errorListener);		
-	}	
+	}
+	public static void setPatrolSign(int  sign, int humanId, int peopleNo,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("sign", sign);
+		reqParams.put("humanId", humanId);
+		reqParams.put("peopleNo", peopleNo);
+		_POST_WITH_LISTENERS(URLs.PatrolSign, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void postPatrolBasic(PatrolBasicInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("HumanID", info.HumanID);
+		reqParams.put("Hypotension", info.Hypotension);
+		reqParams.put("Hypertension", info.Hypertension);
+		reqParams.put("ListeningExpress", info.ListeningExpress);
+		reqParams.put("Eating", info.Eating);
+		reqParams.put("Action", info.Action);
+		reqParams.put("Medical", info.Medical);
+		reqParams.put("Disease", info.Disease);
+		reqParams.put("PersonalHygiene", info.PersonalHygiene);
+		reqParams.put("DressHygiene", info.DressHygiene);
+		reqParams.put("SmellHygiene", info.SmellHygiene);
+		reqParams.put("AroundHygiene", info.AroundHygiene);
+		reqParams.put("ResidentialHygiene", info.ResidentialHygiene);
+		reqParams.put("Indoor", info.Indoor);
+		reqParams.put("Outdoor", info.Outdoor);
+		reqParams.put("Neighborhood", info.Neighborhood);
+		reqParams.put("GarbageCollection", info.GarbageCollection);
+		reqParams.put("HousesDamaged", info.HousesDamaged);
+		reqParams.put("CoalGasSafety", info.CoalGasSafety);
+		reqParams.put("CoalFireSafety", info.CoalFireSafety);
+		reqParams.put("ConduitSafety", info.ConduitSafety);
+		reqParams.put("ApplianceSafety", info.ApplianceSafety);
+		reqParams.put("CircuitSafety", info.CircuitSafety);
+		reqParams.put("Autism", info.Autism);
+		reqParams.put("Memory", info.Memory);
+		reqParams.put("Emotion", info.Emotion);
+		reqParams.put("Thinking", info.Thinking);
+		reqParams.put("Pressure", info.Pressure);
+		reqParams.put("FamilySafety", info.FamilySafety);
+		reqParams.put("SafetyImg1", info.SafetyImg1);
+		reqParams.put("SafetyImg2", info.SafetyImg2);
+		reqParams.put("SafetyImg3", info.SafetyImg3);
+		reqParams.put("SafetyImg4", info.SafetyImg4);
+		
+		_POST_WITH_LISTENERS(URLs.PatrolBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	
 }

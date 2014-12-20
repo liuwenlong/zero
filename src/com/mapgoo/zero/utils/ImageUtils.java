@@ -100,7 +100,7 @@ public class ImageUtils {
 	/**
 	 * 概述：Android源码中给出的动态计算Bitmap的inSampleSize的大小 Using powers of 2 for
 	 * inSampleSize values is faster and more efficient for the decoder
-	 * 
+	 * saveBitmapAsTmpImgFile
 	 * @author yqw
 	 * @since 2014年6月16日
 	 * @created 2014年6月16日
@@ -181,23 +181,18 @@ public class ImageUtils {
 
 	// Extended Code Here-----------------------------------------------------
 
+	
+	
 	public static String saveBitmapAsTmpImgFile(Bitmap bitmap) {
 		String tmpImgPath = "";
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) { // sd存在并可写,则存到sdcard中
-
-			String tmpfilePath = Environment.getExternalStorageDirectory() + "/" + mContext.getResources().getString(R.string.app_name)
-					+ "/tmp/"; // file = /sdcard/<appname>/tmp/
-
+			String tmpfilePath = Environment.getExternalStorageDirectory() + "/" + mContext.getResources().getString(R.string.app_name)+ "/tmp/"; // file = /sdcard/<appname>/tmp/
 			File fileP = new File(tmpfilePath); // 文件路径是否存在
-
 			if (!fileP.exists()) { // 如果不存在就创建
 				fileP.mkdirs();
 			}
-
 			tmpImgPath = tmpfilePath + CryptoUtils.MD5Encode(String.valueOf(System.currentTimeMillis()));
-
 			File tmpfile = new File(tmpImgPath);
-
 			try {
 				FileOutputStream fos = new FileOutputStream(tmpfile);
 				if (bitmap.compress(compressFormat, 100, fos)) {
@@ -206,20 +201,44 @@ public class ImageUtils {
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-
 				Toast.makeText(mContext, e + "找不到路径", Toast.LENGTH_SHORT).show();
 			} catch (IOException e) {
 				e.printStackTrace();
 				Toast.makeText(mContext, e + "文件保存失败", Toast.LENGTH_SHORT).show();
 			}
-
 		} else { // 没检测到sdcard？ 保存到内部存储控件，然后公开并返回其ContentProvder的URI
-
 		}
-
 		return tmpImgPath;
 	}
 
+	public static String saveByteAsTmpImgFile(byte[] bytes) {
+		String tmpImgPath = "";
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) { // sd存在并可写,则存到sdcard中
+			String tmpfilePath = Environment.getExternalStorageDirectory() + "/" + mContext.getResources().getString(R.string.app_name)+ "/tmpl/"; // file = /sdcard/<appname>/tmp/
+			File fileP = new File(tmpfilePath); // 文件路径是否存在
+			if (!fileP.exists()) { // 如果不存在就创建
+				fileP.mkdirs();
+			}
+			tmpImgPath = tmpfilePath + CryptoUtils.MD5Encode(String.valueOf(System.currentTimeMillis()));
+			File tmpfile = new File(tmpImgPath);
+			try {
+				FileOutputStream fos = new FileOutputStream(tmpfile);
+				fos.write(bytes);
+//				if (bitmap.compress(compressFormat, 100, fos)) {
+//					fos.flush();
+//					fos.close();
+//				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				Toast.makeText(mContext, e + "找不到路径", Toast.LENGTH_SHORT).show();
+			} catch (IOException e) {
+				e.printStackTrace();
+				Toast.makeText(mContext, e + "文件保存失败", Toast.LENGTH_SHORT).show();
+			}
+		} else { // 没检测到sdcard？ 保存到内部存储控件，然后公开并返回其ContentProvder的URI
+		}
+		return tmpImgPath;
+	}	
 	public static String file2Base64(String filePath) {
 		String base64Str = "";
 
@@ -238,9 +257,24 @@ public class ImageUtils {
 
 		return base64Str;
 	}
+	
+	public static Bitmap getBitmapFromBase64String(Context c, String str){
+		mContext = c;
+		Bitmap bp = null;
+		
+		if(str != null){
+			byte[] bytes = Base64.decode(str, Base64.DEFAULT);
+			String path = saveByteAsTmpImgFile(bytes);
+			
+			//bp = BitmapFactory.decodeByteArray(bytes, 0, 0);
+			bp = BitmapFactory.decodeFile(path);
+		}
+		
+		return bp;
+	}
 
 	/**
-	 * 概述：将输入流转换为byte数组
+	 * 概述：将输入流转换为byte数组saveBitmapAsTmpImgFile
 	 * 
 	 * @author yqw
 	 * @since 2014年5月24日

@@ -44,6 +44,8 @@
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
 		    android:text="@string/ruhu_tijiao_ziliao"
+		    		    android:id="@+id/ruhu_xinxi_tijiao_1"
+		    android:onClick="onClick"
 		       android:background="@drawable/selector_button_ruhu_tijiao"
     />
 </RelativeLayout>

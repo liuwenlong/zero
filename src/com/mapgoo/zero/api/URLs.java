@@ -112,8 +112,12 @@ public class URLs implements Serializable {
 	
 	// get shanpin list
 	public final static String VolunteerOrderSubmit = URL_API_HTTP_HOST +	"VolunteerOrderSubmit";	
-	
+	//订单信息
 	public final static String OrderBasic = URL_API_HTTP_HOST +	"OrderBasic";
+	//入户信息
 	public final static String PatrolBasic = URL_API_HTTP_HOST +"PatrolBasic";
+	//签到/退
+	public final static String PatrolSign = URL_API_HTTP_HOST +"PatrolSign";
+
 	
 }

@@ -6,11 +6,12 @@
     <item android:drawable="@drawable/common_card_bottom_background_highlighted" android:state_pressed="true"/> -->
     
     <item android:state_pressed="false">
-        <color android:color="#ffbbbbbb"/>
+        <color android:color="#ffcccccc"/>
     </item>
     
     <item android:state_pressed="true">
-        <color android:color="@color/color_main_blue"/>
+        <color android:color="#ffaaaaaa"/>
     </item>
+    
 
 </selector>
