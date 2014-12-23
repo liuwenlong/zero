@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -38,42 +39,70 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
-import com.mapgoo.zero.api.MyVolley;
-import com.mapgoo.zero.api.RequestUtils;
-import com.mapgoo.zero.api.VersionUpdate;
-import com.mapgoo.zero.bean.LaorenInfo;
-import com.mapgoo.zero.bean.LaorenLocInfo;
-import com.mapgoo.zero.bean.MessageInfo;
-import com.mapgoo.zero.bean.User;
-import com.mapgoo.zero.bean.XsyUser;
-import com.mapgoo.zero.ui.widget.AutoScrollViewPager;
-import com.mapgoo.zero.ui.widget.CircleImageView;
-import com.mapgoo.zero.ui.widget.CirclePageIndicator;
-import com.mapgoo.zero.ui.widget.MGProgressDialog;
-import com.mapgoo.zero.ui.widget.MyBannerAdapter;
-import com.mapgoo.zero.ui.widget.QuickShPref;
-import com.mapgoo.zero.utils.DoubleClickExitHelper;
+import com.mapgoo.zero.bean.FwsOrderinfo;
+
 
 public class MainActivity extends BaseActivity implements OnClosedListener  {
 	
 	private final int RequestCode_Laoren = 1001;
-	private final int RequestCode_Message = 1002;
+	private final int ORDER_TYPE_D = 0;
+	private final int ORDER_TYPE_Y = 1;
+	private final int ORDER_TYPE_J = 2;
+	
 	private SlidingMenu mSlidingMenu;
 	private View mMenuView;
-	private CircleImageView civ_avatar;
-	private TextView tv_wearer_nickname;
-	private TextView xsy_user_name;
-	private ArrayList<LaorenInfo> mLaorenList = new ArrayList<LaorenInfo>();
-	public static LaorenInfo mLaorenInfo;
-
+	private ListView mListView;
 	
+private ArrayList<ArrayList<FwsOrderinfo>> mFwsOrderList ;
+
+int btn_image[]= new int[]{R.id.home_daishou_image,R.id.home_yishou_image,R.id.home_jieshu_image};
+int btn_image_ds[] = new int[]{R.drawable.home_daishouli_ds,R.drawable.home_yishou_ds,R.drawable.home_jieshu_ds};
+int btn_image_en[] = new int[]{R.drawable.home_daishouli_en,R.drawable.home_yishou_en,R.drawable.home_jieshu_en};
+
+int btn_text[]= new int[]{R.id.home_daishou_text,R.id.home_yishou_text,R.id.home_jieshu_text};
+int btn_line[]= new int[]{R.id.home_daishou_line,R.id.home_yishou_line,R.id.home_jieshu_line};
+
+private void setSelect(int num){
+	int i=0;
+	for(i=0;i<btn_image.length;i++){
+		((ImageView)findViewById(btn_image[i])).setImageResource(btn_image_ds[i]);
+		((TextView)findViewById(btn_text[i])).setTextColor(getResources().getColor(R.color.normal_color_text));
+		findViewById(btn_line[i]).setVisibility(View.INVISIBLE);
+	}
+	i = num;
+	((ImageView)findViewById(btn_image[i])).setImageResource(btn_image_en[i]);
+	((TextView)findViewById(btn_text[i])).setTextColor(getResources().getColor(R.color.color_main_blue));
+	findViewById(btn_line[i]).setVisibility(View.VISIBLE);	
+	
+}
+
+private void getFwsOrderinfo(int type){
+	if(mFwsOrderList == null){
+		ArrayList<FwsOrderinfo> array0, array1,array2;
+		
+		mFwsOrderList = new ArrayList<ArrayList<FwsOrderinfo>>();
+		
+		array0 = new ArrayList<FwsOrderinfo>();
+		array1 = new ArrayList<FwsOrderinfo>();
+		array2 = new ArrayList<FwsOrderinfo>();
+		mFwsOrderList.add(array0);
+		mFwsOrderList.add(array1);
+		mFwsOrderList.add(array2);
+	}
+	ArrayList<FwsOrderinfo> array = mFwsOrderList.get(type);
+	FwsOrderinfo info = new FwsOrderinfo();
+	info.orderAdress = "北京东城2号";
+	info.orderContent="啦啦";
+	info.orderStatus = "待受理";
+    info.orderTime="2014-12-17 12:30";
+	info.orderNumber="500001623157324521";
+	array.add(info);
+	array.add(info);
+	array.add(info);
+}
+
 	private void initSlideMenu() {
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
-		tv_wearer_nickname = (TextView) mMenuView.findViewById(R.id.tv_wearer_nickname);
-		civ_avatar = (CircleImageView) mMenuView.findViewById(R.id.civ_avatar);
-		xsy_user_name = (TextView) mMenuView.findViewById(R.id.xsy_user_name);
-		xsy_user_name.setText(mXsyUser.DisplayName);
-		
 		mSlidingMenu = new SlidingMenu(this);
 		mSlidingMenu.setSlidingEnabled(true);
 		mSlidingMenu.setMode(SlidingMenu.LEFT);
@@ -84,15 +113,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		mSlidingMenu.setFadeDegree(0.666f);
 		mSlidingMenu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
 		mSlidingMenu.setMenu(mMenuView);
-
 		mSlidingMenu.setOnClosedListener(this); // 当SlideMenu关闭的事件监听
-	}
-	
-	public void Logout(View v){
-		Log.d("Logout", "Logout");
-		QuickShPref.putValueObject(QuickShPref.isLogin, false);
-		startActivity(new Intent(mContext, LoginActivity.class));
-		finish();
 	}
 	
 	@Override
@@ -102,12 +123,8 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		switch (requestCode) {
 		case RequestCode_Laoren:
 			if(resultCode == RESULT_OK){
-				mLaorenInfo = (LaorenInfo)data.getExtras().getSerializable("select");
-				refreshDisplay(mLaorenInfo);
+
 			}
-			break;
-		case RequestCode_Message:
-				getMessageList();
 			break;
 		default:
 			break;
@@ -117,54 +134,30 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 	
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		Intent intent = new Intent();
 
 		switch (v.getId()) {
-		case R.id.iv_ab_left_btn:
-			if (mSlidingMenu != null) {
-				if (mSlidingMenu.isMenuShowing())
-					mSlidingMenu.showContent();
-				else
-					mSlidingMenu.showMenu();
-			}
-			break;
-		case R.id.home_yuyue:
-			startActivity(new Intent(mContext, YuyuefuwuActivity.class));
-			break;
-		case R.id.home_weizhi:
-			myStartActivity(LoactionActivity.class);
-			break;
-		case R.id.home_rufu:
-			myStartActivity(RufuxunshiActivity.class);
-			break;
-		case R.id.home_dingdan:
-			startActivity(new Intent(mContext, WodedingdanActivity.class));
-			break;
-		case R.id.tv_ab_title:
-			startActivityForResult((new Intent(mContext, LaorenActivity.class).putExtra("laoren", mLaorenList)),RequestCode_Laoren);
-			break;
-		case R.id.iv_ab_right_btn:
-			startActivityForResult(new Intent(mContext, XiaoxiActivity.class),RequestCode_Message);
-			break;
-		case R.id.setting_modify_password:
-			myStartActivity(ModifyPassWordActivity.class);
-			break;
-		case R.id.setting_about:
-			myStartActivity(SettingsAboutActivity.class);
-			break;			
+			case R.id.iv_ab_left_btn:
+				if (mSlidingMenu != null) {
+					if (mSlidingMenu.isMenuShowing())
+						mSlidingMenu.showContent();
+					else
+						mSlidingMenu.showMenu();
+				}
+				break;
+			case R.id.home_daishou_btn:
+				setSelect(0);
+				break;
+			case R.id.home_yishou_btn:
+				setSelect(1);
+				break;
+			case R.id.home_jieshu_btn:
+				setSelect(2);
+				break;				
 		}
 	}
 void myStartActivity(Class<?> c){
-	if(mLaorenInfo == null)
-		return;
 	Intent forwardIntent = new Intent();
 	forwardIntent.setClass(mContext, c);
-	
-	Bundle mBundle = new Bundle();
-	mBundle.putSerializable("mLaorenInfo", mLaorenInfo);
-	forwardIntent.putExtras(mBundle);
-	
 	startActivity(forwardIntent);			
 }
 	
@@ -178,105 +171,22 @@ void myStartActivity(Class<?> c){
 	private void inflateLaoren(){
 		
 	}
-	boolean needLogin = false;
 	
-
 	@Override
 	protected void initData(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-//		if(mLaorenList.isEmpty()){
-//			LaorenInfo info = new LaorenInfo();
-//			info.mAdress="北京市西城区陶然亭";
-//			info.mXingbie="男";	
-//			info.mLeixing="正常";	
-//			info.mPhone="13712345678";	
-//			info.mShenfen="430123456789";	
-//			info.mName="张三";
-//			info.mOld="86岁";
-//			info.mLocationTime="2014/12/17  15:23";
-//			mLaorenList.add(info);
-//		}
-//		mLaorenInfo = mLaorenList.get(0);
-		
-		if (savedInstanceState != null) {
 
-		} else {
-			needLogin = getIntent().getBooleanExtra("needLogin", false);
-		}
 	}
 
 	@Override
 	protected void initViews() {
 		// TODO Auto-generated method stub
-		super.setupActionBar(getText(R.string.home_action_title).toString(), 4, R.drawable.ic_menu, R.drawable.home_action_bar_xinxi,
+		super.setupActionBar(getText(R.string.fws_mian_title).toString(), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
+		
+		mListView = (ListView)findViewById(R.id.fws_order_list);
+		
 		handleData();
-		
-//		new VersionUpdate(mContext).execute("0201001");
-		if(needLogin){
-			ReLogin();
-		}else{
-			getMessageList();
-			getLoaorenInfo();
-		}
-	}
-	LaorenInfo getLaorenFromId(int objectId){
-		for(LaorenInfo info:mLaorenList){
-			if(info.ObjectID == objectId)
-			return info;
-		}
-		if(mLaorenList.size()>0){
-			return mLaorenList.get(0);
-		}
-		return null;
-	}
-	
-	void refresLastLaoren(){
-		int objectId= QuickShPref.getInt(QuickShPref.Last_Laoren_objectId);
-		mLaorenInfo = getLaorenFromId(objectId);
-		if(mLaorenInfo!=null)
-			refreshDisplay(mLaorenInfo);
-	}
-	void refresMessageStatus(ArrayList<MessageInfo> mMessageList){
-		boolean show = false;
-		for(MessageInfo msg:mMessageList){
-			if(!msg.IsRead){
-				show = true;
-				break;
-			}
-		}
-		if(show)
-			super.setupActionBar(getText(R.string.home_action_title).toString(), 4, R.drawable.ic_menu, R.drawable.home_action_bar_xinxi_has,
-					R.drawable.home_actionbar_bgd, -1);
-		else
-			super.setupActionBar(getText(R.string.home_action_title).toString(), 4, R.drawable.ic_menu, R.drawable.home_action_bar_xinxi,
-					R.drawable.home_actionbar_bgd, -1);
-	}	
-	
-	void refreshDisplay(LaorenInfo mLaorenInfo){
-
-		((TextView)findViewById(R.id.man_name)).setText(mLaorenInfo.getHomeTitle());
-		((TextView)findViewById(R.id.home_leixing_content)).setText(mLaorenInfo.HumanType);
-		((TextView)findViewById(R.id.home_shenfenzhen_content)).setText(mLaorenInfo.IDCardNo);
-		((TextView)findViewById(R.id.home_zhuzhi)).setText(mLaorenInfo.Address);
-		((TextView)findViewById(R.id.home_dianhua)).setText(mLaorenInfo.AlldayTel);	
-		
-		QuickShPref.putValueObject(QuickShPref.Last_Laoren_objectId, mLaorenInfo.ObjectID);
-		
-		if(mLaorenInfo.AvatarImage != null){
-			MyVolley.getImageLoader().get(mLaorenInfo.AvatarImage, 
-					ImageLoader.getImageListener((ImageView) findViewById(R.id.avatar), 
-							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
-		}else{
-			((ImageView) findViewById(R.id.avatar)).setImageResource(R.drawable.ic_avatar_holder);
-		}
-		
-		if(mLaorenInfo.HasSOSMDT){
-			findViewById(R.id.laore_dingwei_icon).setVisibility(View.INVISIBLE);
-		}else{
-			findViewById(R.id.laore_dingwei_icon).setVisibility(View.VISIBLE);
-		}
-		
 	}
 	
 	@Override
@@ -290,10 +200,9 @@ void myStartActivity(Class<?> c){
 	}
 
 	private void getLoaorenInfo(){
-		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, Integer.MAX_VALUE,
+		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, 10,
 				new onReqStartListener(){
 					public void onReqStart() {
-						getmProgressDialog().setMessage("加载中...");
 						getmProgressDialog().show();
 					}}, 
 					new Listener<JSONObject> (){
@@ -306,8 +215,7 @@ void myStartActivity(Class<?> c){
 										JSONArray array = response.getJSONArray("result");
 										if(array!=null&&array.length()>1){
 											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
-											 mLaorenList = (ArrayList<LaorenInfo>) JSON.parseArray(array.get(1).toString(), LaorenInfo.class);
-											 refresLastLaoren();
+
 											 Log.d("onResponse",array.get(1).toString());
 										}
 									}else{
@@ -320,63 +228,5 @@ void myStartActivity(Class<?> c){
 							
 						}},
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
-	}
-	
-	
-	
-	private void getMessageList(){
-		ApiClient.getMessageList(mXsyUser.getUserId(), 1, Integer.MAX_VALUE,
-				new onReqStartListener(){
-					public void onReqStart() {
-					}}, 
-					new Listener<JSONObject> (){
-						public void onResponse(JSONObject response) {
-							Log.d("onResponse",response.toString());
-							if (response.has("error")) {
-								try {
-									if (response.getInt("error") == 0) {
-										JSONArray array = response.getJSONArray("result");
-										if(array!=null&&array.length()>1){
-											ArrayList<MessageInfo> mMessageList = (ArrayList<MessageInfo>) JSON.parseArray(array.get(1).toString(), MessageInfo.class);
-											refresMessageStatus(mMessageList);
-										}
-									}else{
-										mToast.toastMsg(response.getString("reason"));
-									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-							}						
-						}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, null));		
-	}
-	
-	private void ReLogin(){
-		ApiClient.loginInternel(mXsyUser.userName,mXsyUser.mPassword,
-				new onReqStartListener(){
-					public void onReqStart() {
-						getmProgressDialog().show();
-					}}, 
-					new Listener<JSONObject> (){
-						public void onResponse(JSONObject response) {
-							getmProgressDialog().dismiss();
-							Log.d("onResponse",response.toString());
-							if (response.has("error")) {
-								try {
-									if (response.getInt("error") == 0) {
-										mXsyUser = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-										RequestUtils.setToken(mXsyUser.token);
-										getLoaorenInfo();
-										getMessageList();	
-									}else{
-										mToast.toastMsg(response.getString("reason"));
-									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-							}
-							
-						}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 }

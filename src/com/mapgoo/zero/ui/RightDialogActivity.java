@@ -159,31 +159,31 @@ public void SetSimnum(View v){
 		
 	}
 	private void setSimTracks(String sim){
-		if(MainActivity.mLaorenInfo!=null)
-		ApiClient.setSimTracks(MainActivity.mLaorenInfo.ObjectID,sim,
-				new onReqStartListener(){
-					public void onReqStart() {
-						getmProgressDialog().show();
-					}}, 
-					new Listener<JSONObject> (){
-						public void onResponse(JSONObject response) {
-							getmProgressDialog().dismiss();
-							Log.d("onResponse",response.toString());
-							if (response.has("error")) {
-								try {
-									if (response.getInt("error") == 0) {
-										finish();
-									}else{
-										mToast.toastMsg(response.getString("reason"));
-									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-							}
-							
-						}
-					},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+//		if(MainActivity.mLaorenInfo!=null)
+//		ApiClient.setSimTracks(MainActivity.mLaorenInfo.ObjectID,sim,
+//				new onReqStartListener(){
+//					public void onReqStart() {
+//						getmProgressDialog().show();
+//					}}, 
+//					new Listener<JSONObject> (){
+//						public void onResponse(JSONObject response) {
+//							getmProgressDialog().dismiss();
+//							Log.d("onResponse",response.toString());
+//							if (response.has("error")) {
+//								try {
+//									if (response.getInt("error") == 0) {
+//										finish();
+//									}else{
+//										mToast.toastMsg(response.getString("reason"));
+//									}
+//								} catch (JSONException e) {
+//									e.printStackTrace();
+//								}
+//							}
+//							
+//						}
+//					},
+//					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}	
 	
 }

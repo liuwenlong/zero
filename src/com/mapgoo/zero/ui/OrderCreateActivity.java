@@ -98,8 +98,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		
 		mInputDate = (TextView)findViewById(R.id.order_create_data_show);
 		mInputTime = (TextView)findViewById(R.id.order_create_time_show);
-		if(MainActivity.mLaorenInfo!=null)
-		((TextView)findViewById(R.id.order_create_for_laoren)).setText(MainActivity.mLaorenInfo.getHumanName());
+
 		
 		
 		ZhiyuanzheInit();
@@ -131,8 +130,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 	
 	int getLaorenObjectId(){
 		int id = 0;
-		if(MainActivity.mLaorenInfo!=null)
-			id = MainActivity.mLaorenInfo.ObjectID;
+
 		return id;
 	}
 	

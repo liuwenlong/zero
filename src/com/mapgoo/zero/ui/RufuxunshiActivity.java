@@ -125,34 +125,34 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		inflate_view(pager2_item_view_id,mViewPager2);	
 	}
 	private void refreshViewPager0(){
-		if(MainActivity.mLaorenInfo == null)
-			return;
+//		if(MainActivity.mLaorenInfo == null)
+//			return;
 		((TextView)mViewPager0.findViewById(R.id.ruhu_dianhua_lianxiren)).setText(mPatrolBasicInfo.AlldayTel);
 		((TextView)mViewPager0.findViewById(R.id.ruhu_dianhua_jianhuren)).setText(mPatrolBasicInfo.MonitorTel);
 		((TextView)mViewPager0.findViewById(R.id.ruhu_dianhua_qinshu)).setText(mPatrolBasicInfo.RelativeTel);
-		((TextView)mViewPager0.findViewById(R.id.ruhu_xinming)).setText(MainActivity.mLaorenInfo.HumanName);
-		((TextView)mViewPager0.findViewById(R.id.ruhu_xingbie)).setText(MainActivity.mLaorenInfo.getSexString());
-		((TextView)mViewPager0.findViewById(R.id.ruhu_nianling)).setText(MainActivity.mLaorenInfo.Birthday);
-		((TextView)mViewPager0.findViewById(R.id.ruhu_shenfenzheng)).setText(MainActivity.mLaorenInfo.IDCardNo);
-		((TextView)mViewPager0.findViewById(R.id.ruhu_dizhi)).setText(MainActivity.mLaorenInfo.Address);
+//		((TextView)mViewPager0.findViewById(R.id.ruhu_xinming)).setText(MainActivity.mLaorenInfo.HumanName);
+//		((TextView)mViewPager0.findViewById(R.id.ruhu_xingbie)).setText(MainActivity.mLaorenInfo.getSexString());
+//		((TextView)mViewPager0.findViewById(R.id.ruhu_nianling)).setText(MainActivity.mLaorenInfo.Birthday);
+//		((TextView)mViewPager0.findViewById(R.id.ruhu_shenfenzheng)).setText(MainActivity.mLaorenInfo.IDCardNo);
+//		((TextView)mViewPager0.findViewById(R.id.ruhu_dizhi)).setText(MainActivity.mLaorenInfo.Address);
 		
-		if(MainActivity.mLaorenInfo.HasSOSMDT){
-			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.INVISIBLE);
-		}else{
-			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.VISIBLE);
-		}
+//		if(MainActivity.mLaorenInfo.HasSOSMDT){
+//			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.INVISIBLE);
+//		}else{
+//			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.VISIBLE);
+//		}
 		
 		((EditText)mViewPager0.findViewById(R.id.ruhu_dianhua_gaoya)).setText(mPatrolBasicInfo.Hypertension);
 		((EditText)mViewPager0.findViewById(R.id.ruhu_dianhua_diya)).setText(mPatrolBasicInfo.Hypotension);
 		((EditText)mViewPager2.findViewById(R.id.ruhu_jiating_qinshuru_chuli_jieguo)).setText(mPatrolBasicInfo.FamilySafety);
 		
-		if(MainActivity.mLaorenInfo.AvatarImage != null){
-			MyVolley.getImageLoader().get(MainActivity.mLaorenInfo.AvatarImage, 
-					ImageLoader.getImageListener((ImageView) findViewById(R.id.ruhu_laoren_touxiang), 
-							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
-		}else{
-			((ImageView) findViewById(R.id.ruhu_laoren_touxiang)).setImageResource(R.drawable.ic_avatar_holder);
-		}
+//		if(MainActivity.mLaorenInfo.AvatarImage != null){
+//			MyVolley.getImageLoader().get(MainActivity.mLaorenInfo.AvatarImage, 
+//					ImageLoader.getImageListener((ImageView) findViewById(R.id.ruhu_laoren_touxiang), 
+//							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
+//		}else{
+//			((ImageView) findViewById(R.id.ruhu_laoren_touxiang)).setImageResource(R.drawable.ic_avatar_holder);
+//		}
 		
 		refreshPatrolStatus(mPatrolBasicInfo.PatrolStatus);
 		
@@ -329,57 +329,57 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 	}
 	
 	private void getOrderformList(){
-		if(MainActivity.mLaorenInfo!=null)
-		ApiClient.getPatrolBasic(MainActivity.mLaorenInfo.HumanID,mXsyUser.peopleNo,
-				new onReqStartListener(){
-					public void onReqStart() {
-						getmProgressDialog().show();
-					}}, 
-					new Listener<JSONObject> (){
-						public void onResponse(JSONObject response) {
-							getmProgressDialog().dismiss();
-							Log.d("onResponse",response.toString());
-							if (response.has("error")) {
-								try {
-									if (response.getInt("error") == 0) {
-											mPatrolBasicInfo = JSON.parseObject(response.getJSONObject("result").toString(), PatrolBasicInfo.class);
-											refreshDisplay();
-											Log.d("onResponse","HumanID="+mPatrolBasicInfo.HumanID);
-									}else{
-										mToast.toastMsg(response.getString("reason"));
-									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-							}}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+//		if(MainActivity.mLaorenInfo!=null)
+//		ApiClient.getPatrolBasic(MainActivity.mLaorenInfo.HumanID,mXsyUser.peopleNo,
+//				new onReqStartListener(){
+//					public void onReqStart() {
+//						getmProgressDialog().show();
+//					}}, 
+//					new Listener<JSONObject> (){
+//						public void onResponse(JSONObject response) {
+//							getmProgressDialog().dismiss();
+//							Log.d("onResponse",response.toString());
+//							if (response.has("error")) {
+//								try {
+//									if (response.getInt("error") == 0) {
+//											mPatrolBasicInfo = JSON.parseObject(response.getJSONObject("result").toString(), PatrolBasicInfo.class);
+//											refreshDisplay();
+//											Log.d("onResponse","HumanID="+mPatrolBasicInfo.HumanID);
+//									}else{
+//										mToast.toastMsg(response.getString("reason"));
+//									}
+//								} catch (JSONException e) {
+//									e.printStackTrace();
+//								}
+//							}}},
+//					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 
 	private void setPatrolSign(int sign){
-		if(MainActivity.mLaorenInfo!=null)
-		ApiClient.setPatrolSign(sign,
-				Integer.parseInt(MainActivity.mLaorenInfo.HumanID),
-				Integer.parseInt(mXsyUser.peopleNo),
-				new onReqStartListener(){
-					public void onReqStart() {
-						getmProgressDialog().show();
-					}}, 
-					new Listener<JSONObject> (){
-						public void onResponse(JSONObject response) {
-							getmProgressDialog().dismiss();
-							Log.d("onResponse",response.toString());
-							if (response.has("error")) {
-								try {
-									if (response.getInt("error") == 0) {
-										refreshPatrolStatus(!mPatrolStatus);
-									}else{
-										mToast.toastMsg(response.getString("reason"));
-									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-							}}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));				
+//		if(MainActivity.mLaorenInfo!=null)
+//		ApiClient.setPatrolSign(sign,
+//				Integer.parseInt(MainActivity.mLaorenInfo.HumanID),
+//				Integer.parseInt(mXsyUser.peopleNo),
+//				new onReqStartListener(){
+//					public void onReqStart() {
+//						getmProgressDialog().show();
+//					}}, 
+//					new Listener<JSONObject> (){
+//						public void onResponse(JSONObject response) {
+//							getmProgressDialog().dismiss();
+//							Log.d("onResponse",response.toString());
+//							if (response.has("error")) {
+//								try {
+//									if (response.getInt("error") == 0) {
+//										refreshPatrolStatus(!mPatrolStatus);
+//									}else{
+//										mToast.toastMsg(response.getString("reason"));
+//									}
+//								} catch (JSONException e) {
+//									e.printStackTrace();
+//								}
+//							}}},
+//					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));				
 	}
 	
 
