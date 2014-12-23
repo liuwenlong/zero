@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 import com.mapgoo.zero.bean.CarObject;
 import com.mapgoo.zero.bean.ViolationRecord;
 import com.mapgoo.zero.ui.widget.CommonAdapter;

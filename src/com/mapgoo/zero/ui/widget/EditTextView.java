@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 
 public class EditTextView extends EditText implements TextWatcher, View.OnFocusChangeListener {
 

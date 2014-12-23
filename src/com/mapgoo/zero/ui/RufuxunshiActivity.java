@@ -29,7 +29,7 @@ import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.ImageLoader;
 import com.mapgoo.zero.MGApp;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.MyVolley;

@@ -31,7 +31,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.j256.ormlite.dao.Dao;
 import com.mapgoo.zero.MGApp;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
@@ -186,7 +186,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 	private void handleLogin() {
 		String mTelNum = et_tel_num.getText().toString();
 		String originalPwd = et_pwd.getText().toString();
-
+		startActivity(new Intent(mContext,MainActivity.class));
 		// 验证手机号
 		if(TextUtils.isEmpty(mTelNum))
 			return ;
@@ -202,6 +202,8 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 //		mEncodedPwd = CryptoUtils.MD5Encode(originalPwd);
 		reqCode = REQ_LOGIN;
 		ApiClient.login(getIMEI(), originalPwd);
+		
+		
 	}
 
 	// 点击空白区域 隐藏键盘

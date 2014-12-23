@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 
 /**
  * 概述: 模版

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">零距离-巡视员版</string>
+    <string name="app_name">零距离-志愿者版</string>
     
     <string name="click_again_to_exit_tip">再按一次退出</string>
     
@@ -55,7 +55,7 @@
    <string name="settings_old_pw">输入旧密码</string>
    <string name="settings_new_pw">输入新密码</string>
 
-    <string name="hint_login_user_account">巡视员</string>
+    <string name="hint_login_user_account">志愿者</string>
     <string name="hint_login_user_pwd">密码</string>
 
      <!-- 离线地图 s-->

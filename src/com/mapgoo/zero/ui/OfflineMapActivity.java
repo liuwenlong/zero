@@ -39,7 +39,7 @@ import com.baidu.mapapi.map.offline.MKOLSearchRecord;
 import com.baidu.mapapi.map.offline.MKOLUpdateElement;
 import com.baidu.mapapi.map.offline.MKOfflineMap;
 import com.baidu.mapapi.map.offline.MKOfflineMapListener;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 /*
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.MKOLSearchRecord;

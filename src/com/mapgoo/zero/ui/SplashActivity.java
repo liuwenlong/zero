@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import cn.jpush.android.api.JPushInterface;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 
 /**
  * 概述: 模版

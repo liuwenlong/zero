@@ -1,6 +1,6 @@
 package com.mapgoo.zero.ui;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.volunteer.R;
 
 import android.os.Bundle;
 import android.view.View;
