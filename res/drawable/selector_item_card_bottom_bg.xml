@@ -14,7 +14,7 @@
     </item>
     
     <item android:state_pressed="true">
-        <color android:color="#ff12b1c2"/>
+        <color android:color="@color/color_main_blue"/>
     </item>
     
     <item android:state_pressed="false">
