@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 import android.widget.EditText;
 
 import com.mapgoo.zero.MGApp;
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.ui.widget.MyToast;
 
 public class PhoneUtils {

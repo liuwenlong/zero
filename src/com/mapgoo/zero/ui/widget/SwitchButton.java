@@ -11,7 +11,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 
 /**

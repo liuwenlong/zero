@@ -4,7 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 public class FragmentUtils {
 

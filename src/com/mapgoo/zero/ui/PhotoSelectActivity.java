@@ -25,7 +25,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;

@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.ui.LockPatternActivity;
 import com.mapgoo.zero.utils.LockPatternPref;
 import com.mapgoo.zero.utils.StringUtils;

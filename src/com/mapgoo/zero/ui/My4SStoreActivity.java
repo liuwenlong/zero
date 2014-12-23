@@ -18,7 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.bean.InternalApp;
 import com.mapgoo.zero.ui.widget.AutoScrollViewPager;
 import com.mapgoo.zero.ui.widget.CirclePageIndicator;

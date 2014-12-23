@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.ui.widget.MyToast;
 
 /**

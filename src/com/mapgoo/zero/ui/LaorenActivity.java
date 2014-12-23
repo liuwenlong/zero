@@ -28,7 +28,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.ImageLoader;
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.MyVolley;
@@ -201,9 +201,9 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 			((TextView)view.findViewById(R.id.laoren_list_item_nianling)).setText(info.Birthday);
 			((TextView)view.findViewById(R.id.laoren_list_item_shenfenzheng)).setText(info.IDCardNo);
 			if(info.HasSOSMDT)
-				view.findViewById(R.id.laoren_list_item_shebei).setVisibility(View.VISIBLE);
-			else
 				view.findViewById(R.id.laoren_list_item_shebei).setVisibility(View.INVISIBLE);
+			else
+				view.findViewById(R.id.laoren_list_item_shebei).setVisibility(View.VISIBLE);
 			
 			if(info.AvatarImage != null){
 				Log.d("onResponse","info.AvatarImage="+ info.AvatarImage);

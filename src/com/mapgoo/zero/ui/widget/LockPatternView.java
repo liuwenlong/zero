@@ -40,7 +40,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 //import com.google.android.collect.Lists;
 
 /**

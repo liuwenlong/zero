@@ -10,7 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.bean.CarObject;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
 import com.mapgoo.zero.ui.widget.ViewHolder;

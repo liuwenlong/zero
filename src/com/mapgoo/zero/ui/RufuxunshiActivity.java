@@ -29,7 +29,7 @@ import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.ImageLoader;
 import com.mapgoo.zero.MGApp;
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.MyVolley;
@@ -137,9 +137,9 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		((TextView)mViewPager0.findViewById(R.id.ruhu_dizhi)).setText(MainActivity.mLaorenInfo.Address);
 		
 		if(MainActivity.mLaorenInfo.HasSOSMDT){
-			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.VISIBLE);
-		}else{
 			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.INVISIBLE);
+		}else{
+			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.VISIBLE);
 		}
 		
 		((EditText)mViewPager0.findViewById(R.id.ruhu_dianhua_gaoya)).setText(mPatrolBasicInfo.Hypertension);

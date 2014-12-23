@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 /**
  * 概述：封装的 自定义风格的Toast 工具类

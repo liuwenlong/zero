@@ -22,7 +22,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 public class ImageUtils {
 
