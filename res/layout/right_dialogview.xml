@@ -52,44 +52,58 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="90dip"
+                    android:layout_height="100dip"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
                     android:layout_marginTop="10dip"
                     android:orientation="horizontal" >
+<LinearLayout 
+                  android:layout_width="0dp"
+                    android:id="@+id/btn_sforchengfan_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:orientation="vertical">
+<ImageView 
+                  android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/loaction_camera_main"    
+    />   
+    <TextView
+                  android:layout_width="match_parent"
+                    android:layout_height="20dp"       
+                    android:text="后置摄像头"
+                    android:gravity="center_horizontal"
+                     />
+</LinearLayout>
 
-                    <Button
-                        android:id="@+id/btn_sforchengfan_0"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/loaction_camera_main"
-                        android:background="#00ffffff"
-                        android:gravity="bottom|center"
-                        android:onClick="onClick"
-                        android:paddingBottom="10dip"
-                        android:paddingTop="1dip"
-                        android:text="后置照相" />
 
-
-
-                    <Button
-                        android:id="@+id/btn_sforchengfan_1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/loaction_camera_main"
-                        android:background="#00ffffff"
-                        android:gravity="bottom|center"
-                        android:onClick="onClick"
-                        android:paddingBottom="10dip"
-                        android:paddingTop="1dip"
-                        android:text="前置照相" />
+<LinearLayout 
+                  android:layout_width="0dp"
+                    android:id="@+id/btn_sforchengfan_1"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                     android:onClick="onClick"
+                    android:orientation="vertical">
+<ImageView 
+                  android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/loaction_camera_back"    
+    />   
+    <TextView
+                  android:layout_width="match_parent"
+                    android:layout_height="20dp"       
+                    android:text="前置摄像头"
+                    android:gravity="center_horizontal"
+                     />
+</LinearLayout>
                     
  						<Button
                         android:layout_width="0dp"

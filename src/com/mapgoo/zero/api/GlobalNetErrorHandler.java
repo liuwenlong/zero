@@ -25,6 +25,7 @@ import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyToast;
+import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.utils.StringUtils;
 
 /**
@@ -166,6 +167,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 								XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
 								
 								RequestUtils.setToken(user.token);
+								QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
 
 								if (progressDialog != null && progressDialog.isShowing())
 									progressDialog.dismiss();

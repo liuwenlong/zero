@@ -48,6 +48,7 @@
                 app:border_color="#FFDDDDDD"
                 app:border_width="2.0dp" />
  <ImageView 
+     android:id="@+id/ruhu_devices_not_location"
                  android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_devices_not_location"    

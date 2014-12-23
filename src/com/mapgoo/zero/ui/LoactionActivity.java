@@ -152,7 +152,7 @@ public class LoactionActivity extends BaseActivity {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(1000);
+		option.setScanSpan(10000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 		mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
@@ -223,7 +223,7 @@ private void taggleTraffic(){
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 			// map view 销毁后不在处理新接收的位置
-			Log.d("location", "onReceiveLocation");
+			//Log.d("location", "onReceiveLocation");
 			if (location == null || mMapView == null)
 				return;
 			MyLocationData locData = new MyLocationData.Builder()
@@ -456,8 +456,9 @@ private void moveToLoaren(){
 										if(isLoactionLaoren()){
 											showLaorenMarker();
 											moveToLoaren();
+											perfomZoom(16);
 										}else{
-											mToast.toastMsg("老人无定位设备");
+											mToast.toastMsg("无法有效定位");
 										}
 									}else{
 										mToast.toastMsg(response.getString("reason"));

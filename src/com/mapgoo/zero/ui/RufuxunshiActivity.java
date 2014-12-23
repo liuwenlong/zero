@@ -127,17 +127,23 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 	private void refreshViewPager0(){
 		if(MainActivity.mLaorenInfo == null)
 			return;
-		((TextView)findViewById(R.id.ruhu_dianhua_lianxiren)).setText(mPatrolBasicInfo.AlldayTel);
-		((TextView)findViewById(R.id.ruhu_dianhua_jianhuren)).setText(mPatrolBasicInfo.MonitorTel);
-		((TextView)findViewById(R.id.ruhu_dianhua_qinshu)).setText(mPatrolBasicInfo.RelativeTel);
-		((TextView)findViewById(R.id.ruhu_xinming)).setText(MainActivity.mLaorenInfo.HumanName);
-		((TextView)findViewById(R.id.ruhu_xingbie)).setText(MainActivity.mLaorenInfo.getSexString());
-		((TextView)findViewById(R.id.ruhu_nianling)).setText(MainActivity.mLaorenInfo.Birthday);
-		((TextView)findViewById(R.id.ruhu_shenfenzheng)).setText(MainActivity.mLaorenInfo.IDCardNo);
-		((TextView)findViewById(R.id.ruhu_dizhi)).setText(MainActivity.mLaorenInfo.Address);
+		((TextView)mViewPager0.findViewById(R.id.ruhu_dianhua_lianxiren)).setText(mPatrolBasicInfo.AlldayTel);
+		((TextView)mViewPager0.findViewById(R.id.ruhu_dianhua_jianhuren)).setText(mPatrolBasicInfo.MonitorTel);
+		((TextView)mViewPager0.findViewById(R.id.ruhu_dianhua_qinshu)).setText(mPatrolBasicInfo.RelativeTel);
+		((TextView)mViewPager0.findViewById(R.id.ruhu_xinming)).setText(MainActivity.mLaorenInfo.HumanName);
+		((TextView)mViewPager0.findViewById(R.id.ruhu_xingbie)).setText(MainActivity.mLaorenInfo.getSexString());
+		((TextView)mViewPager0.findViewById(R.id.ruhu_nianling)).setText(MainActivity.mLaorenInfo.Birthday);
+		((TextView)mViewPager0.findViewById(R.id.ruhu_shenfenzheng)).setText(MainActivity.mLaorenInfo.IDCardNo);
+		((TextView)mViewPager0.findViewById(R.id.ruhu_dizhi)).setText(MainActivity.mLaorenInfo.Address);
 		
-		((EditText)findViewById(R.id.ruhu_dianhua_gaoya)).setText(mPatrolBasicInfo.Hypertension);
-		((EditText)findViewById(R.id.ruhu_dianhua_diya)).setText(mPatrolBasicInfo.Hypotension);
+		if(MainActivity.mLaorenInfo.HasSOSMDT){
+			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.VISIBLE);
+		}else{
+			mViewPager0.findViewById(R.id.ruhu_devices_not_location).setVisibility(View.INVISIBLE);
+		}
+		
+		((EditText)mViewPager0.findViewById(R.id.ruhu_dianhua_gaoya)).setText(mPatrolBasicInfo.Hypertension);
+		((EditText)mViewPager0.findViewById(R.id.ruhu_dianhua_diya)).setText(mPatrolBasicInfo.Hypotension);
 		((EditText)mViewPager2.findViewById(R.id.ruhu_jiating_qinshuru_chuli_jieguo)).setText(mPatrolBasicInfo.FamilySafety);
 		
 		if(MainActivity.mLaorenInfo.AvatarImage != null){

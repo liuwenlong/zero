@@ -216,8 +216,8 @@ void myStartActivity(Class<?> c){
 		if(needLogin){
 			ReLogin();
 		}else{
+			getMessageList();
 			getLoaorenInfo();
-			getMessageList();			
 		}
 	}
 	LaorenInfo getLaorenFromId(int objectId){
@@ -293,6 +293,7 @@ void myStartActivity(Class<?> c){
 		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
+						getmProgressDialog().setMessage("加载中...");
 						getmProgressDialog().show();
 					}}, 
 					new Listener<JSONObject> (){
@@ -327,22 +328,17 @@ void myStartActivity(Class<?> c){
 		ApiClient.getMessageList(mXsyUser.getUserId(), 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
-						getmProgressDialog().show();
 					}}, 
 					new Listener<JSONObject> (){
 						public void onResponse(JSONObject response) {
-							getmProgressDialog().dismiss();
 							Log.d("onResponse",response.toString());
 							if (response.has("error")) {
 								try {
 									if (response.getInt("error") == 0) {
 										JSONArray array = response.getJSONArray("result");
 										if(array!=null&&array.length()>1){
-											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
 											ArrayList<MessageInfo> mMessageList = (ArrayList<MessageInfo>) JSON.parseArray(array.get(1).toString(), MessageInfo.class);
 											refresMessageStatus(mMessageList);
-											// refresLastLaoren();
-											// Log.d("onResponse",array.get(1).toString());
 										}
 									}else{
 										mToast.toastMsg(response.getString("reason"));
@@ -350,10 +346,9 @@ void myStartActivity(Class<?> c){
 								} catch (JSONException e) {
 									e.printStackTrace();
 								}
-							}
-							
+							}						
 						}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, null));		
 	}
 	
 	private void ReLogin(){

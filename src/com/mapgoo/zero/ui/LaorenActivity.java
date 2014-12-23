@@ -200,6 +200,11 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 			((TextView)view.findViewById(R.id.laoren_list_item_dianhua)).setText(info.AlldayTel);
 			((TextView)view.findViewById(R.id.laoren_list_item_nianling)).setText(info.Birthday);
 			((TextView)view.findViewById(R.id.laoren_list_item_shenfenzheng)).setText(info.IDCardNo);
+			if(info.HasSOSMDT)
+				view.findViewById(R.id.laoren_list_item_shebei).setVisibility(View.VISIBLE);
+			else
+				view.findViewById(R.id.laoren_list_item_shebei).setVisibility(View.INVISIBLE);
+			
 			if(info.AvatarImage != null){
 				Log.d("onResponse","info.AvatarImage="+ info.AvatarImage);
 				MyVolley.getImageLoader().get(info.AvatarImage, 

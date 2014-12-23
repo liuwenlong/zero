@@ -111,7 +111,7 @@
                 android:id="@+id/tv_btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="48.0dp"
-                android:background="@color/selector_generic_darkgreen_btn"
+                android:background="@color/color_main_blue"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="onClick"
