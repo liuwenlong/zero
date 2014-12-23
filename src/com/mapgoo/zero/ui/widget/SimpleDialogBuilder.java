@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.utils.StringUtils;
 
 public class SimpleDialogBuilder {

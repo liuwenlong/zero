@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.ui.widget.LockPatternView;
 import com.mapgoo.zero.ui.widget.SimpleDialogBuilder;
 import com.mapgoo.zero.ui.widget.LockPatternView.Cell;

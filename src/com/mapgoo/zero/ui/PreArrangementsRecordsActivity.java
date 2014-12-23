@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.bean.PreArrangementRecord;
 import com.mapgoo.zero.bean.ViolationRecord;
 import com.mapgoo.zero.ui.widget.CommonAdapter;

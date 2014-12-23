@@ -20,7 +20,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.mapgoo.zero.MGApp;
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.api.RequestUtils;
 import com.mapgoo.zero.bean.MGObject;
 import com.mapgoo.zero.bean.User;

@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 /**
  * 概述: 自定义Dialog 

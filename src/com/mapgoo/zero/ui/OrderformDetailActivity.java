@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;

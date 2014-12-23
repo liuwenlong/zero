@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import cn.jpush.android.api.JPushInterface;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 /**
  * 概述: 模版

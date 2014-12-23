@@ -1,6 +1,6 @@
 package com.mapgoo.zero.ui.widget;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;

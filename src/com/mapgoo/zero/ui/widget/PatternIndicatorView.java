@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 public class PatternIndicatorView extends LinearLayout {
 

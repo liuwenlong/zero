@@ -5,7 +5,7 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 
-import com.mapgoo.zero.R;
+import com.huaan.icare.xsy.R;
 
 /**
  * 概述: 智能车掌控
