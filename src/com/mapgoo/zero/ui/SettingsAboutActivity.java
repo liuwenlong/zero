@@ -1,7 +1,7 @@
 package com.mapgoo.zero.ui;
 
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.family.R;
 import com.mapgoo.zero.utils.VersionUtils;
 
 import android.os.Bundle;

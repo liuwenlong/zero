@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.family.R;
 
 /**
  * 概述: 自定义Dialog 

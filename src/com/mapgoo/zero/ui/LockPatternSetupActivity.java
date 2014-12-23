@@ -11,7 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.family.R;
 import com.mapgoo.zero.ui.widget.LockPatternView;
 import com.mapgoo.zero.ui.widget.PatternIndicatorView;
 import com.mapgoo.zero.ui.widget.LockPatternView.Cell;

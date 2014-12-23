@@ -5,7 +5,7 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.family.R;
 
 /**
  * 概述: 智能车掌控

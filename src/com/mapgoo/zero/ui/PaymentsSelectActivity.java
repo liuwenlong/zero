@@ -3,7 +3,7 @@ package com.mapgoo.zero.ui;
 import android.os.Bundle;
 import android.view.View;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.family.R;
 
 /**
  * 概述: 订单信息/订单确认/支付方式选择
