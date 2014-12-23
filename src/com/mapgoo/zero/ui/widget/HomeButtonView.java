@@ -2,6 +2,7 @@ package com.mapgoo.zero.ui.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
@@ -12,6 +13,7 @@ public class HomeButtonView extends RelativeLayout {
 	private boolean mIsScaleDown;
 	private ScaleAnimation mScaleDownAnim;
 	private ScaleAnimation mScaleUpAnim;
+	private ScaleAnimation mScaleCancelAnim;
 	private float m10DIP;
 
 	public HomeButtonView(Context paramContext) {
@@ -34,6 +36,10 @@ public class HomeButtonView extends RelativeLayout {
 		mScaleDownAnim.setFillAfter(true);
 		mScaleDownAnim.setDuration(200L);
 
+		mScaleCancelAnim = new ScaleAnimation(0.95F, 1.0F, 0.95F, 1.0F, 1, 0.5F, 1, 0.5F);
+		mScaleCancelAnim.setFillAfter(true);
+		mScaleCancelAnim.setDuration(200L);
+		
 		mScaleUpAnim = new ScaleAnimation(0.95F, 1.0F, 0.95F, 1.0F, 1, 0.5F, 1, 0.5F);
 		mScaleUpAnim.setFillAfter(true);
 		mScaleUpAnim.setDuration(200L);
@@ -49,6 +55,8 @@ public class HomeButtonView extends RelativeLayout {
 			public void onAnimationStart(Animation paramAnonymousAnimation) {
 			}
 		});
+		
+		
 	}
 
 	private boolean isTouchInsideBox(MotionEvent event) {
@@ -69,39 +77,41 @@ public class HomeButtonView extends RelativeLayout {
 		invalidate();
 		startAnimation(this.mScaleUpAnim);
 	}
+	
+	private void performTouchCancel() {
+		invalidate();
+		startAnimation(this.mScaleCancelAnim);
+	}	
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-
+Log.d("onTouchEvent", "event.getAction()="+event.getAction());
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			
-			mIsScaleDown = true;
-			performTouchDown();
-			
-			return true;
-
-		case MotionEvent.ACTION_UP:
-			
-			if (isTouchInsideBox(event) || !mIsScaleDown) {
-				mIsScaleDown = false;
-				performTouchUp();
-			}
-				
-
-			return true;
-
-		case MotionEvent.ACTION_MOVE:
-
-			if (!isTouchInsideBox(event))
-				performTouchUp();
-
-			return true;
-
-		default:
-			break;
+			case MotionEvent.ACTION_DOWN:
+				mIsScaleDown = true;
+				performTouchDown();
+				return true;
+			case MotionEvent.ACTION_UP:
+				if (mIsScaleDown) {
+					mIsScaleDown = false;
+					performTouchUp();
+				}
+				return true;
+			case  MotionEvent.ACTION_CANCEL:
+					if(mIsScaleDown){
+						mIsScaleDown = false;
+						performTouchCancel();
+					}
+					break;
+			case MotionEvent.ACTION_MOVE:
+				 if (!isTouchInsideBox(event)){
+					 mIsScaleDown = false;
+					 performTouchCancel();
+				 }
+				 break;
+			default:
+				break;
 		}
-
 		return super.onTouchEvent(event);
 	}
 
