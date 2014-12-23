@@ -26,7 +26,7 @@
     android:padding="10dp"
     android:orientation="horizontal" >
   		<CheckBox
- 		    android:id="@+id/pingjia_feichang_checkbox"
+ 		    android:id="@+id/pingjia_feichang_checkbox_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@null"
@@ -47,7 +47,7 @@
     android:padding="10dp"
     android:orientation="horizontal" >
   		<CheckBox
- 		    android:id="@+id/manyi_feichang_checkbox"
+ 		    android:id="@+id/manyi_feichang_checkbox_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@null"
@@ -68,7 +68,7 @@
     android:padding="10dp"
     android:orientation="horizontal" >
   		<CheckBox
- 		    android:id="@+id/yiban_feichang_checkbox"
+ 		    android:id="@+id/yiban_feichang_checkbox_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@null"

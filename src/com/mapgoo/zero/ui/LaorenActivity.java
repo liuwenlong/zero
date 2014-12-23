@@ -8,16 +8,21 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -39,6 +44,7 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 
 	private ListView mListView;
 	private ArrayList<LaorenInfo> mLaorenList = new ArrayList<LaorenInfo>();
+	private ArrayList<LaorenInfo> mSearLaorenList = new ArrayList<LaorenInfo>();
 	private LaorenAdapter mLaorenAdapter;
 	
 	@Override
@@ -64,8 +70,9 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.home_laoren).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar(getText(R.string.laoren_list).toString(), 2, R.drawable.ic_back_arrow_white, R.drawable.laoren_search,
 				R.drawable.home_actionbar_bgd, -1);
+
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		mLaorenAdapter = new LaorenAdapter(mContext, mLaorenList);
 		mListView.setAdapter(mLaorenAdapter);
@@ -78,15 +85,79 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 
 	}
 
+	private void SearchLaorenbyName(String queryText){
+		for(LaorenInfo info:mLaorenList){
+			if(info.HumanName!=null)
+				if(info.HumanName.indexOf(queryText)>=0)
+					mSearLaorenList.add(info);
+		}
+		mLaorenAdapter.mDataList = mSearLaorenList;
+		mLaorenAdapter.notifyDataSetChanged();
+	}
+	
+	private void toggleSearch(){
+		if(tv_search_edit.getVisibility() == View.GONE){
+			super.setupActionBar(getText(R.string.home_laoren).toString(), 5, R.drawable.ic_back_arrow_white, R.drawable.laoren_search_dis,
+					R.drawable.home_actionbar_bgd, -1); 
+			tv_search_edit.clearFocus();
+			
+			tv_search_edit.setOnKeyListener(new OnKeyListener() {
+				
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					// TODO Auto-generated method stub
+					Log.d("onKey", "keyCode="+keyCode);
+					if(event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER){
+						SearchLaorenbyName(tv_search_edit.getText().toString());
+		                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
+		                    if (imm != null) {  
+		                        imm.hideSoftInputFromWindow(  
+		                        		tv_search_edit.getWindowToken(), 0);  
+		                    }  
+		                    tv_search_edit.clearFocus();  
+					}
+					return true;
+				}
+			});
+			
+			/*			
+			tv_search_edit.setOnQueryTextListener(new OnQueryTextListener() {  
+	            @Override  
+	            public boolean onQueryTextChange(String queryText) {  
+	            	SearchLaorenbyName(queryText);
+	                return true;  
+	            } 
+	  
+	            @Override  
+	            public boolean onQueryTextSubmit(String queryText) {  
+	                if (tv_search_edit != null) {  
+	                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
+	                    if (imm != null) {  
+	                        imm.hideSoftInputFromWindow(  
+	                        		tv_search_edit.getWindowToken(), 0);  
+	                    }  
+	                    tv_search_edit.clearFocus();  
+	                }  
+	                return true;  
+	            }  
+	        });  */
+		}else{
+			super.setupActionBar(getText(R.string.laoren_list).toString(), 2, R.drawable.ic_back_arrow_white, R.drawable.laoren_search,
+					R.drawable.home_actionbar_bgd, -1);
+			 mLaorenAdapter.mDataList = mLaorenList;
+			 mLaorenAdapter.notifyDataSetChanged();			
+		}
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_ab_left_btn:
-
 			finish();
-
 			break;
-
+		case R.id.iv_ab_right_btn:
+			toggleSearch();
+			break;
 		default:
 			break;
 		}
@@ -152,7 +223,7 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 	}
 	
 	private void getLoaorenInfo(){
-		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, 10,
+		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();

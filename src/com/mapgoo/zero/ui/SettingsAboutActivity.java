@@ -41,7 +41,8 @@ public class SettingsAboutActivity extends BaseActivity {
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.settings_about).toString(), 1,R.drawable.ic_back_arrow_white, -1, -1, -1);
+		super.setupActionBar("关于", 1, R.drawable.ic_back_arrow_white, -1,
+				R.drawable.home_actionbar_bgd, -1);
 		app_cur_version = (TextView)findViewById(R.id.tv_app_cur_ver);
 		app_cur_version.setText(VersionUtils.getVersionName());
 	}

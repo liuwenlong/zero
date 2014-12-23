@@ -57,8 +57,9 @@
 	        android:gravity="center_vertical"
 	        android:textSize="18sp"
 	        android:textColor="@color/normal_color_text"
-	        android:text="名字 （男）xx岁"/>
+	        android:text="名字 "/>
 	     <ImageView 
+	         android:id="@+id/laore_dingwei_icon"
 	         android:layout_width="0dp"
 	        android:layout_height="wrap_content"  
 	        android:layout_weight="1"

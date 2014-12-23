@@ -22,7 +22,7 @@ public class YuyuefuwuActivity extends BaseActivity {
 	public final static int YUYUE_FUWU_SHUCAI = 7;
 	public final static int YUYUE_FUWU_JIANSHENG = 8;
 	public final static int YUYUE_FUWU_ZHIYUANZHE = 9;
-	public final static String[] UrlType={"2","5","4","3","1,8","9","6,7","10","4"};
+	public final static String[] UrlType={"0","2","5","4","3","1,8","9","6,7","10","4"};
 	@Override
 	public void setContentView() {
 		setContentView(R.layout.activity_yuyuefuwu);
@@ -44,6 +44,8 @@ public class YuyuefuwuActivity extends BaseActivity {
 		super.onSaveInstanceState(outState);
 	}
 
+
+	
 	@Override
 	public void initViews() {
 		super.setupActionBar(getText(R.string.home_yuyue).toString(), 1, R.drawable.ic_back_arrow_white, -1,
@@ -66,7 +68,7 @@ public class YuyuefuwuActivity extends BaseActivity {
 			startDianpuActivity(YUYUE_FUWU_JIAZHENG);
 			break;
 		case R.id.yuyue_yiliao:
-			startDianpuActivity(YUYUE_FUWU_JIAZHENG);
+			startDianpuActivity(YUYUE_FUWU_YILIAO);
 			break;
 		case R.id.yuyue_xiyu:
 			startDianpuActivity(YUYUE_FUWU_XIYU);

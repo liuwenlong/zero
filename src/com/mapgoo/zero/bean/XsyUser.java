@@ -19,6 +19,7 @@ public class XsyUser  extends User{
 	public String userId;	
 	public String loginCount;
 	public String userName;
+	public String DisplayName;
 	public String userPass;	
 	public String userType;	
 	

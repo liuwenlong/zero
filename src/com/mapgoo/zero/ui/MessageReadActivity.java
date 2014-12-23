@@ -1,10 +1,22 @@
 package com.mapgoo.zero.ui;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.MessageInfo;
 
 /**
@@ -40,11 +52,14 @@ public class MessageReadActivity extends BaseActivity {
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.order_form_detail).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar("消息", 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		
-		((TextView)findViewById(R.id.msg_read_msg)).setText(mMsg.mMessage);
-		((TextView)findViewById(R.id.msg_read_time)).setText(mMsg.mRecevTime);
+		((TextView)findViewById(R.id.msg_read_title)).setText(mMsg.Title);
+		((TextView)findViewById(R.id.msg_read_msg)).setText(mMsg.Content);
+		((TextView)findViewById(R.id.msg_read_time)).setText(mMsg.CreateTime);
+		if(!mMsg.IsRead)
+			SetNoticeRead();
 	}
 
 	@Override
@@ -56,14 +71,44 @@ public class MessageReadActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_ab_left_btn:
-
+			setResult(RESULT_OK);
 			finish();
-
 			break;
-
 		default:
 			break;
 		}
 	}
-
+	private void SetNoticeRead(){
+		ApiClient.SetNoticeRead(mMsg.NoticeID,mXsyUser.getUserId(),
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										//JSONArray array = response.getJSONArray("result");
+										//if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+//											 mMessageList = (ArrayList<MessageInfo>) JSON.parseArray(array.get(1).toString(), MessageInfo.class);
+//											 mMessageAdapter.mDataList = mMessageList;
+//											 mMessageAdapter.notifyDataSetChanged();
+											// refresLastLaoren();
+											// Log.d("onResponse",array.get(1).toString());
+										//}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+	}
 }

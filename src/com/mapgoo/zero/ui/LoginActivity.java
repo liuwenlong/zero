@@ -66,7 +66,12 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		mProgressDialog = new MGProgressDialog(mContext);
 		mProgressDialog.setCancelable(true);
 		
-		GlobalNetErrorHandler.getInstance(mContext, null, null);
+		if(loadUserMsg()){
+			startActivity(new Intent(mContext, MainActivity.class).putExtra("needLogin", false));
+			finish();
+		}else{
+			getUserNmae();
+		}
 	}
 	
 	// TIPS 注意设置监听器
@@ -117,7 +122,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 				SoftInputUtils.requestFocus(mContext, et_pwd);
 			}
 		});
-		getUserNmae();
+		
 	}
 
 	private void getUserNmae(){
@@ -136,6 +141,9 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 									mProgressDialog.dismiss();
 								String result = response.getString("result");
 								et_tel_num.setText(result);
+								//mXsyUser.DisplayName = result;
+								mDisplayName = result;
+								//Log.d("DisplayName", mXsyUser.DisplayName);
 							}else if(response.getInt("error") == 1){
 								Toast.makeText(mContext, response.getString("reason"), Toast.LENGTH_SHORT).show();
 							}
@@ -213,7 +221,33 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 				mProgressDialog.show();
 		}
 	}
-
+private String mDisplayName;
+	private void loginSucessSave(){
+		QuickShPref.putValueObject(QuickShPref.PASS_WORD, mXsyUser.mPassword);
+		QuickShPref.putValueObject(QuickShPref.USER_NAME, mXsyUser.userName);
+		QuickShPref.putValueObject(QuickShPref.USER_ID, mXsyUser.getUserId());
+		QuickShPref.putValueObject(QuickShPref.TOKEN, mXsyUser.token);
+		QuickShPref.putValueObject(QuickShPref.PEOPLE_ON, mXsyUser.peopleNo);
+		QuickShPref.putValueObject(QuickShPref.Image, mXsyUser.picture);
+		QuickShPref.putValueObject(QuickShPref.isLogin, true);
+		QuickShPref.putValueObject(QuickShPref.DisplayName, mXsyUser.DisplayName);
+		Log.d("DisplayName", mXsyUser.DisplayName);
+	}
+	private boolean loadUserMsg(){
+		if(mXsyUser == null)
+			mXsyUser = new XsyUser();
+		mXsyUser.DisplayName = QuickShPref.getString(QuickShPref.DisplayName);
+		mXsyUser.userName = QuickShPref.getString(QuickShPref.USER_NAME);
+		mXsyUser.setUserId(QuickShPref.getInt(QuickShPref.USER_ID));
+		mXsyUser.peopleNo = QuickShPref.getString(QuickShPref.PEOPLE_ON);
+		mXsyUser.mPassword = QuickShPref.getString(QuickShPref.PASS_WORD);
+		mXsyUser.token = QuickShPref.getString(QuickShPref.TOKEN);
+		mXsyUser.picture = QuickShPref.getString(QuickShPref.Image);
+		RequestUtils.setToken(mXsyUser.token);
+		//Log.d("DisplayName", mXsyUser.DisplayName);
+		return QuickShPref.getBoolean(QuickShPref.isLogin);
+	}
+	
 	@Override
 	public void onResponse(JSONObject response) {
 		if (reqCode == REQ_LOGIN) {
@@ -226,11 +260,10 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 
 						mXsyUser = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
 						mXsyUser.mPassword =  et_pwd.getText().toString();;
-						
+						mXsyUser.DisplayName = mDisplayName;
 						RequestUtils.setToken(mXsyUser.token);
-						QuickShPref.putValueObject(QuickShPref.PASS_WORD, mXsyUser.mPassword);
 						Log.d("onResponse", "token="+mXsyUser.token);
-						
+						loginSucessSave();
 						Intent intent = new Intent(mContext, MainActivity.class);
 						startActivity(intent);
 						finish();
@@ -250,6 +283,14 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		}
 	}
 
+	public void checkPassword(){
+		String pwd = QuickShPref.getString(QuickShPref.PASS_WORD);
+		if(pwd!=null){
+			ApiClient.login(getIMEI(), pwd);
+			startActivity(new Intent(mContext, MainActivity.class));
+		}
+	}
+	
 	@Override
 	public void onErrorResponse(VolleyError error) {
 		if (mProgressDialog != null && mProgressDialog.isShowing())
@@ -264,6 +305,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 			imei =((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
 			QuickShPref.putValueObject(QuickShPref.IEMI, imei);
 		}
+		Log.d("ieme", imei);
 		if(ApiClient.isDebuge)
 			imei = "56456456";
 		return imei;

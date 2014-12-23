@@ -115,7 +115,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="onClick"
-                android:text="@string/prompt"
+                android:text="确定"
                 android:textColor="@color/skin_main_txt_clr_white"
                 android:textSize="@dimen/txt_size_18sp"
                 ripple:alphaFactor="0.8"

@@ -63,7 +63,7 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.home_laoren).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar("我的订单", 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		

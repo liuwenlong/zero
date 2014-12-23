@@ -1,7 +1,25 @@
 package com.mapgoo.zero.ui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -18,6 +36,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -37,7 +57,12 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.model.LatLng;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.LaorenInfo;
+import com.mapgoo.zero.bean.LaorenLocInfo;
+import com.mapgoo.zero.bean.MessageInfo;
 
 /**
  * 概述: 模版
@@ -55,7 +80,7 @@ public class LoactionActivity extends BaseActivity {
 	BaiduMap mBaiduMap;
 	private PopupWindow pop;	
 	private View popview;
-	
+	LaorenLocInfo mLaorenLocInfo;
 	// UI相关
 	OnCheckedChangeListener radioButtonListener;
 	Button requestLocButton;
@@ -91,8 +116,8 @@ public class LoactionActivity extends BaseActivity {
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.title_4s_default).toString(), 1, R.drawable.ic_back_arrow_white, -1,
-				R.drawable.ic_convenient_service_actionbar_bg, -1);
+		super.setupActionBar("位置服务", 1, R.drawable.ic_back_arrow_white, -1,
+				R.drawable.home_actionbar_bgd, -1);
 		
 		initMapLoaction();
 		Resources mResources = this.getResources();
@@ -111,8 +136,8 @@ public class LoactionActivity extends BaseActivity {
 				if (pop.isShowing()) 
 					pop.dismiss();
 				return true;
-			}});		
-
+			}});
+		getTracks();
 	}
 	
 	private void initMapLoaction(){
@@ -211,12 +236,12 @@ private void taggleTraffic(){
 					location.getLongitude());
 			if (isFirstLoc) {
 				isFirstLoc = false;
-				LatLng ll = new LatLng(location.getLatitude(),
-						location.getLongitude());
-				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-				mBaiduMap.animateMapStatus(u);
-				mLaorenLatLng =  new LatLng(location.getLatitude()+0.03f,location.getLongitude());
-				showLaorenMarker();
+				//LatLng ll = new LatLng(location.getLatitude(),
+				//		location.getLongitude());
+				//MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+				//mBaiduMap.animateMapStatus(u);
+				//mLaorenLatLng =  new LatLng(location.getLatitude()+0.03f,location.getLongitude());
+				//showLaorenMarker();
 			}
 		}
 
@@ -238,21 +263,124 @@ private void  tiggerPop(View v){
 }
 
 private void showLaorenMarker(){
-	OverlayOptions ooA = new MarkerOptions().position(mLaorenLatLng).icon(bdA)
-			.zIndex(9).draggable(true);
-	mLaorenMarker = (Marker) (mBaiduMap.addOverlay(ooA));	
-	showLoarenInfoWindows();
+	if(isLoactionLaoren()){
+		mLaorenLatLng =  new LatLng(Double.parseDouble( mLaorenLocInfo.Lat),Double.parseDouble( mLaorenLocInfo.Lon));
+		OverlayOptions ooA = new MarkerOptions().position(mLaorenLatLng).icon(bdA)
+				.zIndex(9).draggable(true);
+		mLaorenMarker = (Marker) (mBaiduMap.addOverlay(ooA));	
+		showLoarenInfoWindows();
+		new LoactionUpdate().execute(mLaorenLatLng);
+	}
 }
 
 private void showLoarenInfoWindows(){
-	View v = View.inflate(mContext, R.layout.popview, null);
+	if(isLoactionLaoren()){
+		View v = View.inflate(mContext, R.layout.popview, null);
+		
+		((TextView)v.findViewById(R.id.loaren_name)).setText(mLaorenLocInfo.HumanName);
+		((TextView)v.findViewById(R.id.laoren_location_time)).setText(mLaorenLocInfo.getLoactionStatus());
+		if(mLaorenLocInfo.Adress == null)
+			((TextView)v.findViewById(R.id.laoren_location_adress)).setText("正在获取地址...");
+		else
+			((TextView)v.findViewById(R.id.laoren_location_adress)).setText(mLaorenLocInfo.Adress);
 	
-	((TextView)v.findViewById(R.id.loaren_name)).setText(mLaorenInfo.mName);
-	((TextView)v.findViewById(R.id.laoren_location_time)).setText(mLaorenInfo.mLocationTime);
-	((TextView)v.findViewById(R.id.laoren_location_adress)).setText(mLaorenInfo.mAdress);
+		mLaorenInfoWindow = new InfoWindow(v, mLaorenLatLng, -47);
+		mBaiduMap.showInfoWindow(mLaorenInfoWindow);
+	}
 	
-	mLaorenInfoWindow = new InfoWindow(v, mLaorenLatLng, -47);
-	mBaiduMap.showInfoWindow(mLaorenInfoWindow);	
+	
+}
+
+public class LoactionUpdate  extends AsyncTask<LatLng, Integer, String>{
+
+	@Override
+	protected String doInBackground(LatLng... params) {
+		// TODO Auto-generated method stub
+		LatLng latlng = params[0];
+		String rsl = getAddrDescByCoordinate(latlng.latitude, latlng.longitude);
+		return rsl;
+	}
+	@Override
+	protected void onPostExecute(String result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+		mLaorenLocInfo.Adress = result;
+		showLoarenInfoWindows();
+	}
+
+	public  String inputStreamTOString(InputStream in, String encoding) throws Exception {
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		byte[] data = new byte[1024];
+		int count = -1;
+		while ((count = in.read(data, 0, 1024)) != -1)
+			outStream.write(data, 0, count);
+
+		data = null;
+
+		return new String(outStream.toByteArray(), encoding);
+	}
+	public  String getAddrDescByCoordinate(Double lat,Double lng) {
+		String resultStr;
+
+		String url = String.format("http://access2.u12580.com/getPos1/Geocoder.v2.aspx?pos=%f,%f", lng,lat);
+
+		Log.e("url", url);
+
+		InputStream returnedInputStream = getResponse(url);
+		try {
+			if (returnedInputStream != null) {
+				resultStr = inputStreamTOString(returnedInputStream, "UTF-8");
+			} else {
+				resultStr = " ";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultStr = " ";
+		}
+		Log.e("getAddrDescByCoordinate", resultStr);
+		return resultStr;
+	}	
+	
+	public  InputStream getResponse(String url) {
+		try {
+			HttpParams httpParameters;
+			httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setConnectionTimeout(httpParameters, 30000);
+			HttpConnectionParams.setSoTimeout(httpParameters, 60000);
+			DefaultHttpClient mClient = new DefaultHttpClient(httpParameters);
+			url = url.replace(" ", "%20");
+			HttpGet getMethod = new HttpGet(url);
+			HttpResponse response = mClient.execute(getMethod);
+			StatusLine statusLine = response.getStatusLine();
+			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+				getMethod.abort();
+				return null;
+			}
+
+			HttpEntity entry = response.getEntity();
+			InputStream mInputStream = entry.getContent();
+
+			return mInputStream;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+}
+
+private boolean isLoactionLaoren(){
+	if(mLaorenLocInfo!=null && mLaorenLocInfo.HasMDT &&mLaorenLocInfo.isLoactionAviable() )
+		return true;
+	return false;
+}
+
+private void moveToLoaren(){
+	if(isLoactionLaoren()){
+		LatLng latlng = new LatLng(Double.parseDouble(mLaorenLocInfo.Lat), Double.parseDouble(mLaorenLocInfo.Lon));
+		moveToPosition(latlng);
+	}	
 }
 
 	@Override
@@ -285,7 +413,7 @@ private void showLoarenInfoWindows(){
 			pop.dismiss();
 			break;
 		case R.id.iv_locate_target:
-			moveToPosition(mLaorenLatLng);
+			moveToLoaren();
 			break;
 		case R.id.iv_locate_me:
 			moveToPosition(mMylocLatLng);
@@ -297,14 +425,49 @@ private void showLoarenInfoWindows(){
 			break;
 		}
 	}
+	
+	
+	
 	void myStartActivity(Class<?> c){
 		Intent forwardIntent = new Intent();
 		forwardIntent.setClass(mContext, c);
 		
 		Bundle mBundle = new Bundle();
-		mBundle.putSerializable("mLaorenInfo", mLaorenInfo);
+		mBundle.putSerializable("mLaorenLocInfo", mLaorenLocInfo);
 		forwardIntent.putExtras(mBundle);
 		
 		startActivity(forwardIntent);			
+	}
+	
+	private void getTracks(){
+		ApiClient.getTracks(mLaorenInfo.ObjectID+"",
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										mLaorenLocInfo = JSON.parseObject(response.getJSONObject("result").toString(), LaorenLocInfo.class);
+										if(isLoactionLaoren()){
+											showLaorenMarker();
+											moveToLoaren();
+										}else{
+											mToast.toastMsg("老人无定位设备");
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 }

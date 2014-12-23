@@ -3,9 +3,14 @@ package com.mapgoo.zero.ui;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,7 +19,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.Response.Listener;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.RequestUtils;
+import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.ui.LaorenActivity.LaorenAdapter;
@@ -53,7 +64,7 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.home_laoren).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar("通知中心", 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
@@ -62,15 +73,13 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 			info.mMessage = "测试消息，请忽略！";
 			info.mRecevTime = "2014-10-12 19:30";
 			info.mIsRead="0";
-			mMessageList.add(info);
-			mMessageList.add(info);
-			mMessageList.add(info);
-			mMessageList.add(info);
+			info.IsRead=true;
 			mMessageList.add(info);
 		}
 		mMessageAdapter = new MessageAdapter(mContext, mMessageList);
 		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnItemClickListener(this);
+		getMessageList();
 	}
 
 	@Override
@@ -118,13 +127,23 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 		
 		void inflateView(View view,MessageInfo info){
 			
-			((TextView)view.findViewById(R.id.msg_list_item_msg)).setText(info.mMessage);
-			((TextView)view.findViewById(R.id.msg_list_item_time)).setText(info.mRecevTime);
+			view.findViewById(R.id.msg_list_item_icon).setVisibility(info.getIocnVisiable());
+			((TextView)view.findViewById(R.id.msg_list_item_msg)).setText(info.Title);
+			((TextView)view.findViewById(R.id.msg_list_item_time)).setText(info.CreateTime);
 
 		}
 		
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode == 100){
+			getMessageList();
+		}
+	}
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
@@ -135,6 +154,40 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 		mBundle.putSerializable("mMsg", mMessageList.get(arg2));
 		forwardIntent.putExtras(mBundle);
 		
-		startActivity(forwardIntent);		
+		startActivityForResult(forwardIntent, 100);		
+	}
+	
+	private void getMessageList(){
+		ApiClient.getMessageList(mXsyUser.getUserId(), 1, Integer.MAX_VALUE,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										JSONArray array = response.getJSONArray("result");
+										if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+											 mMessageList = (ArrayList<MessageInfo>) JSON.parseArray(array.get(1).toString(), MessageInfo.class);
+											 mMessageAdapter.mDataList = mMessageList;
+											 mMessageAdapter.notifyDataSetChanged();
+											// refresLastLaoren();
+											// Log.d("onResponse",array.get(1).toString());
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 }

@@ -3,16 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
   	android:padding="10dp"
+ 
     android:orientation="vertical" >
+ 
+    <TextView    
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:textSize="18sp"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/message_detail_title"
+    />
     
+     <TextView    
+     android:id="@+id/msg_read_title"
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
+    android:textSize="18sp"
+     android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"
+    />
+     
+    <TextView    
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:textSize="18sp"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/message_detail_content"
+    />    
+     
 <TextView    
     android:id="@+id/msg_read_msg"
      android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="100dp"
-    android:layout_margin="10dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
     android:textSize="18sp"
-    android:background="@color/normal_color_bgd"
+    android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"
     />
 
 <TextView    
@@ -20,7 +52,10 @@
      android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
+     android:layout_marginTop="10dp"
     android:textSize="16sp"
+     android:textColor="@color/normal_color_text"
+     android:gravity="right|center_vertical"
     />
 
 </LinearLayout>

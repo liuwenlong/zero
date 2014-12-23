@@ -25,6 +25,7 @@ import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.bean.PatrolBasicInfo;
 import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
 import com.mapgoo.zero.bean.VolunteerOrderSubmitInfo;
+import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.utils.ImageUtils;
 
 /**
@@ -41,7 +42,7 @@ public class ApiClient {
 	private static Listener<JSONObject> mListener;
 	private static ErrorListener mErrorListener;
 	private static onReqStartListener mOnStartListener;
-	public  static final boolean isDebuge = true;
+	public  static final boolean isDebuge = false;
 	
 	/**
 	 * 概述: 每个activity请求网络之前必须要先设置Listeners <br>
@@ -560,6 +561,15 @@ public class ApiClient {
 		
 		_GET_WITH_LISTENERS(URLs.getusername, null, reqParams, reqStartListener, responseListener, errorListener);
 	}
+	public static void getMessageList(int peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("userId", peopleNo+"");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.NoticeBasic, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
 	
 	public static void getLoarenInfoList(String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
@@ -604,8 +614,7 @@ public class ApiClient {
 	public static void postServiceOrderSubmit(ServiceOrderSubmitInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, Object> reqParams = new HashMap<String, Object>();
-		if(isDebuge)
-			;
+
 		reqParams.put("BusinessID", info.BusinessID);
 		reqParams.put("HoldID", info.HoldID);
 		reqParams.put("ObjectID", info.ObjectID);
@@ -624,8 +633,7 @@ public class ApiClient {
 	public static void postVolunteerOrderSubmit(VolunteerOrderSubmitInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, Object> reqParams = new HashMap<String, Object>();
-		if(isDebuge)
-			;
+
 		reqParams.put("BusinessID", info.BusinessID);
 		reqParams.put("HoldID", info.HoldID);
 		reqParams.put("ObjectID", info.ObjectID);
@@ -665,10 +673,12 @@ public class ApiClient {
 	}
 	public static void getPatrolBasic(String  humanId, String peopleNo,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
-		Map<String, String> reqParams = new HashMap<String, String>();
-		reqParams.put("humanId", humanId);
-		reqParams.put("peopleNo", peopleNo);
-		_GET_WITH_LISTENERS(URLs.PatrolBasic, null, reqParams, reqStartListener, responseListener, errorListener);		
+		if(humanId!=null && peopleNo!=null){
+			Map<String, String> reqParams = new HashMap<String, String>();
+			reqParams.put("humanId", humanId);
+			reqParams.put("peopleNo", peopleNo);
+			_GET_WITH_LISTENERS(URLs.PatrolBasic, null, reqParams, reqStartListener, responseListener, errorListener);	
+		}
 	}
 	public static void setPatrolSign(int  sign, int humanId, int peopleNo,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
@@ -718,4 +728,46 @@ public class ApiClient {
 		_POST_WITH_LISTENERS(URLs.PatrolBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
 	
+	public static void SetNoticeRead(int noticeId,int userId,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("noticeId", noticeId);
+		reqParams.put("userId", userId);
+		_POST_WITH_LISTENERS(URLs.SetNoticeRead, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void OrderCancel(int recId,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("recId", recId);
+		_POST_WITH_LISTENERS(URLs.OrderCancel, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
+	public static void OrderComplete(int recId,int comment,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("recId", recId);
+		reqParams.put("comment", comment);
+		_POST_WITH_LISTENERS(URLs.OrderComplete, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}		
+	public static void getTracks(String objectId,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		reqParams.put("objectId", objectId);
+		_GET_WITH_LISTENERS(URLs.Tracks, null, reqParams, reqStartListener, responseListener, errorListener);	
+	}
+	public static void setSimTracks(int objectId,String sim,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("objectId", objectId);
+		reqParams.put("sim", sim);
+		_POST_WITH_LISTENERS(URLs.Tracks, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
+	public static void UpdateUserPassword(int userid,String old,String newpass,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		String imei = QuickShPref.getString(QuickShPref.IEMI);
+		reqParams.put("OldPassword", old);
+		reqParams.put("NewPassword", newpass);
+		reqParams.put("UserID", userid);
+		_POST_WITH_LISTENERS(URLs.UpdateUserPassword, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}		
 }

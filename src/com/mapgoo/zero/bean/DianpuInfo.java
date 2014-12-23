@@ -21,7 +21,7 @@ public class DianpuInfo  implements Serializable {
 	public String Address;//ID
 	public String ServiceTime;//ID
 	public String ServiceType;//ID
-	public String IfOnSite;//ID
+	public boolean IfOnSite;//ID
 	public String CompanyName;//ID
 	public String Charges;//ID
 	public void setPhone(String str){
@@ -63,12 +63,12 @@ public class DianpuInfo  implements Serializable {
 		ServiceType = str;
 	}
 	public String getServiceType(){
-		return IfOnSite;
+		return ServiceType;
 	}
-	public void setIfOnSite(String str){
+	public void setIfOnSite(boolean str){
 		IfOnSite = str;
 	}
-	public String getIfOnSite(){
+	public boolean getIfOnSite(){
 		return IfOnSite;
 	}
 	
@@ -93,4 +93,10 @@ public class DianpuInfo  implements Serializable {
 		return CompanyName;
 	}
 	
+	public String getShangmen(){
+			if(IfOnSite)
+				return "是";
+			else 
+				return "否";
+	}
 }

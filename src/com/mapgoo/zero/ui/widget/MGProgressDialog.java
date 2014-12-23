@@ -33,7 +33,7 @@ public class MGProgressDialog extends Dialog {
 		setContentView(mContentView);
 		getWindow().getAttributes().gravity = Gravity.CENTER;
 		setCanceledOnTouchOutside(false);
-		setCancelable(false);
+		//setCancelable(false);
 	}
 
 	public void setMessage(String msg) {

@@ -36,6 +36,7 @@
     android:textColor="@color/dark_color_text"        
         />
 <EditText 
+    android:id="@+id/dialog_enter_sim"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"  
     android:layout_marginLeft="10dp"
@@ -50,11 +51,13 @@
                  android:layout_height="wrap_content" 
                  android:padding="15dp" >
 <Button 
+    android:id="@+id/set_sim_num_btn"
  		    android:layout_width="230dp"
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
 		    android:text="@string/ruhu_tijiao_ziliao"
 		    android:textColor="@color/white_color_text"
+		    android:onClick="SetSimnum"
 		    android:background="@drawable/selector_button_ruhu_tijiao"
     />
 </RelativeLayout>    

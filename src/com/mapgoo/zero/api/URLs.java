@@ -17,7 +17,7 @@ public class URLs implements Serializable {
 	private final static String SERVER_PRODUCT = "app001.u12580.com";
 
 	// 局域网服务器http://192.168.1.99/ecareapp/api/Login?IMEI=56456456
-	private final static String LOCAL_TEST_SERVER = "192.168.1.99";
+	private final static String LOCAL_TEST_SERVER = "192.168.1.198";
 
 	// 内测服务器
 	private final static String INTERNEL_TEST_SERVER = "mapgoo1307.eicp.net:6789";
@@ -47,7 +47,7 @@ public class URLs implements Serializable {
 
 	private final static String URL_SPLITTER = "/";
 
-	public final static String PRODUCT_NAME = "ecareapp";
+	public final static String PRODUCT_NAME = "eCarePatrol";
 	public final static String API = "api";
 	public final static String PRODUCT_API_PATH = PRODUCT_NAME + URL_SPLITTER + API;
 
@@ -118,6 +118,18 @@ public class URLs implements Serializable {
 	public final static String PatrolBasic = URL_API_HTTP_HOST +"PatrolBasic";
 	//签到/退
 	public final static String PatrolSign = URL_API_HTTP_HOST +"PatrolSign";
-
+	//消息列表
+	public final static String NoticeBasic = URL_API_HTTP_HOST +"NoticeBasic";	
+	//设置消息为已读
+	public final static String SetNoticeRead = URL_API_HTTP_HOST +"SetNoticeRead";		
+	//取消订单
+	public final static String OrderCancel = URL_API_HTTP_HOST +"OrderCancel";		
+	//确认完成
+	public final static String OrderComplete = URL_API_HTTP_HOST +"OrderComplete";		
+	//定位
+	public final static String Tracks = URL_API_HTTP_HOST +"Tracks";	
+	
+	//修改密码
+	public final static String UpdateUserPassword = URL_API_HTTP_HOST +"UpdateUserPassword";		
 	
 }

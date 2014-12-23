@@ -52,7 +52,7 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mFuwuType = savedInstanceState.getInt("fuwutype");
 		} else {
 			mFuwuType = getIntent().getIntExtra("fuwutype", -1);
 		}
@@ -60,13 +60,33 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
 		super.onSaveInstanceState(outState);
+		outState.putInt("fuwutype", mFuwuType);
 	}
 
+	private String getMyTitle(){
+		String str = null;
+		switch (mFuwuType) {
+			case YuyuefuwuActivity.YUYUE_FUWU_JIAZHENG:str = getString(R.string.yuyue_jiazheng);break;
+			case YuyuefuwuActivity.YUYUE_FUWU_YILIAO:str = getString(R.string.yuyue_yiliao);break;
+			case YuyuefuwuActivity.YUYUE_FUWU_XIYU:str = getString(R.string.yuyue_xiyu);break;
+			
+			case YuyuefuwuActivity.YUYUE_FUWU_LIHUA:str = getString(R.string.yuyue_lihua);break;
+			case YuyuefuwuActivity.YUYUE_FUWU_CANYING:str = getString(R.string.yuyue_canying);break;
+			case YuyuefuwuActivity.YUYUE_FUWU_CHAOSHI:str = getString(R.string.yuyue_chaoshi);break;
+			
+			case YuyuefuwuActivity.YUYUE_FUWU_SHUCAI:str = getString(R.string.yuyue_shucai);break;
+			case YuyuefuwuActivity.YUYUE_FUWU_JIANSHENG: str = getString(R.string.yuyue_jiansheng);break;
+			case YuyuefuwuActivity.YUYUE_FUWU_ZHIYUANZHE:str = getString(R.string.yuyue_zhiyuan);break;
+		default:
+			break;
+		}
+		return str;
+	}
+	
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.home_laoren).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar(getMyTitle(), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
@@ -167,7 +187,7 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 			((TextView)view.findViewById(R.id.dianpu_item_unit_price)).setText(info.Charges);
 			((TextView)view.findViewById(R.id.dianpu_item_avail_time)).setText(info.ServiceTime);
 			((TextView)view.findViewById(R.id.dianpu_item_pay_type)).setText(info.PayMent);
-			((TextView)view.findViewById(R.id.dianpu_item_shang_men)).setText(info.ServiceType);
+			((TextView)view.findViewById(R.id.dianpu_item_shang_men)).setText(info.getShangmen());
 			((TextView)view.findViewById(R.id.dianpu_item_from_phone)).setText(info.Phone);
 			((TextView)view.findViewById(R.id.dianpu_item_from_adress)).setText(info.Address);
 		}

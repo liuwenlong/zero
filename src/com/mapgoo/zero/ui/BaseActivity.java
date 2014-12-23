@@ -12,12 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.R;
+import com.mapgoo.zero.api.RequestUtils;
 import com.mapgoo.zero.bean.MGObject;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
@@ -69,6 +73,8 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		// 保存
 		if (savedInstanceState != null) {
 			mXsyUser = (XsyUser) savedInstanceState.getSerializable("mXsyUser");
+			if(mXsyUser!=null)
+				RequestUtils.setToken(mXsyUser.token);
 		} else {
 		}
 	}
@@ -123,7 +129,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	protected ImageView iv_ab_right_btn;
 	protected RelativeLayout rl_actionbar_root;
 	protected RelativeLayout rl_ab_title_bg_wrapper;
-
+	protected EditText tv_search_edit;
 	/**
 	 * 概述: 概述: 设置ActionBar，如果有就设置，没有就返回
 	 * 
@@ -159,6 +165,8 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		tv_ab_title = (TextView) actionBarView.findViewById(R.id.tv_ab_title);
 		iv_ab_left_btn = (ImageView) actionBarView.findViewById(R.id.iv_ab_left_btn);
 		iv_ab_right_btn = (ImageView) actionBarView.findViewById(R.id.iv_ab_right_btn);
+		tv_search_edit = (EditText) actionBarView.findViewById(R.id.tv_search_edit);
+		//tv_search_edit.setInputType(EditorInfo.IME_ACTION_SEARCH);
 		
 		if (actionBarBgResId != -1)
 			rl_actionbar_root.setBackgroundResource(actionBarBgResId);
@@ -226,6 +234,20 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 					null);
 			tv_ab_title.setClickable(true);
 
+			break;
+		case 5:
+			tv_ab_title.setVisibility(View.GONE);
+			tv_search_edit.setVisibility(View.VISIBLE);
+			
+			if (leftBtnResId != -1) {
+				iv_ab_left_btn.setImageResource(leftBtnResId);
+				iv_ab_left_btn.setVisibility(View.VISIBLE);
+			}
+
+			if (rightBtnResId != -1) {
+				iv_ab_right_btn.setImageResource(rightBtnResId);
+				iv_ab_right_btn.setVisibility(View.VISIBLE);
+			}			
 			break;
 			
 		default:

@@ -125,7 +125,8 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		inflate_view(pager2_item_view_id,mViewPager2);	
 	}
 	private void refreshViewPager0(){
-
+		if(MainActivity.mLaorenInfo == null)
+			return;
 		((TextView)findViewById(R.id.ruhu_dianhua_lianxiren)).setText(mPatrolBasicInfo.AlldayTel);
 		((TextView)findViewById(R.id.ruhu_dianhua_jianhuren)).setText(mPatrolBasicInfo.MonitorTel);
 		((TextView)findViewById(R.id.ruhu_dianhua_qinshu)).setText(mPatrolBasicInfo.RelativeTel);
@@ -322,6 +323,7 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 	}
 	
 	private void getOrderformList(){
+		if(MainActivity.mLaorenInfo!=null)
 		ApiClient.getPatrolBasic(MainActivity.mLaorenInfo.HumanID,mXsyUser.peopleNo,
 				new onReqStartListener(){
 					public void onReqStart() {
@@ -348,6 +350,7 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 	}
 
 	private void setPatrolSign(int sign){
+		if(MainActivity.mLaorenInfo!=null)
 		ApiClient.setPatrolSign(sign,
 				Integer.parseInt(MainActivity.mLaorenInfo.HumanID),
 				Integer.parseInt(mXsyUser.peopleNo),

@@ -137,7 +137,8 @@
             android:drawableLeft="@drawable/selector_checkbox_icon"
             android:drawablePadding="5.0dp"
             android:gravity="center"
-            android:text="@string/remember_account"
+            android:checked="true"
+            android:text="@string/remember_password"
             android:textColor="@color/skin_main_hint_txt_clr_grey"
             android:textSize="@dimen/txt_size_16sp" />
 

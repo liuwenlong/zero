@@ -70,29 +70,35 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mShangpinList = (ArrayList<ShangpinInfo>)savedInstanceState.getSerializable("mMsg");
+			mDianpuInfo = (DianpuInfo)savedInstanceState.getSerializable("DianpuInfo");
+			mZhiyuanzheInfo = (ZhiyuanzheInfo)savedInstanceState.getSerializable("Zhiyuanzhe");
 		} else {
 			mShangpinList = (ArrayList<ShangpinInfo>) getIntent().getSerializableExtra("mMsg");
 			mDianpuInfo = (DianpuInfo)getIntent().getSerializableExtra("DianpuInfo");
-			
 			mZhiyuanzheInfo = (ZhiyuanzheInfo) getIntent().getSerializableExtra("Zhiyuanzhe");
 		}
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
+		outState.putSerializable("DianpuInfo", mDianpuInfo);
+		outState.putSerializable("mMsg", mShangpinList);
+		
+		outState.putSerializable("Zhiyuanzhe", mZhiyuanzheInfo);
+		
 		super.onSaveInstanceState(outState);
 	}
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.home_laoren).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar("订单内容", 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
 		mInputDate = (TextView)findViewById(R.id.order_create_data_show);
 		mInputTime = (TextView)findViewById(R.id.order_create_time_show);
+		if(MainActivity.mLaorenInfo!=null)
 		((TextView)findViewById(R.id.order_create_for_laoren)).setText(MainActivity.mLaorenInfo.getHumanName());
 		
 		
@@ -129,6 +135,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			id = MainActivity.mLaorenInfo.ObjectID;
 		return id;
 	}
+	
 	
 	String getServiceltem(){
 		String str= "" ;
@@ -180,6 +187,14 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		}
 	}
 	
+	private String getServiceFee(){
+		float Num = 0.0f;	
+		for(ShangpinInfo info:mShangpinList){
+			Num += Float.parseFloat(info.Price)*info.mNumber;
+		}
+		
+		return Num+"";
+	}
 	private void serviceOrderSubmit(){
 		if(mShangpinList!=null){
 			ServiceOrderSubmitInfo info = new ServiceOrderSubmitInfo();
@@ -189,7 +204,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			info.OrderTime = getOrderTime();
 			info.PeopleNo = Integer.parseInt(mXsyUser.getpeopleNo(null));
 			info.Remark = "null";
-			info.ServiceFee="30";
+			info.ServiceFee=getServiceFee();
 			info.Serviceltem=getServiceltem();
 			info.UserID = mXsyUser.getUserId();
 			

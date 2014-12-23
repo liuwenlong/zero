@@ -39,8 +39,11 @@ import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.MyVolley;
+import com.mapgoo.zero.api.RequestUtils;
 import com.mapgoo.zero.api.VersionUpdate;
 import com.mapgoo.zero.bean.LaorenInfo;
+import com.mapgoo.zero.bean.LaorenLocInfo;
+import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
 import com.mapgoo.zero.ui.widget.AutoScrollViewPager;
@@ -54,19 +57,23 @@ import com.mapgoo.zero.utils.DoubleClickExitHelper;
 public class MainActivity extends BaseActivity implements OnClosedListener  {
 	
 	private final int RequestCode_Laoren = 1001;
+	private final int RequestCode_Message = 1002;
 	private SlidingMenu mSlidingMenu;
 	private View mMenuView;
 	private CircleImageView civ_avatar;
 	private TextView tv_wearer_nickname;
-
+	private TextView xsy_user_name;
 	private ArrayList<LaorenInfo> mLaorenList = new ArrayList<LaorenInfo>();
 	public static LaorenInfo mLaorenInfo;
+
 	
 	private void initSlideMenu() {
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
 		tv_wearer_nickname = (TextView) mMenuView.findViewById(R.id.tv_wearer_nickname);
 		civ_avatar = (CircleImageView) mMenuView.findViewById(R.id.civ_avatar);
-
+		xsy_user_name = (TextView) mMenuView.findViewById(R.id.xsy_user_name);
+		xsy_user_name.setText(mXsyUser.DisplayName);
+		
 		mSlidingMenu = new SlidingMenu(this);
 		mSlidingMenu.setSlidingEnabled(true);
 		mSlidingMenu.setMode(SlidingMenu.LEFT);
@@ -81,6 +88,13 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		mSlidingMenu.setOnClosedListener(this); // 当SlideMenu关闭的事件监听
 	}
 	
+	public void Logout(View v){
+		Log.d("Logout", "Logout");
+		QuickShPref.putValueObject(QuickShPref.isLogin, false);
+		startActivity(new Intent(mContext, LoginActivity.class));
+		finish();
+	}
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -91,6 +105,9 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 				mLaorenInfo = (LaorenInfo)data.getExtras().getSerializable("select");
 				refreshDisplay(mLaorenInfo);
 			}
+			break;
+		case RequestCode_Message:
+				getMessageList();
 			break;
 		default:
 			break;
@@ -119,7 +136,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			myStartActivity(LoactionActivity.class);
 			break;
 		case R.id.home_rufu:
-			startActivity(new Intent(mContext, RufuxunshiActivity.class));
+			myStartActivity(RufuxunshiActivity.class);
 			break;
 		case R.id.home_dingdan:
 			startActivity(new Intent(mContext, WodedingdanActivity.class));
@@ -128,11 +145,19 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			startActivityForResult((new Intent(mContext, LaorenActivity.class).putExtra("laoren", mLaorenList)),RequestCode_Laoren);
 			break;
 		case R.id.iv_ab_right_btn:
-			startActivity(new Intent(mContext, XiaoxiActivity.class));
+			startActivityForResult(new Intent(mContext, XiaoxiActivity.class),RequestCode_Message);
 			break;
+		case R.id.setting_modify_password:
+			myStartActivity(ModifyPassWordActivity.class);
+			break;
+		case R.id.setting_about:
+			myStartActivity(SettingsAboutActivity.class);
+			break;			
 		}
 	}
 void myStartActivity(Class<?> c){
+	if(mLaorenInfo == null)
+		return;
 	Intent forwardIntent = new Intent();
 	forwardIntent.setClass(mContext, c);
 	
@@ -153,27 +178,31 @@ void myStartActivity(Class<?> c){
 	private void inflateLaoren(){
 		
 	}
+	boolean needLogin = false;
 	
+
 	@Override
 	protected void initData(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		if(mLaorenList.isEmpty()){
-			LaorenInfo info = new LaorenInfo();
-			info.mAdress="北京市西城区陶然亭";
-			info.mXingbie="男";	
-			info.mLeixing="正常";	
-			info.mPhone="13712345678";	
-			info.mShenfen="430123456789";	
-			info.mName="张三";
-			info.mOld="86岁";
-			info.mLocationTime="2014/12/17  15:23";
-			mLaorenList.add(info);
-			mLaorenList.add(info);
-			mLaorenList.add(info);
-			mLaorenList.add(info);
-			mLaorenList.add(info);
+//		if(mLaorenList.isEmpty()){
+//			LaorenInfo info = new LaorenInfo();
+//			info.mAdress="北京市西城区陶然亭";
+//			info.mXingbie="男";	
+//			info.mLeixing="正常";	
+//			info.mPhone="13712345678";	
+//			info.mShenfen="430123456789";	
+//			info.mName="张三";
+//			info.mOld="86岁";
+//			info.mLocationTime="2014/12/17  15:23";
+//			mLaorenList.add(info);
+//		}
+//		mLaorenInfo = mLaorenList.get(0);
+		
+		if (savedInstanceState != null) {
+
+		} else {
+			needLogin = getIntent().getBooleanExtra("needLogin", false);
 		}
-		mLaorenInfo = mLaorenList.get(0);
 	}
 
 	@Override
@@ -184,7 +213,12 @@ void myStartActivity(Class<?> c){
 		handleData();
 		
 //		new VersionUpdate(mContext).execute("0201001");
-		getLoaorenInfo();
+		if(needLogin){
+			ReLogin();
+		}else{
+			getLoaorenInfo();
+			getMessageList();			
+		}
 	}
 	LaorenInfo getLaorenFromId(int objectId){
 		for(LaorenInfo info:mLaorenList){
@@ -203,6 +237,21 @@ void myStartActivity(Class<?> c){
 		if(mLaorenInfo!=null)
 			refreshDisplay(mLaorenInfo);
 	}
+	void refresMessageStatus(ArrayList<MessageInfo> mMessageList){
+		boolean show = false;
+		for(MessageInfo msg:mMessageList){
+			if(!msg.IsRead){
+				show = true;
+				break;
+			}
+		}
+		if(show)
+			super.setupActionBar(getText(R.string.home_action_title).toString(), 4, R.drawable.ic_menu, R.drawable.home_action_bar_xinxi_has,
+					R.drawable.home_actionbar_bgd, -1);
+		else
+			super.setupActionBar(getText(R.string.home_action_title).toString(), 4, R.drawable.ic_menu, R.drawable.home_action_bar_xinxi,
+					R.drawable.home_actionbar_bgd, -1);
+	}	
 	
 	void refreshDisplay(LaorenInfo mLaorenInfo){
 
@@ -221,6 +270,13 @@ void myStartActivity(Class<?> c){
 		}else{
 			((ImageView) findViewById(R.id.avatar)).setImageResource(R.drawable.ic_avatar_holder);
 		}
+		
+		if(mLaorenInfo.HasSOSMDT){
+			findViewById(R.id.laore_dingwei_icon).setVisibility(View.INVISIBLE);
+		}else{
+			findViewById(R.id.laore_dingwei_icon).setVisibility(View.VISIBLE);
+		}
+		
 	}
 	
 	@Override
@@ -234,7 +290,7 @@ void myStartActivity(Class<?> c){
 	}
 
 	private void getLoaorenInfo(){
-		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, 10,
+		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();
@@ -263,5 +319,69 @@ void myStartActivity(Class<?> c){
 							
 						}},
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
+	}
+	
+	
+	
+	private void getMessageList(){
+		ApiClient.getMessageList(mXsyUser.getUserId(), 1, Integer.MAX_VALUE,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										JSONArray array = response.getJSONArray("result");
+										if(array!=null&&array.length()>1){
+											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
+											ArrayList<MessageInfo> mMessageList = (ArrayList<MessageInfo>) JSON.parseArray(array.get(1).toString(), MessageInfo.class);
+											refresMessageStatus(mMessageList);
+											// refresLastLaoren();
+											// Log.d("onResponse",array.get(1).toString());
+										}
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+	}
+	
+	private void ReLogin(){
+		ApiClient.loginInternel(mXsyUser.userName,mXsyUser.mPassword,
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										mXsyUser = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+										RequestUtils.setToken(mXsyUser.token);
+										getLoaorenInfo();
+										getMessageList();	
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 }

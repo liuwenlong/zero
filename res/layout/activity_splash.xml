@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
+        android:src="@drawable/xsy_loading"
         android:scaleType="fitXY"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
     
 <TextView 
          android:id="@+id/splashlogo"
@@ -21,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/app_name"   
+        android:visibility="gone"
     />
     
     <!-- 品牌(动画)、活动、广告 -->

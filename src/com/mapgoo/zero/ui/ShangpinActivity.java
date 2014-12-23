@@ -55,7 +55,7 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mDianpuInfo = (DianpuInfo)savedInstanceState.getSerializable("DianpuInfo");
 		} else {
 			mDianpuInfo = (DianpuInfo)getIntent().getExtras().getSerializable("DianpuInfo");
 		}
@@ -63,13 +63,13 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
+		outState.putSerializable("DianpuInfo", mDianpuInfo);
 		super.onSaveInstanceState(outState);
 	}
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getText(R.string.home_laoren).toString(), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar(getString(R.string.order_form_detail_from_name), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
@@ -113,12 +113,18 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 			break;
 			
 		case R.id.shangpin_yuyue:
-			Intent forwardIntent = new Intent();
-			forwardIntent.setClass(mContext, OrderCreateActivity.class);
-			forwardIntent.putExtra("mMsg", getSelectShangpin());
-			forwardIntent.putExtra("DianpuInfo", mDianpuInfo);
+			ArrayList<ShangpinInfo> array = getSelectShangpin();
+			if(array.size()>0){
+				Intent forwardIntent = new Intent();
+				forwardIntent.setClass(mContext, OrderCreateActivity.class);
+				forwardIntent.putExtra("mMsg", getSelectShangpin());
+				forwardIntent.putExtra("DianpuInfo", mDianpuInfo);
+				
+				startActivity(forwardIntent);
+			}else{
+				mToast.toastMsg("您没有选择任何商品或服务");
+			}
 			
-			startActivity(forwardIntent);	
 			break;
 		default:
 			break;
@@ -166,7 +172,7 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 			CheckBox  box = (CheckBox)view.findViewById(R.id.shangpin_checkbox);
 			
 			((TextView)view.findViewById(R.id.shangpin_name)).setText(info.ProjectName);
-			((TextView)view.findViewById(R.id.shangpin_unit_price)).setText(info.Price);
+			((TextView)view.findViewById(R.id.shangpin_unit_price)).setText(info.Price+"元");
 			((TextView)view.findViewById(R.id.shangpin_fuwu_time)).setText(info.Period);
 			((TextView)view.findViewById(R.id.shangping_note)).setText(info.Remark);
 			

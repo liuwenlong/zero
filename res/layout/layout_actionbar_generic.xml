@@ -41,6 +41,29 @@
             android:singleLine="true"
             android:textColor="@color/skin_main_txt_clr_white"
             android:textSize="@dimen/txt_size_18sp" />
+ 
+        <EditText 
+            android:id="@+id/tv_search_edit"
+            android:layout_width="200dp"
+            android:layout_height="48.0dp"         
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="@color/dark_color_text"
+            android:textColorHint="@color/normal_color_text"
+            android:hint="请输入老人名字"  />   
+ <!--   
+        <SearchView
+            android:id="@+id/tv_search_edit"
+            android:layout_width="200dp"
+            android:layout_height="48.0dp"     
+            android:clickable="true"
+            android:focusable="true"
+            android:iconifiedByDefault="true"
+            android:imeOptions="actionSearch"
+            android:visibility="gone"
+            android:inputType="text"
+            android:queryHint="" />
+            -->   
     </RelativeLayout>
 
     <ImageView

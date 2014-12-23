@@ -64,46 +64,32 @@
                     android:orientation="horizontal" >
 
                     <Button
-                        android:id="@+id/btn_sforchengfan"
+                        android:id="@+id/btn_sforchengfan_0"
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/menu_bg"
-                        android:drawableTop="@drawable/icon_shefang"
+                        android:drawableTop="@drawable/loaction_camera_main"
+                        android:background="#00ffffff"
                         android:gravity="bottom|center"
                         android:onClick="onClick"
                         android:paddingBottom="10dip"
-                        android:paddingTop="10dip"
-                        android:text="zhaoxiang" />
+                        android:paddingTop="1dip"
+                        android:text="后置照相" />
+
+
 
                     <Button
+                        android:id="@+id/btn_sforchengfan_1"
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_marginLeft="10dip"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/menu_bg"
+                        android:drawableTop="@drawable/loaction_camera_main"
+                        android:background="#00ffffff"
                         android:gravity="bottom|center"
-                        android:onClick="dzwlbutton"
+                        android:onClick="onClick"
                         android:paddingBottom="10dip"
-                        android:paddingTop="10dip"
-                        android:visibility="gone"/>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_marginLeft="10dip"
-                        android:layout_weight="1" >
-
-                        <Button
-                            android:id="@+id/btn_cs"
-                            android:layout_width="match_parent"
-                            android:layout_height="fill_parent"
-                            android:background="@drawable/menu_bg"
-                            android:gravity="bottom|center"
-                            android:onClick="csbutton"
-                            android:paddingBottom="10dip"
-                            android:paddingTop="10dip" />
-                    </RelativeLayout>
+                        android:paddingTop="1dip"
+                        android:text="前置照相" />
                     
  						<Button
                         android:layout_width="0dp"
@@ -114,6 +100,7 @@
                         android:gravity="bottom|center"
                         android:onClick="hmszbutton"
                         android:paddingBottom="10dip"
+                        android:visibility="invisible"
                         android:paddingTop="10dip"/>                   
                 </LinearLayout>
 
