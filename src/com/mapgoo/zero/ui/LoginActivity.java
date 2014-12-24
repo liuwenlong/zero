@@ -36,6 +36,7 @@ import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.RequestUtils;
+import com.mapgoo.zero.bean.FwsUser;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
 import com.mapgoo.zero.ui.widget.EditTextView;
@@ -70,7 +71,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 			startActivity(new Intent(mContext, MainActivity.class).putExtra("needLogin", false));
 			finish();
 		}else{
-			getUserNmae();
+			//getUserNmae();
 		}
 	}
 	
@@ -91,7 +92,6 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 	public void initViews() {
 
 		et_tel_num = (EditTextView) findViewById(R.id.et_tel_num);
-		et_tel_num.setSelection(et_tel_num.getText().length());
 		et_pwd = (EditTextView) findViewById(R.id.et_pwd);
 		
 		if(QuickShPref.getString(QuickShPref.PASS_WORD)!=null)
@@ -142,7 +142,6 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 								String result = response.getString("result");
 								et_tel_num.setText(result);
 								//mXsyUser.DisplayName = result;
-								mDisplayName = result;
 								//Log.d("DisplayName", mXsyUser.DisplayName);
 							}else if(response.getInt("error") == 1){
 								Toast.makeText(mContext, response.getString("reason"), Toast.LENGTH_SHORT).show();
@@ -201,7 +200,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		
 //		mEncodedPwd = CryptoUtils.MD5Encode(originalPwd);
 		reqCode = REQ_LOGIN;
-		ApiClient.login(getIMEI(), originalPwd);
+		ApiClient.login(mTelNum, originalPwd);
 		
 		
 	}
@@ -223,30 +222,38 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 				mProgressDialog.show();
 		}
 	}
-private String mDisplayName;
+
 	private void loginSucessSave(){
-		QuickShPref.putValueObject(QuickShPref.PASS_WORD, mXsyUser.mPassword);
-		QuickShPref.putValueObject(QuickShPref.USER_NAME, mXsyUser.userName);
-		QuickShPref.putValueObject(QuickShPref.USER_ID, mXsyUser.getUserId());
-		QuickShPref.putValueObject(QuickShPref.TOKEN, mXsyUser.token);
-		QuickShPref.putValueObject(QuickShPref.PEOPLE_ON, mXsyUser.peopleNo);
-		QuickShPref.putValueObject(QuickShPref.Image, mXsyUser.picture);
+		QuickShPref.putValueObject(QuickShPref.PASS_WORD, mFwsUser.mPassword);
+		QuickShPref.putValueObject(QuickShPref.USER_NAME, mFwsUser.mUername);
+		
+		QuickShPref.putValueObject(QuickShPref.TOKEN, mFwsUser.token);
+		QuickShPref.putValueObject(QuickShPref.FWS_HOIDID, mFwsUser.holdId);
+		QuickShPref.putValueObject(QuickShPref.FWS_HOIDNAME, mFwsUser.holdName);
+		QuickShPref.putValueObject(QuickShPref.FWS_SERVERID, mFwsUser.serviceId);
+		QuickShPref.putValueObject(QuickShPref.FWS_SERVERNAME, mFwsUser.serviceName);
+		QuickShPref.putValueObject(QuickShPref.FWS_SERVERTYPE, mFwsUser.serviceType);
+		QuickShPref.putValueObject(QuickShPref.Image, mFwsUser.picture);
 		QuickShPref.putValueObject(QuickShPref.isLogin, true);
-		QuickShPref.putValueObject(QuickShPref.DisplayName, mXsyUser.DisplayName);
-		Log.d("DisplayName", mXsyUser.DisplayName);
 	}
+	
 	private boolean loadUserMsg(){
-		if(mXsyUser == null)
-			mXsyUser = new XsyUser();
-		mXsyUser.DisplayName = QuickShPref.getString(QuickShPref.DisplayName);
-		mXsyUser.userName = QuickShPref.getString(QuickShPref.USER_NAME);
-		mXsyUser.setUserId(QuickShPref.getInt(QuickShPref.USER_ID));
-		mXsyUser.peopleNo = QuickShPref.getString(QuickShPref.PEOPLE_ON);
-		mXsyUser.mPassword = QuickShPref.getString(QuickShPref.PASS_WORD);
-		mXsyUser.token = QuickShPref.getString(QuickShPref.TOKEN);
-		mXsyUser.picture = QuickShPref.getString(QuickShPref.Image);
-		RequestUtils.setToken(mXsyUser.token);
-		//Log.d("DisplayName", mXsyUser.DisplayName);
+		if(mFwsUser == null)
+			mFwsUser = new FwsUser();
+		if(!QuickShPref.getBoolean(QuickShPref.isLogin))
+			return false;
+		mFwsUser.mPassword = QuickShPref.getString(QuickShPref.PASS_WORD);
+		mFwsUser.mUername = QuickShPref.getString(QuickShPref.USER_NAME);
+
+		mFwsUser.holdId = QuickShPref.getInt(QuickShPref.PEOPLE_ON);
+		mFwsUser.holdName = QuickShPref.getString(QuickShPref.PASS_WORD);
+		mFwsUser.token = QuickShPref.getString(QuickShPref.TOKEN);
+		mFwsUser.picture = QuickShPref.getString(QuickShPref.Image);
+		mFwsUser.serviceId = QuickShPref.getInt(QuickShPref.FWS_SERVERID);
+		mFwsUser.serviceType = QuickShPref.getInt(QuickShPref.FWS_SERVERTYPE);
+		mFwsUser.serviceName = QuickShPref.getString(QuickShPref.FWS_SERVERNAME);
+		RequestUtils.setToken(mFwsUser.token);
+
 		return QuickShPref.getBoolean(QuickShPref.isLogin);
 	}
 	
@@ -260,12 +267,14 @@ private String mDisplayName;
 						if (mProgressDialog != null && mProgressDialog.isShowing())
 							mProgressDialog.dismiss();
 
-						mXsyUser = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-						mXsyUser.mPassword =  et_pwd.getText().toString();;
-						mXsyUser.DisplayName = mDisplayName;
-						RequestUtils.setToken(mXsyUser.token);
-						Log.d("onResponse", "token="+mXsyUser.token);
+						mFwsUser = JSON.parseObject(response.getJSONObject("result").toString(), FwsUser.class);
+						mFwsUser.mPassword =  et_pwd.getText().toString();
+						mFwsUser.mUername = et_tel_num.getText().toString();
+
+						RequestUtils.setToken(mFwsUser.token);
+
 						loginSucessSave();
+						
 						Intent intent = new Intent(mContext, MainActivity.class);
 						startActivity(intent);
 						finish();

@@ -23,9 +23,7 @@ import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.FwsOrderinfo;
-import com.mapgoo.zero.bean.OrderFormDetailInfo;
-import com.mapgoo.zero.bean.OrderFormInfo;
-import com.mapgoo.zero.bean.OrderFormDetailInfo.OrderDetailInfo;
+import com.mapgoo.zero.bean.FwsOrderinfo.OrderDetailInfo;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
 import com.mapgoo.zero.ui.widget.ViewHolder;
 
@@ -92,6 +90,17 @@ LinearLayout mProductLinear;
 		if(mFwsOrderinfo.OrderStatusID == 3){
 			findViewById(R.id.order_form_detail_pingjia_item) .setVisibility(View.VISIBLE);
 			( (TextView)findViewById(R.id.order_form_detail_pingjia) ).setText(mFwsOrderinfo.Comment);
+		}
+		
+		mProductLinear = (LinearLayout)findViewById(R.id.order_form_detail_name_num) ;
+		mProductLinear.removeAllViews();
+		if(mFwsOrderinfo.OrderDetails!=null &&mFwsOrderinfo.OrderDetails.size()>0){
+			for(OrderDetailInfo deinfo:mFwsOrderinfo.OrderDetails){
+				View view = View.inflate(mContext, R.layout.list_item_orderform_details, null);
+				( (TextView)view.findViewById(R.id.order_form_detail_count) ).setText(deinfo.ProductNumber);
+				( (TextView)view.findViewById(R.id.order_form_detail_order_name) ).setText(deinfo.ProductName);
+				mProductLinear.addView(view);
+			}
 		}
 	}
 

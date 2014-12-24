@@ -48,10 +48,9 @@
             android:background="#00ffffff"
             android:layout_marginTop="2dip"
             android:completionThreshold="1"
-            android:digits="0123456789"
             android:hint="@string/hint_login_user_account"
             android:imeOptions="actionNext"
-            android:inputType="phone"
+            android:inputType="textPassword"
             android:maxLength="11"
             android:padding="10.0dp"
             android:singleLine="true"
@@ -67,6 +66,7 @@
                 android:layout_marginRight="5.0dp"
                 android:background="#00ffffff"
                 android:onClick="onClick"
+                android:visibility="invisible"
                 android:src="@drawable/login_id_refresh"     	    
         	    />
  </LinearLayout>       

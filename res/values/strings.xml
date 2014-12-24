@@ -55,7 +55,7 @@
    <string name="settings_old_pw">输入旧密码</string>
    <string name="settings_new_pw">输入新密码</string>
 
-    <string name="hint_login_user_account">志愿者</string>
+    <string name="hint_login_user_account">账号</string>
     <string name="hint_login_user_pwd">密码</string>
 
      <!-- 离线地图 s-->

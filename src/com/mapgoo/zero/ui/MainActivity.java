@@ -83,7 +83,7 @@ private void setSelect(int num){
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
 		
 		TextView xsy_user_name = (TextView) mMenuView.findViewById(R.id.xsy_user_name);
-		xsy_user_name.setText(mXsyUser.DisplayName);
+		xsy_user_name.setText(mFwsUser.serviceName);
 		mSlidingMenu = new SlidingMenu(this);
 		mSlidingMenu.setSlidingEnabled(true);
 		mSlidingMenu.setMode(SlidingMenu.LEFT);
@@ -190,7 +190,7 @@ void myStartActivity(Class<?> c){
 	private int OrderType;
 	private void getOrderInfoList(int type){
 		OrderType = type;
-		ApiClient.getZhiyuanzheOrderList(type+1,mXsyUser.peopleNo, 1, Integer.MAX_VALUE,
+		ApiClient.getZhiyuanzheOrderList(type+1,mFwsUser.serviceId, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();
@@ -236,9 +236,9 @@ void myStartActivity(Class<?> c){
 		
 		public void convert(ViewHolder holder, FwsOrderinfo item) {
 			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_dingdanhao))).setText(item.OrderCode);
-			((TextView)(holder.getConvertView().findViewById(R.id.fws_order_yuyue_shijian))).setText(item.OrderTime);
-			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_note))).setText(item.Remark);
+			((TextView)(holder.getConvertView().findViewById(R.id.fws_order_shangpin_or_fuwu))).setText(item.getProductName());
 			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_laoren_dizhi))).setText(item.HumanAddress);
+			((TextView)(holder.getConvertView().findViewById(R.id.fws_order_yuyue_shijian))).setText(item.OrderTime);
 			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_status))).setText(item.OrderStatus);
 		}
 	}

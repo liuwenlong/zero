@@ -15,6 +15,12 @@ public static String TOKEN= "token";
 public static String Image= "image";
 public static String isLogin= "islogin";
 public static String DisplayName= "DisplayName";
+
+public static String FWS_HOIDID= "FWS_HOIDID";
+public static String FWS_HOIDNAME= "FWS_HOIDNAME";
+public static String FWS_SERVERID= "FWS_SERVERID";
+public static String FWS_SERVERNAME= "FWS_SERVERNAME";
+public static String FWS_SERVERTYPE= "FWS_SERVERTYPE";
 	
 private static SharedPreferences sSharedPreferences;
 private static Editor sEditor;

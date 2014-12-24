@@ -771,15 +771,13 @@ public class ApiClient {
 		_POST_WITH_LISTENERS(URLs.UpdateUserPassword, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}	
 	
-	public static void getZhiyuanzheOrderList(int orderType,String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+	public static void getZhiyuanzheOrderList(int orderType,int peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, String> reqParams = new HashMap<String, String>();
-		if(isDebuge)
-			reqParams.put("peopleNo", "0");
-		else
-			reqParams.put("orderType", orderType+"");
+
+		reqParams.put("orderType", orderType+"");
 		
-		reqParams.put("peopleNo", peopleNo);
+		reqParams.put("serviceId", peopleNo+"");
 		reqParams.put("p", pager+"");
 		reqParams.put("pRowCount", rawcount+"");
 		
