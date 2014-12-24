@@ -132,6 +132,7 @@
     android:textColor="@color/normal_color_text"
      /> 
  <EditText 
+     android:id="@+id/order_create_remak"
      android:layout_width="match_parent"
     android:layout_height="60dp"     
     android:layout_weight="1.0"
