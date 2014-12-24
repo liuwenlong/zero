@@ -17,7 +17,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;

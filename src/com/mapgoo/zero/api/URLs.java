@@ -47,7 +47,7 @@ public class URLs implements Serializable {
 
 	private final static String URL_SPLITTER = "/";
 
-	public final static String PRODUCT_NAME = "eCareVolunteer";
+	public final static String PRODUCT_NAME = "eCareService";
 	public final static String API = "api";
 	public final static String PRODUCT_API_PATH = PRODUCT_NAME + URL_SPLITTER + API;
 

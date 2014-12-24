@@ -14,7 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshWebView;
 import com.handmark.pulltorefresh.library.extras.PullToRefreshWebView2;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.ui.widget.SimpleDialogBuilder;
 
 /**

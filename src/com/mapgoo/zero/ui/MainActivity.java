@@ -37,7 +37,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.VolleyError;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.mapgoo.zero.api.ApiClient;

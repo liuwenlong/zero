@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.utils.StringUtils;
 
 /**

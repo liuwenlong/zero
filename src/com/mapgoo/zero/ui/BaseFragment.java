@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapgoo.zero.MGApp;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.bean.MGObject;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.ui.widget.MyToast;
