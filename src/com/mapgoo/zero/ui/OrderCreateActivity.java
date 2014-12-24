@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -158,7 +159,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			info.ObjectID = getLaorenObjectId();
 			info.OrderTime = getOrderTime();
 			info.PeopleNo = Integer.parseInt(mXsyUser.getpeopleNo(null));
-			info.Remark = "null";
+			info.Remark = getRemark();
 			info.OrderContent=mZhiyuanzheInfo.getServiceContent();
 			info.UserID = mXsyUser.getUserId();
 			ApiClient.postVolunteerOrderSubmit(info, new onReqStartListener(){
@@ -195,6 +196,14 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		
 		return Num+"";
 	}
+	private String getRemark(){
+		String remake;
+		remake = ((EditText)findViewById(R.id.order_create_remak)).getText().toString();
+		if(remake==null || remake.isEmpty())
+			remake = "--";
+		return remake;
+	}
+	
 	private void serviceOrderSubmit(){
 		if(mShangpinList!=null){
 			ServiceOrderSubmitInfo info = new ServiceOrderSubmitInfo();
@@ -203,7 +212,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			info.ObjectID = getLaorenObjectId();
 			info.OrderTime = getOrderTime();
 			info.PeopleNo = Integer.parseInt(mXsyUser.getpeopleNo(null));
-			info.Remark = "null";
+			info.Remark = getRemark();
 			info.ServiceFee=getServiceFee();
 			info.Serviceltem=getServiceltem();
 			info.UserID = mXsyUser.getUserId();

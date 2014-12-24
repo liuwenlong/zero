@@ -340,6 +340,8 @@
 		     <string name="order_form_detail_appointment">预约时间</string>
 		      <string name="order_form_detail_note">备注</string>
 		      <string name="order_form_detail_zhiyuanzhe_fuwu">服务内容</string>
+		      <string name="order_form_deceline_reason">拒受理原因</string>
+		    <string name="order_form_detail_pingjia">评价</string>
 		      
           <string name="order_form_detail">订单详情</string>
           <string name="order_form_detail_Confirm">确认完成</string>

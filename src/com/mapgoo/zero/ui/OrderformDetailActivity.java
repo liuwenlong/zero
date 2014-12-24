@@ -79,7 +79,7 @@ LinearLayout mProductLinear;
 		( (TextView)findViewById(R.id.order_form_detail_from_name) ).setText(info.BusinessName);
 		( (TextView)findViewById(R.id.order_form_detail_for_name) ).setText(info.HumanName);
 		( (TextView)findViewById(R.id.order_form_detail_appointment) ).setText(info.OrderTime);
-		( (TextView)findViewById(R.id.order_form_detail_note) ).setText(info.Comment);
+		( (TextView)findViewById(R.id.order_form_detail_note) ).setText(info.Remark);
 		( (TextView)findViewById(R.id.order_form_detail_order_status) ).setText(info.OrderStatus);
 		
 		mProductLinear = (LinearLayout)findViewById(R.id.order_form_detail_name_num) ;
@@ -101,6 +101,16 @@ LinearLayout mProductLinear;
 			( (TextView)findViewById(R.id.order_form_detail_btn) ).setVisibility(View.INVISIBLE);
 		}
 		
+		findViewById(R.id.order_form_deceline_reason_item) .setVisibility(View.GONE);
+		findViewById(R.id.order_form_detail_pingjia_item) .setVisibility(View.GONE);
+		if(info.OrderStatusID == 4){
+			findViewById(R.id.order_form_deceline_reason_item) .setVisibility(View.VISIBLE);
+			( (TextView)findViewById(R.id.order_form_deceline_reason) ).setText(info.DeclineReason);
+		}
+		if(info.OrderStatusID == 3){
+			findViewById(R.id.order_form_detail_pingjia_item) .setVisibility(View.VISIBLE);
+			( (TextView)findViewById(R.id.order_form_detail_pingjia) ).setText(info.Comment);
+		}
 		if(info.BusinessType == 1){
 			((TextView)findViewById(R.id.order_form_detail_zhiyuanzhe_fuwu)).setText(info.OrderContent);
 			
