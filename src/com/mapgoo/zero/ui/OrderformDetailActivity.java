@@ -22,6 +22,7 @@ import com.huaan.icare.volunteer.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.FwsOrderinfo;
 import com.mapgoo.zero.bean.OrderFormDetailInfo;
 import com.mapgoo.zero.bean.OrderFormInfo;
 import com.mapgoo.zero.bean.OrderFormDetailInfo.OrderDetailInfo;
@@ -36,8 +37,7 @@ import com.mapgoo.zero.ui.widget.ViewHolder;
  */
 public class OrderformDetailActivity extends BaseActivity {
 
-	OrderFormInfo mOrderFormInfo;
-	OrderFormDetailInfo mOrderFormDetailInfo;
+	FwsOrderinfo mFwsOrderinfo;
 	ListView mListView;
 	@Override
 	public void setContentView() {
@@ -50,7 +50,7 @@ public class OrderformDetailActivity extends BaseActivity {
 		if (savedInstanceState != null) {
 
 		} else {
-			mOrderFormInfo = (OrderFormInfo)getIntent().getExtras().getSerializable("OrderFormInfo");
+			mFwsOrderinfo = (FwsOrderinfo)getIntent().getExtras().getSerializable("FwsOrderinfo");
 		}
 	}
 
@@ -64,50 +64,34 @@ public class OrderformDetailActivity extends BaseActivity {
 	public void initViews() {
 		super.setupActionBar(getText(R.string.order_form_detail).toString(), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
-		( (TextView)findViewById(R.id.order_form_detail_from_name) ).setText(mOrderFormInfo.mFromName);
-		( (TextView)findViewById(R.id.order_form_detail_for_name) ).setText(mOrderFormInfo.mForName);
+		refreshDisplay();
 
-		( (TextView)findViewById(R.id.order_form_detail_unit_price) ).setText(mOrderFormInfo.mUnitPrice+"元");
-		//( (TextView)findViewById(R.id.order_form_detail_count) ).setText(mOrderFormInfo.mCount);
-		( (TextView)findViewById(R.id.order_form_detail_appointment) ).setText(mOrderFormInfo.mAppointment);
-		( (TextView)findViewById(R.id.order_form_detail_note) ).setText(mOrderFormInfo.mNote);		
-
-		getOrderformList();
 	}
 LinearLayout mProductLinear;
-	private void refreshDisplay(OrderFormDetailInfo info){
-		( (TextView)findViewById(R.id.order_form_detail_from_name) ).setText(info.BusinessName);
-		( (TextView)findViewById(R.id.order_form_detail_for_name) ).setText(info.HumanName);
-		( (TextView)findViewById(R.id.order_form_detail_appointment) ).setText(info.OrderTime);
-		( (TextView)findViewById(R.id.order_form_detail_note) ).setText(info.Comment);
-		( (TextView)findViewById(R.id.order_form_detail_order_status) ).setText(info.OrderStatus);
+	private void refreshDisplay(){
+		( (TextView)findViewById(R.id.order_form_detail_from_name) ).setText("订单号 "+mFwsOrderinfo.OrderCode);
+		( (TextView)findViewById(R.id.order_form_detail_for_name) ).setText(mFwsOrderinfo.HumanName);
+		( (TextView)findViewById(R.id.order_form_detail_unit_price) ).setText(mFwsOrderinfo.HumanAddress);
+		( (TextView)findViewById(R.id.order_form_detail_appointment) ).setText(mFwsOrderinfo.OrderTime);
+		( (TextView)findViewById(R.id.order_form_detail_note) ).setText(mFwsOrderinfo.Remark);		
+		( (TextView)findViewById(R.id.ruhu_dianhua_lianxiren) ).setText(mFwsOrderinfo.MobilePhone);		
+		( (TextView)findViewById(R.id.order_form_detail_order_status) ).setText(mFwsOrderinfo.OrderStatus);		
 		
-		mProductLinear = (LinearLayout)findViewById(R.id.order_form_detail_name_num) ;
-		mProductLinear.removeAllViews();
-		if(info.OrderDetails!=null &&info.OrderDetails.size()>0){
-			for(OrderDetailInfo deinfo:info.OrderDetails){
-				View view = View.inflate(mContext, R.layout.list_item_orderform_details, null);
-				( (TextView)view.findViewById(R.id.order_form_detail_count) ).setText(deinfo.ProductNumber);
-				( (TextView)view.findViewById(R.id.order_form_detail_order_name) ).setText(deinfo.ProductName);
-				mProductLinear.addView(view);
-			}
+		if(mFwsOrderinfo.OrderStatusID == 1){
+			findViewById(R.id.order_form_commit).setVisibility(View.VISIBLE);
+		}else{
+			findViewById(R.id.order_form_commit).setVisibility(View.INVISIBLE);
 		}
 		
-		if(info.OrderStatusID == 1){
-			( (TextView)findViewById(R.id.order_form_detail_btn) ).setText(R.string.order_form_detail_Cancel);
-		}else if(info.OrderStatusID == 2){
-			( (TextView)findViewById(R.id.order_form_detail_btn) ).setText(R.string.order_form_detail_Confirm);
-		}else{
-			( (TextView)findViewById(R.id.order_form_detail_btn) ).setVisibility(View.INVISIBLE);
+		findViewById(R.id.order_form_deceline_reason_item) .setVisibility(View.GONE);
+		findViewById(R.id.order_form_detail_pingjia_item) .setVisibility(View.GONE);
+		if(mFwsOrderinfo.OrderStatusID == 4){
+			findViewById(R.id.order_form_deceline_reason_item) .setVisibility(View.VISIBLE);
+			( (TextView)findViewById(R.id.order_form_deceline_reason) ).setText(mFwsOrderinfo.DeclineReason);
 		}
-		
-		if(info.BusinessType == 1){
-			((TextView)findViewById(R.id.order_form_detail_zhiyuanzhe_fuwu)).setText(info.OrderContent);
-			
-			findViewById(R.id.order_form_detail_zhiyuanzhe_fuwu_item).setVisibility(View.VISIBLE);
-			findViewById(R.id.order_form_detail_unit_price_item) .setVisibility(View.GONE);
-		}else{
-			((TextView)findViewById(R.id.order_form_detail_unit_price) ).setText(info.ServiceFee+"元");
+		if(mFwsOrderinfo.OrderStatusID == 3){
+			findViewById(R.id.order_form_detail_pingjia_item) .setVisibility(View.VISIBLE);
+			( (TextView)findViewById(R.id.order_form_detail_pingjia) ).setText(mFwsOrderinfo.Comment);
 		}
 	}
 
@@ -121,8 +105,12 @@ LinearLayout mProductLinear;
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
-		if(requestCode == 100){
-			getOrderformList();
+		if(requestCode == 100 && resultCode == RESULT_OK){
+			mFwsOrderinfo.OrderStatus = "拒受理";
+			mFwsOrderinfo.OrderStatusID = 4;
+			mFwsOrderinfo.DeclineReason = "";
+			refreshDisplay();
+			setResult(RESULT_OK);
 		}
 	}
 	
@@ -132,56 +120,20 @@ LinearLayout mProductLinear;
 		case R.id.iv_ab_left_btn:
 			finish();
 			break;
-		case R.id.order_form_detail_btn:{
-			if(mOrderFormDetailInfo!=null && mOrderFormDetailInfo.OrderStatusID == 2){//确认完成
-				Intent intent = new Intent(mContext, PingjiaActivity.class).putExtra("OrderFormInfo", mOrderFormInfo);
-				startActivityForResult(intent, 100);
-			}else if(mOrderFormDetailInfo!=null && mOrderFormDetailInfo.OrderStatusID == 1){//取消订单
-				OrderCancel();
-			}
-			break;
-		}
+		case R.id.order_form_jieshou_btn:
+			OrderAccept();
+			break;	
+		case R.id.order_form_jujue_btn:
+			startActivityForResult(new Intent(mContext, DeclineReasonActivity.class).putExtra("FwsOrderinfo",mFwsOrderinfo), 100);
+			break;	
 		default:
 			break;
 		}
 	}
 
-	private void getOrderformList(){
-		ApiClient.getOrderFormDetailList(mOrderFormInfo.RecID,1, Integer.MAX_VALUE,
-				new onReqStartListener(){
-					public void onReqStart() {
-						getmProgressDialog().show();
-					}}, 
-					new Listener<JSONObject> (){
-						public void onResponse(JSONObject response) {
-							getmProgressDialog().dismiss();
-							Log.d("onResponse",response.toString());
-							if (response.has("error")) {
-								try {
-									if (response.getInt("error") == 0) {
-										//JSONArray array = response.getJSONArray("result");
-										//if(array!=null&&array.length()>1){
-										mOrderFormDetailInfo = JSON.parseObject(response.getJSONObject("result").toString(), OrderFormDetailInfo.class);
-										//mOrderFormDetailInfo.OrderDetails= (ArrayList<OrderDetailInfo>) JSON.parseArray(mOrderFormDetailInfo.OrderDetails.toString(), OrderDetailInfo.class);
-											 //mOrderFormAdapter.mDataList = mOrderFormList;
-											 //mOrderFormAdapter.notifyDataSetChanged();
-										//}
-										 
-										refreshDisplay(mOrderFormDetailInfo);
-										
-										//Log.d("onResponse",mOrderFormDetailInfo.OrderDetails);
-									}else{
-										mToast.toastMsg(response.getString("reason"));
-									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-							}}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
-	}
 	
-	private void OrderCancel(){
-		ApiClient.OrderCancel(mOrderFormInfo.RecID,
+	private void OrderAccept(){
+		ApiClient.OrderAccept(mFwsOrderinfo.RecID,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();
@@ -193,8 +145,12 @@ LinearLayout mProductLinear;
 							if (response.has("error")) {
 								try {
 									if (response.getInt("error") == 0) {
-										mToast.toastMsg("取消订单成功");
-										getOrderformList();
+										mToast.toastMsg("受理成功");
+										mFwsOrderinfo.OrderStatus = "已受理";
+										mFwsOrderinfo.OrderStatusID = 2;
+										refreshDisplay();
+										setResult(RESULT_OK);
+									//	getOrderformList();
 									}else{
 										mToast.toastMsg(response.getString("reason"));
 									}

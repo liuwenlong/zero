@@ -131,5 +131,8 @@ public class URLs implements Serializable {
 	
 	//修改密码
 	public final static String UpdateUserPassword = URL_API_HTTP_HOST +"UpdateUserPassword";		
-	
+	//受理订单
+	public final static String OrderAccept = URL_API_HTTP_HOST +"OrderAccept";		
+	//受理订单
+	public final static String OrderDecline = URL_API_HTTP_HOST +"OrderDecline";		
 }

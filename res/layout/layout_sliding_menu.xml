@@ -67,68 +67,21 @@
         android:layout_height="wrap_content"
         android:divider="@drawable/divider_linear_vertical_1px"
         android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:showDividers="middle" >
 
-        <LinearLayout
-            android:id="@+id/settings_msg_shengying"
-            android:layout_width="match_parent"
-            android:layout_height="62.0dp"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:onClick="onClick"
-            android:background="@drawable/selector_item_card_bottom_bg"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            android:paddingLeft="26.0dp" >
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginRight="@dimen/setting_mar_right"
-            android:button="@null"
-            android:drawableRight="@drawable/selector_checkbox_icon"
-            android:drawablePadding="5.0dp"
-            android:gravity="center_vertical|left"
-            android:text="@string/settings_message_tip_shenyin"
-            android:textColor="@color/setting_color_text"
-            android:textSize="@dimen/txt_size_16sp" />
-        </LinearLayout>
         
         <LinearLayout
-            android:id="@+id/settings_msg_zhendong"
+            android:id="@+id/setting_center_message"
             android:layout_width="match_parent"
-            android:layout_height="62.0dp"
-            android:clickable="true"
-            android:background="@drawable/selector_item_card_bottom_bg"
-            android:gravity="center_vertical"
-            android:onClick="onClick"
-             android:visibility="gone"
-            android:orientation="horizontal"
-            android:paddingLeft="26.0dp" >
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginRight="@dimen/setting_mar_right"
-            android:button="@null"
-            android:drawableRight="@drawable/selector_checkbox_icon"
-            android:drawablePadding="5.0dp"
-            android:gravity="center_vertical|left"
-            android:text="@string/settings_message_tip_zhendong"
-            android:textColor="@color/setting_color_text"
-            android:textSize="@dimen/txt_size_16sp" />
-        </LinearLayout>
-        
-        <LinearLayout
-            android:id="@+id/setting_modify_password"
-            android:layout_width="match_parent"
-            android:layout_height="62.0dp"
+            android:layout_height="54.0dp"
             android:clickable="true"
             android:background="@drawable/selector_item_card_bottom_bg"
             android:gravity="center_vertical"
             android:onClick="onClick"
             android:orientation="horizontal"
-            android:paddingLeft="26.0dp" >
+            android:paddingLeft="6.0dp" >
 
             <TextView
                 android:layout_width="match_parent"
@@ -136,7 +89,32 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/setting_mar_right"
 	            android:drawableRight="@drawable/setting_right_arrow"
-	           	android:drawablePadding="5.0dp"                
+	            android:drawableLeft="@drawable/set_message_icon"           
+                android:gravity="center_vertical"
+                android:text="@string/settings_message_center_msg"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/setting_modify_password"
+            android:layout_width="match_parent"
+            android:layout_height="54.0dp"
+            android:clickable="true"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:orientation="horizontal"
+            android:paddingLeft="6.0dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/setting_mar_right"
+	            android:drawableRight="@drawable/setting_right_arrow"
+	            android:drawableLeft="@drawable/set_modify_password"           
                 android:gravity="center_vertical"
                 android:text="@string/settings_message_modify_mima"
                 android:textColor="@color/setting_color_text"
@@ -144,27 +122,29 @@
             
         </LinearLayout>
 
-           <LinearLayout
-             android:id="@+id/setting_about"
+         <LinearLayout
+            android:id="@+id/setting_about"
             android:layout_width="match_parent"
-            android:layout_height="62.0dp"
+            android:layout_height="54.0dp"
             android:clickable="true"
+            android:background="@drawable/selector_item_card_bottom_bg"
             android:gravity="center_vertical"
             android:onClick="onClick"
-            android:background="@drawable/selector_item_card_bottom_bg"
             android:orientation="horizontal"
-            android:paddingLeft="26.0dp" >
+            android:paddingLeft="6.0dp" >
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/setting_mar_right"
 	            android:drawableRight="@drawable/setting_right_arrow"
-	           	android:drawablePadding="5.0dp"                
+	            android:drawableLeft="@drawable/set_about_icon"           
                 android:gravity="center_vertical"
-                android:text="@string/settings_about"
+                android:text="@string/settings_message_about"
                 android:textColor="@color/setting_color_text"
                 android:textSize="@dimen/txt_size_18sp" />
+            
         </LinearLayout>
 
         </LinearLayout>
@@ -177,11 +157,12 @@
                  android:layout_alignParentBottom="true"
                 android:layout_height="wrap_content"   >
 <Button 
+    		android:id="@+id/set_logout"
  		     android:layout_width="160dp"
 		    android:layout_height="40dp"
 		    android:layout_centerHorizontal="true"
 		    android:text="退出登陆"
-		    android:onClick="Logout"
+		    android:onClick="onClick"
 		    android:textColor="@color/white_color_text"
 		       android:background="@drawable/selector_button_ruhu_tijiao"
     />

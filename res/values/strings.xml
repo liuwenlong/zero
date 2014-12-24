@@ -287,7 +287,8 @@
   <string name="home_shenfenzhen">身份证号：</string>      
    <string name="settings_message_tip_shenyin">提醒方式：声音</string>       
  <string name="settings_message_tip_zhendong">提醒方式：震动</string>   
- <string name="settings_message_modify_mima">修改密码</string>  
+ <string name="settings_message_center_msg">中心通告</string>  
+ <string name="settings_message_modify_mima">修改密码</string> 
    <string name="settings_message_about">关于</string>  
    
    <string name="home_yuyue">预约服务</string>  
@@ -340,6 +341,7 @@
 		     <string name="order_form_detail_appointment">预约时间</string>
 		      <string name="order_form_detail_note">备注</string>
 		      <string name="order_form_detail_zhiyuanzhe_fuwu">服务内容</string>
+		      <string name="order_form_detail_order_adress">地址</string>
 		      
           <string name="order_form_detail">订单详情</string>
           <string name="order_form_detail_Confirm">确认完成</string>
@@ -387,5 +389,13 @@
                 <string name="fws_order_dingdanhao">订单号:</string>
                 <string name="fws_order_shangpin_or_fuwu">商品/服务:</string>
                 <string name="fws_order_yuyue_shijian">预约时间:</string>
-                  <string name="fws_order_laoren_dizhi">老人地址:</string>               
+                  <string name="fws_order_laoren_dizhi">老人地址:</string>  
+                 <string name="fws_order_note">备注:</string>               
+                  
+                 <string name="fws_order_zhiyuanzhe_shouli">受理</string>           
+                 <string name="fws_order_zhiyuanzhe_jujue">拒受理</string>           
+                  <string name="fws_order_jujue_reason">请输入拒受理原因:</string>
+                  <string name="order_form_desline">提交</string>
+ 		      <string name="order_form_deceline_reason">拒受理原因</string>
+		    <string name="order_form_detail_pingjia">评价</string>                 
 </resources>

@@ -186,7 +186,7 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 	private void handleLogin() {
 		String mTelNum = et_tel_num.getText().toString();
 		String originalPwd = et_pwd.getText().toString();
-		startActivity(new Intent(mContext,MainActivity.class));
+		//startActivity(new Intent(mContext,MainActivity.class));
 		// 验证手机号
 		if(TextUtils.isEmpty(mTelNum))
 			return ;
@@ -252,7 +252,7 @@ private String mDisplayName;
 	
 	@Override
 	public void onResponse(JSONObject response) {
-		if (reqCode == REQ_LOGIN) {
+		//if (reqCode == REQ_LOGIN) {
 			Log.d("onResponse", response.toString());
 			try {
 				if (response.has("error")) {
@@ -282,7 +282,7 @@ private String mDisplayName;
 				e.printStackTrace();
 			}
 
-		}
+		//}
 	}
 
 	public void checkPassword(){

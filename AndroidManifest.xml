@@ -214,7 +214,7 @@
         <activity
             android:name="com.mapgoo.zero.ui.LocServiceActivity"
             android:screenOrientation="portrait" />
-        
+
         <!-- 智能掌控 -->
         <activity
             android:name="com.mapgoo.zero.ui.SmartHandCtrlActivity"
@@ -328,7 +328,11 @@
             android:theme="@style/MyRightDialogStyleBottom"
             android:windowSoftInputMode="adjustPan" />      
 
- 
+                <!-- 位置服务 -->
+        <activity
+            android:name="com.mapgoo.zero.ui.DeclineReasonActivity"
+            android:screenOrientation="portrait" />
+     
          <activity
             android:name="com.mapgoo.zero.ui.PhotoSelectActivity"            
             android:screenOrientation="portrait" />

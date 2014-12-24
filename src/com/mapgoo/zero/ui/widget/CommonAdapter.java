@@ -28,7 +28,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 		this.mDatas = mDatas;
 		this.mItemLayoutId = itemLayoutId;
 	}
-
+	
 	@Override
 	public int getCount() {
 		return mDatas.size();

@@ -43,14 +43,6 @@
     android:textColor="@color/normal_color_text"     
     />
 </LinearLayout>
-
-<LinearLayout
-    android:id="@+id/order_form_detail_name_num"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    ></LinearLayout>
-
 <LinearLayout 
       android:id="@+id/order_form_detail_unit_price_item" 
     android:layout_width="match_parent"
@@ -62,7 +54,7 @@
     android:layout_height="wrap_content"  
     android:layout_weight="2.5"
     android:gravity="right"
-    android:text="@string/order_form_detail_unit_price" 
+    android:text="@string/order_form_detail_order_adress" 
     android:textSize="18sp"
     android:textColor="@color/normal_color_text"     
     />
@@ -77,6 +69,14 @@
     android:textColor="@color/normal_color_text"     
     />
 </LinearLayout>
+<LinearLayout
+    android:id="@+id/order_form_detail_name_num"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    ></LinearLayout>
+
+
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -155,21 +155,100 @@
     android:textColor="@color/normal_color_text"     
     />
 </LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:id="@+id/order_form_deceline_reason_item" 
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  
+    android:layout_weight="2.5"
+    android:gravity="right"
+    android:text="@string/order_form_deceline_reason" 
+    android:textSize="16sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/order_form_deceline_reason" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:gravity="left"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+     android:id="@+id/order_form_detail_pingjia_item" 
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"  
+    android:layout_weight="2.5"
+    android:gravity="right"
+    android:text="@string/order_form_detail_pingjia" 
+    android:textSize="16sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/order_form_detail_pingjia" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:gravity="left"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+
 		<View 
 		    android:layout_width="match_parent"
 		    android:layout_height="1dp"		
 		    android:background="@color/home_color_line"    
 		    />
-		<Button 
-        android:id="@+id/order_form_detail_btn"
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/order_form_detail_Confirm"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:layout_marginTop="20dp"
-    android:onClick="onClick"
-    android:background="@drawable/selector_button_ruhu_tijiao"
-    android:textColor="@color/white_color_text"
+		
+<RelativeLayout 
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content" 
+                 android:layout_marginTop="10dp"
+                 android:background="@drawable/order_create_time_bgd"
+                 android:padding="5dp" >
+		  <TextView 
+		      android:id="@+id/ruhu_dianhua_lianxiren_title"
+		     android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" 
+		    android:layout_centerVertical="true"
+		    android:text="@string/ruhu_dianhua_lianxiren"
+		    android:textColor="@color/dark_color_text"
+		     android:textSize="18sp"
+		      />  
+		   <TextView 
+		       android:layout_toRightOf="@+id/ruhu_dianhua_lianxiren_title"
+		       android:id="@+id/ruhu_dianhua_lianxiren"
+		     android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_centerVertical="true" 
+		        android:layout_alignParentRight="true"
+		    android:textColor="@color/normal_color_text"
+		    android:text="13912345678"
+		     android:textSize="18sp"
+		      />
+    <ImageButton 
+ 		     android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" 
+		    android:layout_alignParentRight="true"       
+		    android:layout_centerVertical="true" 
+		    android:src="@drawable/ruhu_dianhua_call"
+		    android:background="#00ffffff"
         />
+</RelativeLayout>		
+		
 </LinearLayout>

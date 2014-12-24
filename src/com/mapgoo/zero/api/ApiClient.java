@@ -769,5 +769,34 @@ public class ApiClient {
 		reqParams.put("NewPassword", newpass);
 		reqParams.put("UserID", userid);
 		_POST_WITH_LISTENERS(URLs.UpdateUserPassword, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
+	
+	public static void getZhiyuanzheOrderList(int orderType,String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		if(isDebuge)
+			reqParams.put("peopleNo", "0");
+		else
+			reqParams.put("orderType", orderType+"");
+		
+		reqParams.put("peopleNo", peopleNo);
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.OrderBasic, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
+	
+	public static void OrderAccept(int recId,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("recId", recId);
+		_POST_WITH_LISTENERS(URLs.OrderAccept, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
+	public static void OrderDecline(int recId,String declineReason,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("recId", recId);
+		reqParams.put("declineReason", declineReason);
+		_POST_WITH_LISTENERS(URLs.OrderDecline, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}		
 }
