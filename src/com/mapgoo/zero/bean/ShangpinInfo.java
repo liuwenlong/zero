@@ -19,6 +19,7 @@ public class ShangpinInfo  implements Serializable {
 	
 	public ShangpinInfo(){
 		isCheck = false;
+		mNumber = 1;
 	}
 	
 	public String Period;
