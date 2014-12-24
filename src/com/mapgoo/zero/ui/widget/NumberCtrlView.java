@@ -28,6 +28,7 @@ public class NumberCtrlView  extends RelativeLayout {
 	
 	public void setOnNumberChangeListener(onNumberChangeListener listern){
 		monNumberChangeListener = listern;
+		monNumberChangeListener.onNumberChange(this,mCount);
 	}
 	
 	public NumberCtrlView(Context context, AttributeSet attrs) {

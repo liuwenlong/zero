@@ -141,8 +141,15 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 	String getServiceltem(){
 		String str= "" ;
 		ShangpinInfo info;
-		for(int i=0;i<mShangpinList.size();i++){
-			info = mShangpinList.get(i);
+		ArrayList<ShangpinInfo> array =new ArrayList<ShangpinInfo>();
+		
+		for(ShangpinInfo item:mShangpinList){
+			if(item.mNumber>0)
+				array.add(item);
+		}
+		
+		for(int i=0;i<array.size();i++){
+			info = array.get(i);
 			if(i!=0)
 				str =str+",";
 			str =str+info.ProjectName+"_"+info.mNumber;
