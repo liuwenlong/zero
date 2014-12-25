@@ -23,6 +23,7 @@ import com.huaan.icare.family.R;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
+import com.mapgoo.zero.ui.MainActivity;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyToast;
 import com.mapgoo.zero.ui.widget.QuickShPref;
@@ -171,9 +172,13 @@ public class GlobalNetErrorHandler implements ErrorListener {
 
 								if (progressDialog != null && progressDialog.isShowing())
 									progressDialog.dismiss();
-
-								MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
-
+								
+								if(mContext instanceof MainActivity){
+									if(!((MainActivity)mContext).isFinishing())
+										((MainActivity)mContext).getLoaorenInfo();
+								}else{
+									MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+								}
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}

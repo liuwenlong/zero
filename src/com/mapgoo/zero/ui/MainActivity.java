@@ -289,7 +289,7 @@ void myStartActivity(Class<?> c){
 		// TODO Auto-generated method stub
 	}
 
-	private void getLoaorenInfo(){
+	public void getLoaorenInfo(){
 		ApiClient.getLoarenInfoList(mXsyUser.peopleNo, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
@@ -348,7 +348,7 @@ void myStartActivity(Class<?> c){
 								}
 							}						
 						}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, null));		
+					GlobalNetErrorHandler.getInstance(this, mXsyUser, null));		
 	}
 	
 	private void ReLogin(){
