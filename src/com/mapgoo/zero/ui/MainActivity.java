@@ -218,7 +218,7 @@ void myStartActivity(Class<?> c){
 							}
 							
 						}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
+					GlobalNetErrorHandler.getInstance(mContext, mFwsUser, getmProgressDialog()));
 	}
 	
 	

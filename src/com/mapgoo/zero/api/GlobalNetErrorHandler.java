@@ -21,6 +21,7 @@ import com.j256.ormlite.dao.Dao;
 import com.mapgoo.zero.MGApp;
 import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.FwsUser;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
@@ -132,61 +133,61 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		 * @return
 		 */
 		private static String handleServerError(VolleyError error, final Context context, final User curUser) {
-			XsyUser cUser;
+			FwsUser cUser;
 			NetworkResponse response = error.networkResponse;
 
 			if (response != null) {
 				switch (response.statusCode) {
-//				case 404:
-//				case 422:
-				case 401:
-					
-					final MGProgressDialog progressDialog = new MGProgressDialog(context);
-					progressDialog.setCancelable(true);
-					
-					if(curUser instanceof XsyUser){
-						cUser = (XsyUser)curUser;
-					// 重新获取token
-					ApiClient.loginInternel(cUser.userName, cUser.mPassword, new onReqStartListener() {
-
-						@Override
-						public void onReqStart() {
-
-							if (progressDialog != null && !progressDialog.isShowing()) {
-								progressDialog.setMessage(context.getText(R.string.token_expire_and_reget).toString());
-								progressDialog.show();
-							}
-
+	//				case 404:
+	//				case 422:
+					case 401:
+						
+						final MGProgressDialog progressDialog = new MGProgressDialog(context);
+						progressDialog.setCancelable(true);
+						
+						if(curUser instanceof FwsUser){
+								cUser = (FwsUser)curUser;
+							// 重新获取token
+							ApiClient.loginInternel(cUser.mUername, cUser.mPassword, new onReqStartListener() {
+		
+								@Override
+								public void onReqStart() {
+		
+									if (progressDialog != null && !progressDialog.isShowing()) {
+										progressDialog.setMessage(context.getText(R.string.token_expire_and_reget).toString());
+										progressDialog.show();
+									}
+		
+								}
+							}, new Listener<JSONObject>() {
+		
+								@Override
+								public void onResponse(JSONObject response) {
+		
+									try {
+										XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+										
+										RequestUtils.setToken(user.token);
+										QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+		
+										if (progressDialog != null && progressDialog.isShowing())
+											progressDialog.dismiss();
+		
+										MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+		
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+		
+								}
+		
+							}, GlobalNetErrorHandler.getInstance(context, curUser, null));
 						}
-					}, new Listener<JSONObject>() {
-
-						@Override
-						public void onResponse(JSONObject response) {
-
-							try {
-								XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-								
-								RequestUtils.setToken(user.token);
-								QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
-
-								if (progressDialog != null && progressDialog.isShowing())
-									progressDialog.dismiss();
-
-								MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
-
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-
-						}
-
-					}, GlobalNetErrorHandler.getInstance(context, curUser, null));
+						return "";
+						
+					default:
+						return context.getResources().getString(R.string.bad_network);
 					}
-					return "";
-					
-				default:
-					return context.getResources().getString(R.string.bad_network);
-				}
 			}
 			
 			return context.getResources().getString(R.string.bad_network);

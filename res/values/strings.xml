@@ -290,6 +290,8 @@
  <string name="settings_message_center_msg">中心通告</string>  
  <string name="settings_message_modify_mima">修改密码</string> 
    <string name="settings_message_about">关于</string>  
+   <string name="settings_message_shangpin_manager">商品管理</string>  
+   <string name="settings_message_renyuan_manager">人员管理</string>  
    
    <string name="home_yuyue">预约服务</string>  
    <string name="home_weizhi">位置服务</string>  
