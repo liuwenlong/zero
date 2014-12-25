@@ -336,7 +336,15 @@
          <activity
             android:name="com.mapgoo.zero.ui.PhotoSelectActivity"            
             android:screenOrientation="portrait" />
-        
+         
+          <activity
+            android:name="com.mapgoo.zero.ui.ReyuanManagerActivity"            
+            android:screenOrientation="portrait" />
+           <activity
+            android:name="com.mapgoo.zero.ui.EditRenyuanActivity"            
+            android:screenOrientation="portrait" />         
+         
+         
         <!-- 百度定位服务 -->
         <service
             android:name="com.baidu.location.f"

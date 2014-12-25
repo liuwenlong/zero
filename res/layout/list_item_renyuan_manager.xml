@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical" >
+		
+<FrameLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+ <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+ <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="0.5"
+    android:paddingRight="5dp">
+    <ImageView 
+     android:id="@+id/fws_renyuan_manager_def_pic"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:layout_centerVertical="true"
+    android:src="@drawable/fws_renyuan_manager_def_pic"   />    
+</RelativeLayout>        
+ <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="0.2"    
+    android:orientation="vertical">  
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"  
+    android:text="@string/fws_renyuan_name" 
+        android:layout_gravity="right"
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/fws_renyuan_name" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"  
+    android:text="@string/fws_renyuan_sex" 
+    android:layout_gravity="right"
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/fws_renyuan_sex" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"  
+    android:text="@string/fws_renyuan_birthday" 
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/fws_renyuan_birthday" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:orientation="horizontal">
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"  
+    android:text="@string/fws_renyuan_idcard"
+    android:textSize="18sp"
+    android:textColor="@color/normal_color_text"     
+    />
+<TextView
+    android:id="@+id/fws_renyuan_idcard" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingLeft="10dp"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:textColor="@color/normal_color_text"     
+    />
+</LinearLayout>
+</LinearLayout>
+</LinearLayout>
+ <ImageView 
+     android:id="@+id/zhiyuan_zhe_arrow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"       
+    android:layout_gravity="right|center_vertical"
+    android:src="@drawable/shangpin_item_arrow"
+     />
+</FrameLayout>		
+
+</LinearLayout>
+

@@ -138,6 +138,12 @@ private void setSelect(int num){
 				startActivity(new Intent(mContext, LoginActivity.class));
 				finish();
 				break;
+			case R.id.settings_message_shangpin_manager:
+				startActivity(new Intent(mContext, SettingsAboutActivity.class));
+				break;
+			case R.id.settings_message_renyuan_manager:
+				startActivity(new Intent(mContext, ReyuanManagerActivity.class));
+				break;
 		}
 	}
 void myStartActivity(Class<?> c){

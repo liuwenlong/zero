@@ -94,6 +94,8 @@ public class LoginActivity extends BaseActivity implements ErrorListener, Listen
 		et_tel_num = (EditTextView) findViewById(R.id.et_tel_num);
 		et_pwd = (EditTextView) findViewById(R.id.et_pwd);
 		
+		if(QuickShPref.getString(QuickShPref.USER_NAME)!=null)
+			et_tel_num.setText(QuickShPref.getString(QuickShPref.USER_NAME));		
 		if(QuickShPref.getString(QuickShPref.PASS_WORD)!=null)
 			et_pwd.setText(QuickShPref.getString(QuickShPref.PASS_WORD));
 			

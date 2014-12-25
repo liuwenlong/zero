@@ -23,6 +23,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.bean.PatrolBasicInfo;
+import com.mapgoo.zero.bean.RenyuanInfo;
 import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
 import com.mapgoo.zero.bean.VolunteerOrderSubmitInfo;
 import com.mapgoo.zero.ui.widget.QuickShPref;
@@ -797,4 +798,27 @@ public class ApiClient {
 		reqParams.put("declineReason", declineReason);
 		_POST_WITH_LISTENERS(URLs.OrderDecline, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}		
+	public static void getPeopleBasic(int serviceId,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		
+		reqParams.put("serviceId", serviceId+"");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.PeopleBasic, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
+	public static void savePeopleBasic(RenyuanInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("PeopleNo", info.PeopleNo);
+		reqParams.put("PeopleName", info.PeopleName);
+		reqParams.put("PeopleSex", info.PeopleSex);
+		reqParams.put("IDCard", info.IDCard);
+		reqParams.put("Birthday", info.Birthday);
+		reqParams.put("Picture", info.Picture);
+		reqParams.put("ServiceID", info.ServiceID);
+		
+		_POST_WITH_LISTENERS(URLs.PeopleBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
 }
