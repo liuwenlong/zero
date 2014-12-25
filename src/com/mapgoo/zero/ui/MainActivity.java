@@ -45,6 +45,7 @@ import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.bean.FwsOrderinfo;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
+import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.ui.widget.ViewHolder;
 
 
@@ -133,6 +134,7 @@ private void setSelect(int num){
 				startActivity(new Intent(mContext, SettingsAboutActivity.class));
 				break;
 			case R.id.set_logout:
+				QuickShPref.putValueObject(QuickShPref.isLogin, false);
 				startActivity(new Intent(mContext, LoginActivity.class));
 				finish();
 				break;
