@@ -6,6 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.AuthFailureError;
@@ -23,6 +25,7 @@ import com.huaan.icare.family.R;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
+import com.mapgoo.zero.ui.LoginActivity;
 import com.mapgoo.zero.ui.MainActivity;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyToast;
@@ -163,26 +166,35 @@ public class GlobalNetErrorHandler implements ErrorListener {
 
 						@Override
 						public void onResponse(JSONObject response) {
-
-							try {
-								XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-								
-								RequestUtils.setToken(user.token);
-								QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
-
-								if (progressDialog != null && progressDialog.isShowing())
-									progressDialog.dismiss();
-								
-								if(mContext instanceof MainActivity){
-									if(!((MainActivity)mContext).isFinishing())
-										((MainActivity)mContext).getLoaorenInfo();
-								}else{
-									MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+							if (progressDialog != null && progressDialog.isShowing())
+								progressDialog.dismiss();							
+							Log.d("onResponse", response.toString());
+							if (response.has("error")) {
+								try {
+									if(response.getInt("error") == 0){
+										XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+										
+										RequestUtils.setToken(user.token);
+										QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+		
+										if(mContext instanceof MainActivity){
+											if(!((MainActivity)mContext).isFinishing())
+												((MainActivity)mContext).getLoaorenInfo();
+										}else{
+											MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+										}
+									}else{
+										String reason=response.getString("reason");
+										MyToast.getInstance(context).toastMsg(reason);
+										QuickShPref.putValueObject(QuickShPref.isLogin, false);
+										mContext.startActivity(new Intent(mContext, LoginActivity.class));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+									QuickShPref.putValueObject(QuickShPref.isLogin, false);
+									mContext.startActivity(new Intent(mContext, LoginActivity.class));
 								}
-							} catch (JSONException e) {
-								e.printStackTrace();
 							}
-
 						}
 
 					}, GlobalNetErrorHandler.getInstance(context, curUser, null));
