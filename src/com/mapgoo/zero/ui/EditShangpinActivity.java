@@ -21,9 +21,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageLoader;
 import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.FwsShangpinInfo;
 import com.mapgoo.zero.bean.RenyuanInfo;
@@ -42,7 +44,7 @@ private ImageView mImageView;
 FwsShangpinInfo mFwsShangpinInfo;
 	@Override
 	public void setContentView() {
-		setContentView(R.layout.activity_add_or_modify_runyuan);
+		setContentView(R.layout.activity_add_or_modify_shangpin);
 	}
 
 	@Override
@@ -78,6 +80,13 @@ FwsShangpinInfo mFwsShangpinInfo;
 			((TextView)findViewById(R.id.fws_shangpin_end_time)).setText(mFwsShangpinInfo.getEndTime());
 			((EditText)findViewById(R.id.fws_shangpin_price)).setText(mFwsShangpinInfo.Price);
 			((EditText)findViewById(R.id.fws_shangpin_remark)).setText(mFwsShangpinInfo.Remark);
+			
+			if(mFwsShangpinInfo.ImagePath != null){
+				Log.d("onResponse","info.AvatarImage="+ mFwsShangpinInfo.ImagePath);
+				MyVolley.getImageLoader().get(mFwsShangpinInfo.ImagePath, 
+						ImageLoader.getImageListener((ImageView)findViewById(R.id.fws_renyuan_pictrue), 
+								R.drawable.fws_add_shangpin_picture, R.drawable.fws_add_shangpin_picture));
+			}
 		}
 	}
 
@@ -209,12 +218,47 @@ FwsShangpinInfo mFwsShangpinInfo;
 	}
 	
 	public void saveRenyuan(){
-		FwsShangpinInfo info = getRenyuanInfo();
+		final FwsShangpinInfo info = getRenyuanInfo();
 		if(info.ProjectName == null || info.ProjectName.isEmpty()){
 			mToast.toastMsg("姓名不能为空");
 			return;
 		}
 		ApiClient.saveProjectBasic(info,
+				new onReqStartListener(){
+			public void onReqStart() {
+				getmProgressDialog().show();
+			}}, 
+			new Listener<JSONObject> (){
+				public void onResponse(JSONObject response) {
+					getmProgressDialog().dismiss();
+					Log.d("onResponse",response.toString());
+					if (response.has("error")) {
+						try {
+							if (response.getInt("error") == 0) {
+								setResult(RESULT_OK);
+								if(info.ProjectID == 0)
+									info.ProjectID = response.getInt("result");
+								ProjectImage(info.ProjectID);
+							}else{
+								mToast.toastMsg(response.getString("reason"));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+					
+				}},
+			GlobalNetErrorHandler.getInstance(mContext, mFwsUser, getmProgressDialog()));		
+	}
+	
+	public void ProjectImage(int projectId){
+		String picture = getPictureBase64();
+		if(picture == null){
+			mToast.toastMsg("提交成功");
+			finish();
+			return;
+		}
+		ApiClient.ProjectImage(projectId,picture,
 				new onReqStartListener(){
 			public void onReqStart() {
 				getmProgressDialog().show();
@@ -238,6 +282,6 @@ FwsShangpinInfo mFwsShangpinInfo;
 					}
 					
 				}},
-			GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+			GlobalNetErrorHandler.getInstance(mContext, mFwsUser, getmProgressDialog()));		
 	}
 }

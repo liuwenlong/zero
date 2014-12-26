@@ -8,7 +8,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,15 +18,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageLoader;
 import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.RequestUtils;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.FwsShangpinInfo;
@@ -40,7 +46,7 @@ import com.mapgoo.zero.ui.widget.ViewHolder;
  * 
  * @Author yao
  */
-public class ShanpingManagerActivity extends BaseActivity implements OnItemClickListener {
+public class ShanpingManagerActivity extends BaseActivity implements OnItemClickListener, OnItemLongClickListener {
 
 	private ListView mListView;
 	private ArrayList<FwsShangpinInfo> mFwsShangpinList = new ArrayList<FwsShangpinInfo>();
@@ -72,9 +78,10 @@ public class ShanpingManagerActivity extends BaseActivity implements OnItemClick
 				R.drawable.fws_shangpin_manager_add,R.drawable.home_actionbar_bgd, -1);	
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		mListView.setOnItemClickListener(this);
+		mListView.setOnItemLongClickListener(this);
 		mRenyuanAdapter = new FwsShangpinAdapter(mContext, mFwsShangpinList, R.layout.list_item_fws_shangpin_manager);
 		mListView.setAdapter(mRenyuanAdapter);
-		getRenyuanList();
+		getProjectList();
 	}
 
 	@Override
@@ -113,6 +120,12 @@ public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 		((TextView)(holder.getConvertView().findViewById(R.id.fws_shangpin_time))).setText(item.Period);
 		((TextView)(holder.getConvertView().findViewById(R.id.fws_shangpin_price))).setText(item.Price);
 		((TextView)(holder.getConvertView().findViewById(R.id.fws_shangpin_remark))).setText(item.Remark);
+		if(item.ImagePath != null){
+			Log.d("onResponse","info.AvatarImage="+ item.ImagePath);
+			MyVolley.getImageLoader().get(item.ImagePath, 
+					ImageLoader.getImageListener((ImageView)(holder.getConvertView().findViewById(R.id.fws_renyuan_manager_def_pic)), 
+							R.drawable.list_item_zhiyuan_zhe_icon, R.drawable.list_item_zhiyuan_zhe_icon));
+		}
 	}
 }
 
@@ -122,7 +135,7 @@ public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if(requestCode == 100 && resultCode == RESULT_OK){
-			getRenyuanList();
+			getProjectList();
 		}
 	}
 	@Override
@@ -133,7 +146,7 @@ public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 		startActivityForResult(forwardIntent, 100);		
 	}
 	
-	private void getRenyuanList(){
+	private void getProjectList(){
 		ApiClient.getProjectBasic(mFwsUser.serviceId, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
@@ -167,8 +180,8 @@ public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 	
-	private void PeopleDelete(RenyuanInfo info){
-		ApiClient.PeopleDelete(info,
+	private void ProjectDelete(FwsShangpinInfo info){
+		ApiClient.ProjectDelete(info,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();
@@ -180,7 +193,8 @@ public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 							if (response.has("error")) {
 								try {
 									if (response.getInt("error") == 0) {
-
+										mToast.toastMsg("删除商品成功");
+										getProjectList();
 									}else{
 										mToast.toastMsg(response.getString("reason"));
 									}
@@ -190,5 +204,29 @@ public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 							}
 						}},
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+	}
+	private void deleteItem( int arg2){
+		final FwsShangpinInfo info =  mFwsShangpinList.get(arg2);
+		new AlertDialog.Builder(mContext).setTitle("提示")
+				.setMessage("是否删除选中项?")
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						ProjectDelete(info);
+					}
+				}).show();	
+	}
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		// TODO Auto-generated method stub
+		deleteItem(arg2);
+		return true;
 	}
 }

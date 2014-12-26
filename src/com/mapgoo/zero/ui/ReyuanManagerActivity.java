@@ -8,7 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,15 +20,19 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageLoader;
 import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.RequestUtils;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.LaorenInfo;
@@ -40,7 +47,7 @@ import com.mapgoo.zero.ui.widget.ViewHolder;
  * 
  * @Author yao
  */
-public class ReyuanManagerActivity extends BaseActivity implements OnItemClickListener, OnLongClickListener {
+public class ReyuanManagerActivity extends BaseActivity implements OnItemClickListener,  OnItemLongClickListener {
 
 	private ListView mListView;
 	private ArrayList<RenyuanInfo> mRenyuanList = new ArrayList<RenyuanInfo>();
@@ -72,7 +79,7 @@ public class ReyuanManagerActivity extends BaseActivity implements OnItemClickLi
 				R.drawable.fws_shangpin_manager_add,R.drawable.home_actionbar_bgd, -1);	
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		mListView.setOnItemClickListener(this);
-		mListView.setOnLongClickListener(this);
+		mListView.setOnItemLongClickListener(this);
 		mRenyuanAdapter = new RenyuanAdapter(mContext, mRenyuanList, R.layout.list_item_renyuan_manager);
 		mListView.setAdapter(mRenyuanAdapter);
 		getRenyuanList();
@@ -114,6 +121,12 @@ public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
 		((TextView)(holder.getConvertView().findViewById(R.id.fws_renyuan_sex))).setText(item.getPeopleSexString());
 		((TextView)(holder.getConvertView().findViewById(R.id.fws_renyuan_birthday))).setText(item.Birthday);
 		((TextView)(holder.getConvertView().findViewById(R.id.fws_renyuan_idcard))).setText(item.IDCard);
+		if(item.Picture != null){
+			Log.d("onResponse","info.AvatarImage="+ item.Picture);
+			MyVolley.getImageLoader().get(item.Picture, 
+					ImageLoader.getImageListener((ImageView)(holder.getConvertView().findViewById(R.id.fws_renyuan_manager_def_pic)), 
+							R.drawable.list_item_zhiyuan_zhe_icon, R.drawable.list_item_zhiyuan_zhe_icon));
+		}
 	}
 	
 }
@@ -181,7 +194,8 @@ public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
 							if (response.has("error")) {
 								try {
 									if (response.getInt("error") == 0) {
-
+										mToast.toastMsg("删除成功");
+										getRenyuanList();
 									}else{
 										mToast.toastMsg(response.getString("reason"));
 									}
@@ -193,9 +207,29 @@ public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
 
-	@Override
-	public boolean onLongClick(View v) {
-		// TODO Auto-generated method stub
-		return false;
+	private void deleteItem( int arg2){
+		final RenyuanInfo info =  mRenyuanList.get(arg2);
+		new AlertDialog.Builder(mContext).setTitle("提示")
+				.setMessage("是否删除选中项?")
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						PeopleDelete(info);
+					}
+				}).show();	
 	}
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		// TODO Auto-generated method stub
+		deleteItem(arg2);
+		return true;
+	}
+
 }

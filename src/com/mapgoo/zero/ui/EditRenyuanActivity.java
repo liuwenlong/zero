@@ -19,9 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageLoader;
 import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.RenyuanInfo;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
@@ -39,7 +41,7 @@ private ImageView mImageView;
 RenyuanInfo mRenyuanInfo;
 	@Override
 	public void setContentView() {
-		setContentView(R.layout.activity_add_or_modify_runyuan);
+		setContentView(R.layout.activity_add_or_modify_renyuan);
 	}
 
 	@Override
@@ -71,6 +73,12 @@ RenyuanInfo mRenyuanInfo;
 			((EditText)findViewById(R.id.fws_renyuan_name)).setText(mRenyuanInfo.PeopleName);
 			((EditText)findViewById(R.id.fws_renyuan_sex)).setText(mRenyuanInfo.getPeopleSexString());
 			((EditText)findViewById(R.id.fws_renyuan_idcard)).setText(mRenyuanInfo.IDCard);
+			if(mRenyuanInfo.Picture != null){
+				Log.d("onResponse","info.AvatarImage="+ mRenyuanInfo.Picture);
+				MyVolley.getImageLoader().get(mRenyuanInfo.Picture, 
+						ImageLoader.getImageListener((ImageView)findViewById(R.id.fws_renyuan_pictrue), 
+								R.drawable.list_item_zhiyuan_zhe_icon, R.drawable.list_item_zhiyuan_zhe_icon));
+			}
 		}
 	}
 
@@ -156,18 +164,52 @@ RenyuanInfo mRenyuanInfo;
 		info.setPeopleSexString(((EditText)findViewById(R.id.fws_renyuan_sex)).getText().toString());
 		info.IDCard=((EditText)findViewById(R.id.fws_renyuan_idcard)).getText().toString();
 		info.ServiceID = mFwsUser.serviceId;
-		info.Picture=getPictureBase64();
 		
 		return info;
 	}
 	
 	public void saveRenyuan(){
-		RenyuanInfo info = getRenyuanInfo();
+		final RenyuanInfo info = getRenyuanInfo();
 		if(info.PeopleName == null || info.PeopleName.isEmpty()){
 			mToast.toastMsg("姓名不能为空");
 			return;
 		}
 		ApiClient.savePeopleBasic(info,
+				new onReqStartListener(){
+			public void onReqStart() {
+				getmProgressDialog().show();
+			}}, 
+			new Listener<JSONObject> (){
+				public void onResponse(JSONObject response) {
+					getmProgressDialog().dismiss();
+					Log.d("onResponse",response.toString());
+					if (response.has("error")) {
+						try {
+							if (response.getInt("error") == 0) {
+								if(info.PeopleNo == 0)
+									info.PeopleNo = response.getInt("result");
+								setResult(RESULT_OK);
+								PeopleImage(info.PeopleNo);
+							}else{
+								mToast.toastMsg(response.getString("reason"));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+					
+				}},
+			GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
+	}
+	
+	public void PeopleImage(int PeopleNo){
+		String picture = getPictureBase64();
+		if(picture == null){
+			mToast.toastMsg("提交成功");
+			finish();
+			return;
+		}
+		ApiClient.PeopleImage(PeopleNo,picture,
 				new onReqStartListener(){
 			public void onReqStart() {
 				getmProgressDialog().show();

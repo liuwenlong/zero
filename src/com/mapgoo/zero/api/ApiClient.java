@@ -1,6 +1,7 @@
 package com.mapgoo.zero.api;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -799,6 +800,7 @@ public class ApiClient {
 		reqParams.put("declineReason", declineReason);
 		_POST_WITH_LISTENERS(URLs.OrderDecline, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}		
+
 	public static void getPeopleBasic(int serviceId,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, String> reqParams = new HashMap<String, String>();
@@ -825,11 +827,21 @@ public class ApiClient {
 	public static void PeopleDelete(RenyuanInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, Object> reqParams = new HashMap<String, Object>();
-		reqParams.put("id", info.PeopleNo);
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		array.add( info.PeopleNo);
+		reqParams.put("id", array);
 		
 		_POST_WITH_LISTENERS(URLs.PeopleDelete, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
-	
+	public static void ProjectDelete(FwsShangpinInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		array.add( info.ProjectID);
+		reqParams.put("id", array);
+		
+		_POST_WITH_LISTENERS(URLs.ProjectDelete, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
 	public static void getProjectBasic(int serviceId,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, String> reqParams = new HashMap<String, String>();
@@ -853,4 +865,26 @@ public class ApiClient {
 		_POST_WITH_LISTENERS(URLs.ProjectBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}	
 	
+
+	public static void UpdateUserImage(int peopleNo,String avatar,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("serviceId", peopleNo);
+		reqParams.put("avatar", avatar);
+		_POST_WITH_LISTENERS(URLs.UpdateUserImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void PeopleImage(int peopleNo,String avatar,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("peopleNo", peopleNo);
+		reqParams.put("avatar", avatar);
+		_POST_WITH_LISTENERS(URLs.PeopleImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void ProjectImage(int projectId,String avatar,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("projectId", projectId);
+		reqParams.put("avatar", avatar);
+		_POST_WITH_LISTENERS(URLs.ProjectImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
 }

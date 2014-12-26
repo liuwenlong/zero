@@ -133,13 +133,24 @@ public class URLs implements Serializable {
 	public final static String UpdateUserPassword = URL_API_HTTP_HOST +"UpdateUserPassword";		
 	//受理订单
 	public final static String OrderAccept = URL_API_HTTP_HOST +"OrderAccept";		
-	//受理订单
+	//拒绝订单
 	public final static String OrderDecline = URL_API_HTTP_HOST +"OrderDecline";
-	//受理订单
+	//人员的查询修改增加
 	public final static String PeopleBasic = URL_API_HTTP_HOST +"PeopleBasic";	
-	//受理订单
-	public final static String PeopleDelete = URL_API_HTTP_HOST +"PeopleDelete";		
+	//删除人员
+	public final static String PeopleDelete = URL_API_HTTP_HOST +"PeopleDelete";	
+	//删除商品
+	public final static String ProjectDelete = URL_API_HTTP_HOST +"ProjectDelete";	
+	
 	//商品的查询修改增加
 	public final static String ProjectBasic = URL_API_HTTP_HOST +"ProjectBasic";		
 	
+	//修改头像
+	public final static String UpdateUserImage = URL_API_HTTP_HOST +"UpdateUserImage";	
+	//修改人员照片
+	public final static String PeopleImage = URL_API_HTTP_HOST +"PeopleImage";	
+	//修改商品照片
+	public final static String ProjectImage = URL_API_HTTP_HOST +"ProjectImage";		
+	
+
 }

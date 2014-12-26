@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.AuthFailureError;
@@ -80,6 +81,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		
 		public static void handleError(VolleyError error, Context context, User curUser) {
 			String errorMsg = getMessage(error, context, curUser);
+			Log.e("handleError", error.toString());
 
 			if (!StringUtils.isEmpty(errorMsg))
 				MyToast.getInstance(mContext).toastMsg(errorMsg);
