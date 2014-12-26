@@ -139,7 +139,7 @@ private void setSelect(int num){
 				finish();
 				break;
 			case R.id.settings_message_shangpin_manager:
-				startActivity(new Intent(mContext, SettingsAboutActivity.class));
+				startActivity(new Intent(mContext, ShanpingManagerActivity.class));
 				break;
 			case R.id.settings_message_renyuan_manager:
 				startActivity(new Intent(mContext, ReyuanManagerActivity.class));

@@ -104,7 +104,34 @@ public class NativeImageLoader {
 		return bitmap;
 
 	}
+	public Bitmap loadNativeImage(final String path,final int width,final int height, final NativeImageCallBack mCallBack) {
+		// 先获取内存中的Bitmap
+		Bitmap bitmap = getBitmapFromMemCache(path);
+		final Handler mHander = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				mCallBack.onImageLoader((Bitmap) msg.obj, path);
+			}
+		};
+		// 若该Bitmap不在内存缓存中，则启用线程去加载本地的图片，并将Bitmap加入到mMemoryCache中
+		if (bitmap == null) {
+			mImageThreadPool.execute(new Runnable() {
+				@Override
+				public void run() {
+					// 先获取图片的缩略图
+					Bitmap mBitmap = decodeThumbBitmapForFile(path, width, height);
+					Message msg = mHander.obtainMessage();
+					msg.obj = mBitmap;
+					mHander.sendMessage(msg);
+					// 将图片加入到内存缓存
+					addBitmapToMemoryCache(path, mBitmap);
+				}
+			});
+		}
+		return bitmap;
 
+	}
 	/**
 	 * 往内存缓存中添加Bitmap
 	 * 

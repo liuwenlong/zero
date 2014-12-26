@@ -137,4 +137,9 @@ public class URLs implements Serializable {
 	public final static String OrderDecline = URL_API_HTTP_HOST +"OrderDecline";
 	//受理订单
 	public final static String PeopleBasic = URL_API_HTTP_HOST +"PeopleBasic";	
+	//受理订单
+	public final static String PeopleDelete = URL_API_HTTP_HOST +"PeopleDelete";		
+	//商品的查询修改增加
+	public final static String ProjectBasic = URL_API_HTTP_HOST +"ProjectBasic";		
+	
 }

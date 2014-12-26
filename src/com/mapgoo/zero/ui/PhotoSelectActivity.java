@@ -180,7 +180,7 @@ public class PhotoSelectActivity extends BaseActivity implements OnItemClickList
 			
 			if(convertView == null){
 				convertView = View.inflate(aContext, R.layout.grid_child_item, null);
-				mPoint.set(DimenUtils.dip2px(mContext, 114), DimenUtils.dip2px(mContext, 114));
+				mPoint.set(DimenUtils.dip2px(mContext, 60), DimenUtils.dip2px(mContext, 60));
 			}
 			
 			mImageView = (ImageView)convertView.findViewById(R.id.child_image);

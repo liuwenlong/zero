@@ -112,8 +112,8 @@ private void startModifyPassword() {
 }
 	
 	private void UpdateUserPassword(String old,String newpass){
-		if(mXsyUser!=null)
-		ApiClient.UpdateUserPassword(mXsyUser.getUserId(),old, newpass,
+		if(mFwsUser!=null)
+		ApiClient.UpdateUserPassword(mFwsUser.serviceId,old, newpass,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();

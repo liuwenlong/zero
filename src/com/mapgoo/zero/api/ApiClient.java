@@ -22,6 +22,7 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.mapgoo.zero.MGApp;
+import com.mapgoo.zero.bean.FwsShangpinInfo;
 import com.mapgoo.zero.bean.PatrolBasicInfo;
 import com.mapgoo.zero.bean.RenyuanInfo;
 import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
@@ -820,5 +821,36 @@ public class ApiClient {
 		reqParams.put("ServiceID", info.ServiceID);
 		
 		_POST_WITH_LISTENERS(URLs.PeopleBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void PeopleDelete(RenyuanInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("id", info.PeopleNo);
+		
+		_POST_WITH_LISTENERS(URLs.PeopleDelete, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	
+	public static void getProjectBasic(int serviceId,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		
+		reqParams.put("serviceId", serviceId+"");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.ProjectBasic, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
+	public static void saveProjectBasic(FwsShangpinInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("ProjectID", info.ProjectID);
+		reqParams.put("ProjectName", info.ProjectName);
+		reqParams.put("ServiceID", info.ServiceID);
+		reqParams.put("Period", info.Period);
+		reqParams.put("Price", info.Price);
+		reqParams.put("Remark", info.Remark);
+		
+		_POST_WITH_LISTENERS(URLs.ProjectBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}	
+	
 }

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -17,12 +18,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.android.volley.Response.Listener;
 import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.FwsShangpinInfo;
 import com.mapgoo.zero.bean.RenyuanInfo;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
@@ -34,9 +37,9 @@ import com.mapgoo.zero.utils.ImageUtils;
  * 
  * @Author yao
  */
-public class EditRenyuanActivity extends BaseActivity {
+public class EditShangpinActivity extends BaseActivity {
 private ImageView mImageView;
-RenyuanInfo mRenyuanInfo;
+FwsShangpinInfo mFwsShangpinInfo;
 	@Override
 	public void setContentView() {
 		setContentView(R.layout.activity_add_or_modify_runyuan);
@@ -48,7 +51,7 @@ RenyuanInfo mRenyuanInfo;
 
 		} else {
 			if(getIntent()!=null &&getIntent().getExtras()!=null)
-				mRenyuanInfo = (RenyuanInfo)getIntent().getExtras().getSerializable("Renyuan");
+				mFwsShangpinInfo = (FwsShangpinInfo)getIntent().getExtras().getSerializable("Renyuan");
 		}
 	}
 
@@ -62,15 +65,19 @@ RenyuanInfo mRenyuanInfo;
 		super.setupActionBar(getString(R.string.fws_renyuan_add), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mImageView = (ImageView)findViewById(R.id.fws_renyuan_pictrue);
-		findViewById(R.id.fws_renyuan_birthday).setOnClickListener(this);
+		findViewById(R.id.fws_shangpin_start_time).setOnClickListener(this);
+		findViewById(R.id.fws_shangpin_end_time).setOnClickListener(this);
 		initDisplay();
 	}
 	
 	void initDisplay(){
-		if(mRenyuanInfo != null){
-			((EditText)findViewById(R.id.fws_renyuan_name)).setText(mRenyuanInfo.PeopleName);
-			((EditText)findViewById(R.id.fws_renyuan_sex)).setText(mRenyuanInfo.getPeopleSexString());
-			((EditText)findViewById(R.id.fws_renyuan_idcard)).setText(mRenyuanInfo.IDCard);
+		if(mFwsShangpinInfo  != null){
+			((EditText)findViewById(R.id.fws_shangpin_name)).setText(mFwsShangpinInfo.ProjectName);
+			//((EditText)findViewById(R.id.fws_shangpin_)).setText(mFwsShangpinInfo.getPeopleSexString());
+			((TextView)findViewById(R.id.fws_shangpin_start_time)).setText(mFwsShangpinInfo.getStartTime());
+			((TextView)findViewById(R.id.fws_shangpin_end_time)).setText(mFwsShangpinInfo.getEndTime());
+			((EditText)findViewById(R.id.fws_shangpin_price)).setText(mFwsShangpinInfo.Price);
+			((EditText)findViewById(R.id.fws_shangpin_remark)).setText(mFwsShangpinInfo.Remark);
 		}
 	}
 
@@ -103,7 +110,8 @@ RenyuanInfo mRenyuanInfo;
 		}
 	}
 	
-	TextView mInputDate;
+	TextView mInputStartTime;
+	TextView mInputEndTime;
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -116,22 +124,55 @@ RenyuanInfo mRenyuanInfo;
 			case R.id.fws_renyuan_pictrue:
 				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), 100);
 				break;
-			case R.id.fws_renyuan_birthday:
-			{
-				if(mInputDate == null)
-					mInputDate = (TextView)findViewById(R.id.fws_renyuan_birthday);
+			case R.id.fws_shangpin_start_time:{
+				if(mInputStartTime == null)
+					mInputStartTime = (TextView)findViewById(R.id.fws_shangpin_start_time);
 				Calendar c = Calendar.getInstance();
-				Dialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-					public void onDateSet(DatePicker dp, int year, int month, int dayOfMonth) {
-						mInputDate.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+				Dialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+						String hour = "";
+						if (hourOfDay < 10) {
+							hour = "0" + hourOfDay;
+						} else {
+							hour = "" + hourOfDay;
+						}
+						String min = "";
+						if (minute < 10) {
+							min = "0" + minute;
+						} else {
+							min = "" + minute;
+						}
+						mInputStartTime.setText(hour + ":" + min);
 					}
-				}, c.get(Calendar.YEAR), // 传入年份
-						c.get(Calendar.MONTH), // 传入月份
-						c.get(Calendar.DAY_OF_MONTH) // 传入天数
-				);
+				}, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true);
 				dialog.show();
-				break;	
-				}
+				break;
+			}
+			case R.id.fws_shangpin_end_time:{
+				if(mInputEndTime == null)
+					mInputEndTime = (TextView)findViewById(R.id.fws_shangpin_end_time);
+				Calendar c = Calendar.getInstance();
+				Dialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+						String hour = "";
+						if (hourOfDay < 10) {
+							hour = "0" + hourOfDay;
+						} else {
+							hour = "" + hourOfDay;
+						}
+						String min = "";
+						if (minute < 10) {
+							min = "0" + minute;
+						} else {
+							min = "" + minute;
+						}
+						mInputEndTime.setText(hour + ":" + min);
+					}
+				}, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true);
+				dialog.show();
+				break;
+			}
+			
 			default:
 				break;
 		}
@@ -144,30 +185,36 @@ RenyuanInfo mRenyuanInfo;
 		return str;
 	}
 	
-	private RenyuanInfo getRenyuanInfo(){
-		RenyuanInfo info;
-		if(mRenyuanInfo == null)
-			info=new RenyuanInfo();
-		else
-			info=mRenyuanInfo;
-		
-		info.PeopleName=((EditText)findViewById(R.id.fws_renyuan_name)).getText().toString();
-		info.Birthday=((TextView)findViewById(R.id.fws_renyuan_birthday)).getText().toString();
-		info.setPeopleSexString(((EditText)findViewById(R.id.fws_renyuan_sex)).getText().toString());
-		info.IDCard=((EditText)findViewById(R.id.fws_renyuan_idcard)).getText().toString();
+	private String getPeriod(){
+		String Period;
+		Period = ((TextView)findViewById(R.id.fws_shangpin_start_time)).getText().toString();
+		Period += "-";
+		Period += ((TextView)findViewById(R.id.fws_shangpin_end_time)).getText().toString();
+		return Period;
+	}
+	private FwsShangpinInfo getRenyuanInfo(){
+		FwsShangpinInfo info;
+		if(mFwsShangpinInfo == null){
+			info=new FwsShangpinInfo();
+		}else{
+			info=mFwsShangpinInfo;
+			
+		}
+		info.ProjectName = ((EditText)findViewById(R.id.fws_shangpin_name)).getText().toString();
+		info.Price = ((EditText)findViewById(R.id.fws_shangpin_price)).getText().toString();
+		info.Remark = ((EditText)findViewById(R.id.fws_shangpin_remark)).getText().toString();
+		info.Period = getPeriod();
 		info.ServiceID = mFwsUser.serviceId;
-		info.Picture=getPictureBase64();
-		
 		return info;
 	}
 	
 	public void saveRenyuan(){
-		RenyuanInfo info = getRenyuanInfo();
-		if(info.PeopleName == null || info.PeopleName.isEmpty()){
+		FwsShangpinInfo info = getRenyuanInfo();
+		if(info.ProjectName == null || info.ProjectName.isEmpty()){
 			mToast.toastMsg("姓名不能为空");
 			return;
 		}
-		ApiClient.savePeopleBasic(info,
+		ApiClient.saveProjectBasic(info,
 				new onReqStartListener(){
 			public void onReqStart() {
 				getmProgressDialog().show();

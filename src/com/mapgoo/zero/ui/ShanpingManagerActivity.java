@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,6 +27,7 @@ import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.RequestUtils;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.FwsShangpinInfo;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.bean.RenyuanInfo;
@@ -40,10 +40,10 @@ import com.mapgoo.zero.ui.widget.ViewHolder;
  * 
  * @Author yao
  */
-public class ReyuanManagerActivity extends BaseActivity implements OnItemClickListener, OnLongClickListener {
+public class ShanpingManagerActivity extends BaseActivity implements OnItemClickListener {
 
 	private ListView mListView;
-	private ArrayList<RenyuanInfo> mRenyuanList = new ArrayList<RenyuanInfo>();
+	private ArrayList<FwsShangpinInfo> mFwsShangpinList = new ArrayList<FwsShangpinInfo>();
 	
 	@Override
 	public void setContentView() {
@@ -65,15 +65,14 @@ public class ReyuanManagerActivity extends BaseActivity implements OnItemClickLi
 
 		super.onSaveInstanceState(outState);
 	}
-	RenyuanAdapter mRenyuanAdapter;
+	FwsShangpinAdapter mRenyuanAdapter;
 	@Override
 	public void initViews() {
-		super.setupActionBar("人员管理", 2, R.drawable.ic_back_arrow_white,
+		super.setupActionBar("商品管理", 2, R.drawable.ic_back_arrow_white,
 				R.drawable.fws_shangpin_manager_add,R.drawable.home_actionbar_bgd, -1);	
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		mListView.setOnItemClickListener(this);
-		mListView.setOnLongClickListener(this);
-		mRenyuanAdapter = new RenyuanAdapter(mContext, mRenyuanList, R.layout.list_item_renyuan_manager);
+		mRenyuanAdapter = new FwsShangpinAdapter(mContext, mFwsShangpinList, R.layout.list_item_fws_shangpin_manager);
 		mListView.setAdapter(mRenyuanAdapter);
 		getRenyuanList();
 	}
@@ -90,34 +89,32 @@ public class ReyuanManagerActivity extends BaseActivity implements OnItemClickLi
 			finish();
 			break;
 		case R.id.iv_ab_right_btn:
-			startActivityForResult(new Intent(mContext, EditRenyuanActivity.class),100);
+			startActivityForResult(new Intent(mContext, EditShangpinActivity.class),100);
 			break;
 		default:
 			break;
 		}
 	}
-public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
+public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 
-	public RenyuanAdapter(Context context, List<RenyuanInfo> mDatas,
+	public FwsShangpinAdapter(Context context, List<FwsShangpinInfo> mDatas,
 			int itemLayoutId) {
 		super(context, mDatas, itemLayoutId);
 		// TODO Auto-generated constructor stub
 	}
-	public void setDataList( List<RenyuanInfo> mDatas){
+	public void setDataList( List<FwsShangpinInfo> mDatas){
 		this.mDatas = mDatas;
 		notifyDataSetChanged();
 	}
 	@Override
-	public void convert(ViewHolder holder, RenyuanInfo item) {
+	public void convert(ViewHolder holder, FwsShangpinInfo item) {
 		// TODO Auto-generated method stub
-		((TextView)(holder.getConvertView().findViewById(R.id.fws_renyuan_name))).setText(item.PeopleName);
-		((TextView)(holder.getConvertView().findViewById(R.id.fws_renyuan_sex))).setText(item.getPeopleSexString());
-		((TextView)(holder.getConvertView().findViewById(R.id.fws_renyuan_birthday))).setText(item.Birthday);
-		((TextView)(holder.getConvertView().findViewById(R.id.fws_renyuan_idcard))).setText(item.IDCard);
+		((TextView)(holder.getConvertView().findViewById(R.id.fws_shangpin_name))).setText(item.ProjectName);
+		((TextView)(holder.getConvertView().findViewById(R.id.fws_shangpin_time))).setText(item.Period);
+		((TextView)(holder.getConvertView().findViewById(R.id.fws_shangpin_price))).setText(item.Price);
+		((TextView)(holder.getConvertView().findViewById(R.id.fws_shangpin_remark))).setText(item.Remark);
 	}
-	
 }
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,12 +129,12 @@ public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 		Intent forwardIntent = new Intent();
-		forwardIntent.setClass(mContext, EditRenyuanActivity.class).putExtra("Renyuan", mRenyuanList.get(arg2));
+		forwardIntent.setClass(mContext, EditShangpinActivity.class).putExtra("Renyuan", mFwsShangpinList.get(arg2));
 		startActivityForResult(forwardIntent, 100);		
 	}
 	
 	private void getRenyuanList(){
-		ApiClient.getPeopleBasic(mFwsUser.serviceId, 1, Integer.MAX_VALUE,
+		ApiClient.getProjectBasic(mFwsUser.serviceId, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();
@@ -149,14 +146,16 @@ public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
 							if (response.has("error")) {
 								try {
 									if (response.getInt("error") == 0) {
-										JSONArray array = response.getJSONArray("result");
-										if(array!=null&&array.length()>1){
+										//JSONArray array = response.getJSONArray("result");
+										//if(array!=null&&array.length()>1){
 											 //mLaorenList = JSON.parseObject(response.getJSONObject("result").toString(), (ArrayList<LaorenInfo>).cl);
-											mRenyuanList = (ArrayList<RenyuanInfo>) JSON.parseArray(array.get(1).toString(), RenyuanInfo.class);
-											mRenyuanAdapter.setDataList(mRenyuanList);
+										Log.d("response",response.getString("result"));
+										//Log.d("response",response.getJSONObject("result").toString());
+											mFwsShangpinList = (ArrayList<FwsShangpinInfo>) JSON.parseArray(response.getString("result"), FwsShangpinInfo.class);
+											mRenyuanAdapter.setDataList(mFwsShangpinList);
 											// refresLastLaoren();
 											// Log.d("onResponse",array.get(1).toString());
-										}
+										//}
 									}else{
 										mToast.toastMsg(response.getString("reason"));
 									}
@@ -191,11 +190,5 @@ public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
 							}
 						}},
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
-	}
-
-	@Override
-	public boolean onLongClick(View v) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

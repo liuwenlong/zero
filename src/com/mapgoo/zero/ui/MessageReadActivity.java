@@ -79,7 +79,7 @@ public class MessageReadActivity extends BaseActivity {
 		}
 	}
 	private void SetNoticeRead(){
-		ApiClient.SetNoticeRead(mMsg.NoticeID,mXsyUser.getUserId(),
+		ApiClient.SetNoticeRead(mMsg.NoticeID,mFwsUser.serviceId,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();

@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class RenyuanInfo  implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int PeopleNo;
 	public String PeopleName;
 	public boolean PeopleSex;
@@ -18,9 +22,9 @@ public class RenyuanInfo  implements Serializable {
 	public void setIPeopleName(String arg){
 		PeopleName = arg;
 	}		
-	public void setIPeopleSex(boolean arg){
+	public void setPeopleSex(boolean arg){
 		PeopleSex = arg;
-	}	
+	}
 	public void setIDCard(String arg){
 		IDCard = arg;
 	}	
@@ -33,5 +37,18 @@ public class RenyuanInfo  implements Serializable {
 	public void setServiceID(int arg){
 		ServiceID = arg;
 	}
-	
+	public void setPeopleSexString(String str){
+		if(str!=null && !str.isEmpty()){
+			if(str.contains("男"))
+				PeopleSex = true;
+			else
+				PeopleSex = false;
+		}
+	}
+	public String getPeopleSexString(){
+		if(PeopleSex)
+			return "男";
+		else
+			return "女";
+	}
 }

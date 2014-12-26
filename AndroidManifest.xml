@@ -343,7 +343,13 @@
            <activity
             android:name="com.mapgoo.zero.ui.EditRenyuanActivity"            
             android:screenOrientation="portrait" />         
-         
+          <activity
+            android:name="com.mapgoo.zero.ui.ShanpingManagerActivity"            
+            android:screenOrientation="portrait" />      
+           <activity
+            android:name="com.mapgoo.zero.ui.EditShangpinActivity"            
+            android:screenOrientation="portrait" />                
+          
          
         <!-- 百度定位服务 -->
         <service

@@ -158,7 +158,7 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 	}
 	
 	private void getMessageList(){
-		ApiClient.getMessageList(mXsyUser.getUserId(), 1, Integer.MAX_VALUE,
+		ApiClient.getMessageList(mFwsUser.serviceId, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();

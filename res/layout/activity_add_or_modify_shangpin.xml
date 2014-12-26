@@ -22,9 +22,9 @@
     android:layout_weight="2.3"
     android:gravity="center_vertical|right"
      android:textColor="@color/dark_color_text"
-    android:text="@string/fws_shangpin_name" />
+    android:text="@string/fws_renyuan_name" />
      <EditText    
-     android:id="@+id/fws_shangpin_name"
+     android:id="@+id/fws_renyuan_name"
      android:layout_width="match_parent"
     android:layout_height="match_parent"
         android:layout_weight="1.0"
@@ -33,60 +33,6 @@
     android:textSize="18sp"
      android:textColor="@color/normal_color_text"
     android:background="@drawable/order_create_time_bgd"/>
-</LinearLayout>
-
- <LinearLayout 
-     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-    android:orientation="horizontal"  >
-    <TextView    
-     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:textSize="18sp"
-    android:layout_weight="1.0"
-    android:gravity="center_vertical|right"
-     android:textColor="@color/dark_color_text"
-    android:text="@string/fws_shangpin_time" />
-     <TextView    
-     android:id="@+id/fws_shangpin_start_time"
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-        android:layout_weight="1.0"
-    android:layout_marginTop="2dp"
-    android:layout_marginLeft="10dp"
-    android:textSize="18sp"
-    android:text="08:00"
-    android:gravity="center"
-     android:textColor="@color/normal_color_text"
-    android:background="@drawable/order_create_time_bgd"/>
-     <TextView    
-     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_marginTop="2dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:gravity="center"
-    android:textSize="18sp"
-    android:text="-"
-     android:textColor="@color/normal_color_text"/>   
-    <TextView    
-     android:id="@+id/fws_shangpin_end_time"
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-        android:layout_weight="1.0"
-    android:layout_marginTop="2dp"
-    android:textSize="18sp"
-    android:text="20:00"
-    android:gravity="center"
-     android:textColor="@color/normal_color_text"
-    android:background="@drawable/order_create_time_bgd"/>  
-     <TextView    
-     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-     android:layout_weight="4"
-    android:textSize="18sp"
-     android:textColor="@color/normal_color_text"/>          
 </LinearLayout>
 
  <LinearLayout 
@@ -101,19 +47,18 @@
     android:layout_weight="2.3"
     android:gravity="center_vertical|right"
      android:textColor="@color/dark_color_text"
-    android:text="@string/fws_shangpin_price" />
-     <EditText    
-     android:id="@+id/fws_shangpin_price"
+    android:text="@string/fws_renyuan_birthday" />
+     <TextView    
+     android:id="@+id/fws_renyuan_birthday"
      android:layout_width="match_parent"
     android:layout_height="match_parent"
         android:layout_weight="1.0"
     android:layout_marginTop="2dp"
     android:layout_marginLeft="10dp"
-    android:hint="元"
     android:textSize="18sp"
+    android:text="1980-01-01"
      android:textColor="@color/normal_color_text"
     android:background="@drawable/order_create_time_bgd"/>
-
 </LinearLayout>
 
  <LinearLayout 
@@ -128,9 +73,34 @@
     android:layout_weight="2.3"
     android:gravity="center_vertical|right"
      android:textColor="@color/dark_color_text"
-    android:text="@string/fws_shangpin_remark" />
+    android:text="@string/fws_renyuan_sex" />
      <EditText    
-     android:id="@+id/fws_shangpin_remark"
+     android:id="@+id/fws_renyuan_sex"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:layout_weight="1.0"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
+    android:textSize="18sp"
+     android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"/>
+</LinearLayout>
+
+ <LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+    android:orientation="horizontal"  >
+    <TextView    
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textSize="18sp"
+    android:layout_weight="2.3"
+    android:gravity="center_vertical|right"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/fws_renyuan_idcard" />
+     <EditText    
+     android:id="@+id/fws_renyuan_idcard"
      android:layout_width="match_parent"
     android:layout_height="match_parent"
         android:layout_weight="1.0"
