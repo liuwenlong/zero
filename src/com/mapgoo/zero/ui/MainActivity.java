@@ -93,7 +93,7 @@ private void setSelect(int num){
 		
 		TextView xsy_user_name = (TextView) mMenuView.findViewById(R.id.xsy_user_name);
 
-		xsy_user_name.setText(mFwsUser.mUername);
+		xsy_user_name.setText(mFwsUser.serviceName);
 		civ_avatar = (CircleImageView) mMenuView.findViewById(R.id.civ_avatar);
 		if(mFwsUser.picture != null){
 			MyVolley.getImageLoader().get(mFwsUser.picture, 
