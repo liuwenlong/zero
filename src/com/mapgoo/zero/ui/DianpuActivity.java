@@ -15,14 +15,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
 import com.huaan.icare.family.R;
+import com.android.volley.toolbox.ImageLoader;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.DianpuInfo;
 import com.mapgoo.zero.bean.LaorenInfo;
@@ -100,39 +103,39 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 	}
 	
 	void dianpuInit(){
-		if(mDianpuList.isEmpty()){
-			DianpuInfo info = new DianpuInfo();
-			info.mFromName="飘香餐馆";
-			info.mFuwuTime = "8:30-19:30";
-			info.mUnitPrice="200元";
-			info.mPayType="刷卡";
-			info.mPhone="78455454";
-			info.mAdress="北京西城区椿树街道102号";
-			info.mShanMen="是";
-			mDianpuList.add(info);
-			mDianpuList.add(info);
-			mDianpuList.add(info);
-			mDianpuList.add(info);
-			mDianpuList.add(info);
-		}
+//		if(mDianpuList.isEmpty()){
+//			DianpuInfo info = new DianpuInfo();
+//			info.mFromName="飘香餐馆";
+//			info.mFuwuTime = "8:30-19:30";
+//			info.mUnitPrice="200元";
+//			info.mPayType="刷卡";
+//			info.mPhone="78455454";
+//			info.mAdress="北京西城区椿树街道102号";
+//			info.mShanMen="是";
+//			mDianpuList.add(info);
+//			mDianpuList.add(info);
+//			mDianpuList.add(info);
+//			mDianpuList.add(info);
+//			mDianpuList.add(info);
+//		}
 		mDianpuAdapter = new DianpuAdapter(mContext, mDianpuList);
 		mListView.setAdapter(mDianpuAdapter);
 		mListView.setOnItemClickListener(this);		
 	}
 
 	void zhiyuanzheInit(){
-		if(mZhiyuanzheList.isEmpty()){
-			ZhiyuanzheInfo info = new ZhiyuanzheInfo();
-			info.mZhiyuanzheName="李四";
-			info.mFuwuName="做饭";
-			info.mXingbie="男";
-			info.mFuwuTime="11:00-12:30";
-			info.mPhone="87541236";
-			mZhiyuanzheList.add(info);
-			mZhiyuanzheList.add(info);
-			mZhiyuanzheList.add(info);
-			mZhiyuanzheList.add(info);
-		}
+//		if(mZhiyuanzheList.isEmpty()){
+//			ZhiyuanzheInfo info = new ZhiyuanzheInfo();
+//			info.mZhiyuanzheName="李四";
+//			info.mFuwuName="做饭";
+//			info.mXingbie="男";
+//			info.mFuwuTime="11:00-12:30";
+//			info.mPhone="87541236";
+//			mZhiyuanzheList.add(info);
+//			mZhiyuanzheList.add(info);
+//			mZhiyuanzheList.add(info);
+//			mZhiyuanzheList.add(info);
+//		}
 		mZhiyuanzheAdapter = new ZhiyuanzheAdapter(mContext, mZhiyuanzheList);
 		mListView.setAdapter(mZhiyuanzheAdapter);
 		mListView.setOnItemClickListener(this);			
@@ -226,6 +229,13 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_phone)).setText(info.MobilePhone);
 			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_do)).setText(info.ServiceContent);
 			((TextView)view.findViewById(R.id.zhiyuan_zhe_work_time)).setText(info.ServiceTime);
+
+			if(info.Picture != null){
+				Log.d("onResponse","info.AvatarImage="+ info.Picture);
+				MyVolley.getImageLoader().get(info.Picture, 
+						ImageLoader.getImageListener((ImageView) view.findViewById(R.id.zhiyuan_zhe_avater), 
+								R.drawable.list_item_zhiyuan_zhe_icon, R.drawable.list_item_zhiyuan_zhe_icon));
+			}
 		}
 		
 	}	
