@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -23,6 +24,7 @@ import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.ui.widget.EditTextView;
+import com.mapgoo.zero.ui.widget.QuickShPref;
 
 /**
  * 概述: 模版
@@ -126,6 +128,9 @@ private void startModifyPassword() {
 								try {
 									if (response.getInt("error") == 0) {
 										mToast.toastMsg("密码修改成功,请重新登陆!");
+										QuickShPref.putValueObject(QuickShPref.isLogin, false);
+										mContext.startActivity(new Intent(mContext, LoginActivity.class));
+										finish();
 									}else{
 										mToast.toastMsg(response.getString("reason"));
 									}
