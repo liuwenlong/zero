@@ -131,8 +131,9 @@ LinearLayout mProductLinear;
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
-		if(requestCode == 100){
+		if(requestCode == 100 && resultCode == RESULT_OK){
 			getOrderformList();
+			setResult(RESULT_OK);
 		}
 	}
 	
@@ -204,6 +205,7 @@ LinearLayout mProductLinear;
 								try {
 									if (response.getInt("error") == 0) {
 										mToast.toastMsg("取消订单成功");
+										setResult(RESULT_OK);
 										getOrderformList();
 									}else{
 										mToast.toastMsg(response.getString("reason"));

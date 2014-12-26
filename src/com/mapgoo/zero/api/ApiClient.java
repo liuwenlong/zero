@@ -641,7 +641,7 @@ public class ApiClient {
 		
 		reqParams.put("PeopleNo", info.PeopleNo);
 		reqParams.put("Remark", info.Remark);
-		reqParams.put("OrderContent ", info.OrderContent );
+		reqParams.put("OrderContent", info.OrderContent );
 		reqParams.put("UserID", info.UserID);
 		
 		_POST_WITH_LISTENERS(URLs.VolunteerOrderSubmit, null,null, reqParams, reqStartListener, responseListener, errorListener);		
