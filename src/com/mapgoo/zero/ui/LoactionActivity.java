@@ -56,6 +56,8 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.CoordinateConverter;
+import com.baidu.mapapi.utils.CoordinateConverter.CoordType;
 import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
@@ -97,7 +99,16 @@ public class LoactionActivity extends BaseActivity {
 	public void setContentView() {
 		setContentView(R.layout.activity_loc_service);
 	}
-
+	
+	private void ConverterLaorenLoaction(LaorenLocInfo info){
+		CoordinateConverter converter=new CoordinateConverter();
+		LatLng source = new LatLng(Double.parseDouble( info.Lat),Double.parseDouble( info.Lon));
+		converter.from(CoordType.GPS);
+		converter.coord(source);
+		LatLng desLatLng = converter.convert();
+		info.Lat = desLatLng.latitude+"";
+		info.Lon = desLatLng.longitude+"";
+	}
 	@Override
 	public void initData(Bundle savedInstanceState) {
 
@@ -454,6 +465,7 @@ private void moveToLoaren(){
 									if (response.getInt("error") == 0) {
 										mLaorenLocInfo = JSON.parseObject(response.getJSONObject("result").toString(), LaorenLocInfo.class);
 										if(isLoactionLaoren()){
+											ConverterLaorenLoaction(mLaorenLocInfo);
 											showLaorenMarker();
 											moveToLoaren();
 											perfomZoom(16);

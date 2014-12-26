@@ -141,16 +141,22 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == 100 && resultCode == RESULT_OK){
+			getOrderformList();
+		}
+	}
+
+	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 		Intent forwardIntent = new Intent();
 		forwardIntent.setClass(mContext, OrderformDetailActivity.class);
-
-		Bundle mBundle = new Bundle();
-		mBundle.putSerializable("OrderFormInfo", mOrderFormList.get(arg2));
-		forwardIntent.putExtras(mBundle);
+		forwardIntent.putExtra("OrderFormInfo", mOrderFormList.get(arg2));
 		
-		startActivity(forwardIntent);	
+		startActivityForResult(forwardIntent, 100);	
 	}
 
 	private void getOrderformList(){

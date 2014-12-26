@@ -108,6 +108,7 @@ public class PingjiaActivity extends BaseActivity implements OnCheckedChangeList
 								try {
 									if (response.getInt("error") == 0) {
 										mToast.toastMsg("订单完成");
+										setResult(RESULT_OK);
 										finish();
 									}else{
 										mToast.toastMsg(response.getString("reason"));
