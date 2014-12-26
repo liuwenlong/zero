@@ -799,4 +799,11 @@ public class ApiClient {
 		reqParams.put("declineReason", declineReason);
 		_POST_WITH_LISTENERS(URLs.OrderDecline, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}		
+	public static void UpdateUserImage(int peopleNo,String avatar,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("peopleNo", peopleNo);
+		reqParams.put("avatar", avatar);
+		_POST_WITH_LISTENERS(URLs.UpdateUserImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
 }

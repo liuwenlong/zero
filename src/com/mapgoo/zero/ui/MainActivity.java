@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,17 +43,23 @@ import com.huaan.icare.volunteer.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.mapgoo.zero.api.ApiClient;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.bean.FwsOrderinfo;
+import com.mapgoo.zero.ui.widget.CircleImageView;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
+import com.mapgoo.zero.ui.widget.NativeImageLoader;
 import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.ui.widget.ViewHolder;
+import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
+import com.mapgoo.zero.utils.ImageUtils;
 
 
 public class MainActivity extends BaseActivity implements OnClosedListener, OnItemClickListener  {
 	
 	private final int RequestCode_Laoren = 1001;
+	private final int requestCode_photo = 1003;
 	private final int ORDER_TYPE_D = 0;
 	private final int ORDER_TYPE_Y = 1;
 	private final int ORDER_TYPE_J = 2;
@@ -59,7 +67,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener, OnIt
 	private SlidingMenu mSlidingMenu;
 	private View mMenuView;
 	private ListView mListView;
-
+	private CircleImageView civ_avatar;
 int btn_image[]= new int[]{R.id.home_daishou_image,R.id.home_yishou_image,R.id.home_jieshu_image};
 int btn_image_ds[] = new int[]{R.drawable.home_daishouli_ds,R.drawable.home_yishou_ds,R.drawable.home_jieshu_ds};
 int btn_image_en[] = new int[]{R.drawable.home_daishouli_en,R.drawable.home_yishou_en,R.drawable.home_jieshu_en};
@@ -85,6 +93,13 @@ private void setSelect(int num){
 		
 		TextView xsy_user_name = (TextView) mMenuView.findViewById(R.id.xsy_user_name);
 		xsy_user_name.setText(mXsyUser.DisplayName);
+		civ_avatar = (CircleImageView) mMenuView.findViewById(R.id.civ_avatar);
+		if(mXsyUser.picture != null){
+			MyVolley.getImageLoader().get(mXsyUser.picture, 
+					ImageLoader.getImageListener((ImageView)mMenuView. findViewById(R.id.civ_avatar), 
+							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
+		}
+		
 		mSlidingMenu = new SlidingMenu(this);
 		mSlidingMenu.setSlidingEnabled(true);
 		mSlidingMenu.setMode(SlidingMenu.LEFT);
@@ -138,6 +153,9 @@ private void setSelect(int num){
 				startActivity(new Intent(mContext, LoginActivity.class));
 				finish();
 				break;
+			case R.id.civ_avatar:
+				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+				break;				
 		}
 	}
 void myStartActivity(Class<?> c){
@@ -253,7 +271,27 @@ void myStartActivity(Class<?> c){
 		if(requestCode == 100 && resultCode == RESULT_OK){
 			setPagerTo(OrderType);
 		}
+		
+		if(requestCode == requestCode_photo &&resultCode == RESULT_OK){
+			String photo = data.getStringExtra("photo");
+			UpdateUserImage(photo);
+		}
+
 	}
+	private String getImageBase64(String str){
+		Point point = new Point();
+		point.set(60, 60);
+		Bitmap bp = NativeImageLoader.getInstance().loadNativeImage(str, point, new NativeImageCallBack() {
+			public void onImageLoader(Bitmap bitmap, String path) {
+				//addBitmap(bitmap,null);
+			}
+		});
+		if(bp!=null){
+			civ_avatar.setImageBitmap(bp);
+			return ImageUtils.img2Base64(mContext, bp);
+		}
+		return null;
+	}	
 	FwsOrderinfo mFwsOrderinfo;
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -261,4 +299,34 @@ void myStartActivity(Class<?> c){
 		mFwsOrderinfo = adapter[OrderType] .getItem(arg2);
 		startActivityForResult( new Intent(mContext, OrderformDetailActivity.class).putExtra("FwsOrderinfo", mFwsOrderinfo),100);
 	}
+	
+	private void UpdateUserImage(String str){
+		
+		ApiClient.UpdateUserImage(Integer.parseInt(mXsyUser.peopleNo),getImageBase64(str),
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										mToast.toastMsg("修改头像成功");
+										String str = response.getString("result");
+										QuickShPref.putValueObject(QuickShPref.Image, str);
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));				
+	}
+	
 }
