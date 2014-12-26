@@ -67,23 +67,23 @@ public class WodedingdanActivity extends BaseActivity implements OnItemClickList
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
 		
-		if(mOrderFormList.isEmpty()){
-			OrderFormInfo info = new OrderFormInfo();
-			info.mForName="张三";
-			info.mFromName="飘香餐馆";
-			info.mOrderName="鱼";
-			info.mOrderStatus="已接受";
-			info.mUnitPrice="200元";
-			info.mCount="3";
-			info.mOrderTime="2014-10-13 18:30";
-			info.mAppointment="2014-10-19 15:30";
-			
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-			mOrderFormList.add(info);
-		}
+//		if(mOrderFormList.isEmpty()){
+//			OrderFormInfo info = new OrderFormInfo();
+//			info.mForName="张三";
+//			info.mFromName="飘香餐馆";
+//			info.mOrderName="鱼";
+//			info.mOrderStatus="已接受";
+//			info.mUnitPrice="200元";
+//			info.mCount="3";
+//			info.mOrderTime="2014-10-13 18:30";
+//			info.mAppointment="2014-10-19 15:30";
+//			
+//			mOrderFormList.add(info);
+//			mOrderFormList.add(info);
+//			mOrderFormList.add(info);
+//			mOrderFormList.add(info);
+//			mOrderFormList.add(info);
+//		}
 		mOrderFormAdapter = new OrderFormAdapter(mContext, mOrderFormList);
 		mListView.setAdapter(mOrderFormAdapter);
 		mListView.setOnItemClickListener(this);

@@ -18,15 +18,18 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageLoader;
 import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
+import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.DianpuInfo;
 import com.mapgoo.zero.bean.LaorenInfo;
@@ -186,6 +189,13 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 						Log.d("ischecked", "index = "+index);
 					}
 				}});
+			
+			if(info.ImagePath != null){
+				Log.d("onResponse","info.AvatarImage="+ info.ImagePath);
+				MyVolley.getImageLoader().get(info.ImagePath, 
+						ImageLoader.getImageListener((ImageView)view.findViewById(R.id.shangpin_picture), 
+								R.drawable.shangping_default, R.drawable.shangping_default));
+			}
 		}
 	}
 
@@ -196,6 +206,7 @@ public class ShangpinActivity extends BaseActivity implements OnItemClickListene
 	}
 	
 	private void getShangpinInfoList(){
+		if(mDianpuInfo != null)
 		ApiClient.getShangpinList(mDianpuInfo.ServiceID
 				, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){

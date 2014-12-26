@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,13 +53,18 @@ import com.mapgoo.zero.ui.widget.CircleImageView;
 import com.mapgoo.zero.ui.widget.CirclePageIndicator;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyBannerAdapter;
+import com.mapgoo.zero.ui.widget.NativeImageLoader;
 import com.mapgoo.zero.ui.widget.QuickShPref;
+import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
 import com.mapgoo.zero.utils.DoubleClickExitHelper;
+import com.mapgoo.zero.utils.ImageUtils;
 
 public class MainActivity extends BaseActivity implements OnClosedListener  {
 	
 	private final int RequestCode_Laoren = 1001;
 	private final int RequestCode_Message = 1002;
+	private final int requestCode_photo = 1003;
+	
 	private SlidingMenu mSlidingMenu;
 	private View mMenuView;
 	private CircleImageView civ_avatar;
@@ -73,6 +80,12 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		civ_avatar = (CircleImageView) mMenuView.findViewById(R.id.civ_avatar);
 		xsy_user_name = (TextView) mMenuView.findViewById(R.id.xsy_user_name);
 		xsy_user_name.setText(mXsyUser.DisplayName);
+
+		if(mXsyUser.picture != null){
+			MyVolley.getImageLoader().get(mXsyUser.picture, 
+					ImageLoader.getImageListener((ImageView)mMenuView. findViewById(R.id.civ_avatar), 
+							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
+		}
 		
 		mSlidingMenu = new SlidingMenu(this);
 		mSlidingMenu.setSlidingEnabled(true);
@@ -108,6 +121,12 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			break;
 		case RequestCode_Message:
 				getMessageList();
+			break;
+		case requestCode_photo:
+			if(resultCode == RESULT_OK){
+				String photo = data.getStringExtra("photo");
+				UpdateUserImage(photo);
+			}			
 			break;
 		default:
 			break;
@@ -152,7 +171,10 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			break;
 		case R.id.setting_about:
 			myStartActivity(SettingsAboutActivity.class);
-			break;			
+			break;
+		case R.id.civ_avatar:
+			startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+			break;
 		}
 	}
 void myStartActivity(Class<?> c){
@@ -271,6 +293,8 @@ void myStartActivity(Class<?> c){
 			((ImageView) findViewById(R.id.avatar)).setImageResource(R.drawable.ic_avatar_holder);
 		}
 		
+		
+		
 		if(mLaorenInfo.HasSOSMDT){
 			findViewById(R.id.laore_dingwei_icon).setVisibility(View.INVISIBLE);
 		}else{
@@ -379,4 +403,49 @@ void myStartActivity(Class<?> c){
 						}},
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));		
 	}
+	
+	private String getImageBase64(String str){
+		Point point = new Point();
+		point.set(60, 60);
+		Bitmap bp = NativeImageLoader.getInstance().loadNativeImage(str, point, new NativeImageCallBack() {
+			public void onImageLoader(Bitmap bitmap, String path) {
+				//addBitmap(bitmap,null);
+			}
+		});
+		if(bp!=null){
+			civ_avatar.setImageBitmap(bp);
+			return ImageUtils.img2Base64(mContext, bp);
+		}
+		return null;
+	}
+	
+	private void UpdateUserImage(String str){
+		
+		ApiClient.UpdateUserImage(Integer.parseInt(mXsyUser.peopleNo),getImageBase64(str),
+				new onReqStartListener(){
+					public void onReqStart() {
+						getmProgressDialog().show();
+					}}, 
+					new Listener<JSONObject> (){
+						public void onResponse(JSONObject response) {
+							getmProgressDialog().dismiss();
+							Log.d("onResponse",response.toString());
+							if (response.has("error")) {
+								try {
+									if (response.getInt("error") == 0) {
+										mToast.toastMsg("修改头像成功");
+										String str = response.getString("result");
+										QuickShPref.putValueObject(QuickShPref.Image, str);
+									}else{
+										mToast.toastMsg(response.getString("reason"));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+							
+						}},
+					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));				
+	}
+	
 }
