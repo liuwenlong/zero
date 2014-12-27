@@ -10,12 +10,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -47,7 +49,7 @@ import com.mapgoo.zero.utils.ImageUtils;
  * 
  * @Author yao
  */
-public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeListener {
+public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeListener, OnLongClickListener {
 
 	private ViewPager mViewPager;
 	private View mViewPager0;
@@ -156,11 +158,12 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		
 		refreshPatrolStatus(mPatrolBasicInfo.PatrolStatus);
 		
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg1),mPatrolBasicInfo.SafetyImg1);
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg2),mPatrolBasicInfo.SafetyImg1);
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg3),mPatrolBasicInfo.SafetyImg1);
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg4),mPatrolBasicInfo.SafetyImg1);
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg1,ImagePathList),mPatrolBasicInfo.SafetyImg1,ImagePathList.get(ImagePathList.size()-1));
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg2,ImagePathList),mPatrolBasicInfo.SafetyImg2,ImagePathList.get(ImagePathList.size()-1));
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg3,ImagePathList),mPatrolBasicInfo.SafetyImg3,ImagePathList.get(ImagePathList.size()-1));
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg4,ImagePathList),mPatrolBasicInfo.SafetyImg4,ImagePathList.get(ImagePathList.size()-1));
 	}
+	ArrayList<String> ImagePathList = new ArrayList<String>();
 	
 	void refreshPatrolStatus(boolean b){
 			mPatrolStatus = b;
@@ -222,12 +225,13 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		point.set(DimenUtils.dip2px(mContext, 60), DimenUtils.dip2px(mContext, 60));
 		Bitmap bp = NativeImageLoader.getInstance().loadNativeImage(path, point, new NativeImageCallBack() {
 			public void onImageLoader(Bitmap bitmap, String path) {
-				addBitmap(bitmap,null);
+				addBitmap(bitmap,null,path);
 			}
 		});
-		addBitmap(bp,null);
+		addBitmap(bp,null,path);
+		
 	}
-	private void addBitmap(Bitmap bitmap,String base64){
+	private void addBitmap(Bitmap bitmap,String base64,String path){
 		if(bitmap != null){
 			LinearLayout linear = (LinearLayout)mViewPager2.findViewById(R.id.ruhu_jiating_tianjia_zhaopian_list);
 			
@@ -235,16 +239,23 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 			ImageView image = (ImageView)view.findViewById(R.id.child_image);
 			
 			image.setImageBitmap(bitmap);
+			image.setTag(path);
+			
+			image.setOnClickListener(this);
+			image.setOnLongClickListener(this);
 			
 			if(base64 == null)
 				mImageList.add(0,ImageUtils.img2Base64(MGApp.pThis, bitmap));
 			else
-				mImageList.add(0, base64);
+				mImageList.add(0,base64);
+			if(mImageList.size() == 2){
+				Log.d("msg", " "+ mImageList.get(1).equalsIgnoreCase(base64));
+			}
 			
 			LinearLayout.LayoutParams param = new  LinearLayout.LayoutParams(DimenUtils.dip2px(mContext, 60),DimenUtils.dip2px(mContext, 60) );
 
 			param.setMargins(0, 0, DimenUtils.dip2px(mContext, 5), 0);
-			
+			linear.getChildCount();
 			linear.addView(view, 0, param);
 			
 			if(linear.getChildCount()>=5)
@@ -304,8 +315,36 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		case R.id.ruhu_xinxi_tijiao_2:
 			postPatrolBasic();
 			break;
+		case R.id.ruhu_dianhua_call_qinren:
+			callPhone(mPatrolBasicInfo.RelativeTel);
+			break;
+		case R.id.ruhu_dianhua_call_lianxiren:
+			callPhone(mPatrolBasicInfo.AlldayTel);
+			break;
+		case R.id.ruhu_dianhua_call_jiaren:
+			callPhone(mPatrolBasicInfo.MonitorTel);
+			break;			
+		case R.id.child_image:
+			String path = (String)v.getTag();
+			showImage(path);
+			break;
 		default:
 			break;
+		}
+	}
+
+	
+	private void showImage(String path){
+		Intent it = new Intent(Intent.ACTION_VIEW);   
+		Uri uri = Uri.parse("file://"+path);   
+		it.setDataAndType(uri, "image/*");   
+		startActivity(it); 
+	}
+	private void callPhone(String str){
+		if(str!=null && !str.isEmpty()){
+			Uri uri = Uri.parse("tel:"+str);   
+			Intent it = new Intent(Intent.ACTION_DIAL, uri);     
+			startActivity(it); 
 		}
 	}
 	
@@ -410,6 +449,7 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 								try {
 									if (response.getInt("error") == 0) {
 										//refreshPatrolStatus(!mPatrolStatus);
+										mToast.toastMsg("提交成功");
 									}else{
 										mToast.toastMsg(response.getString("reason"));
 									}
@@ -418,5 +458,18 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 								}
 							}}},
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));					
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		// TODO Auto-generated method stub
+		LinearLayout linear = (LinearLayout)mViewPager2.findViewById(R.id.ruhu_jiating_tianjia_zhaopian_list);
+		View view = (View)v.getParent();
+		int index = linear.indexOfChild(view);
+		linear.removeView(view);
+		linear.invalidate();
+		mImageList.remove(index);
+		Log.d("onLongClick", "index="+index);
+		return true;
 	}
 }
