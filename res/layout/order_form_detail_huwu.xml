@@ -219,6 +219,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content" 
                  android:layout_marginTop="10dp"
+                 android:id="@+id/order_dianhua_lianxiren"
+                 android:onClick="onClick"
                  android:background="@drawable/order_create_time_bgd"
                  android:padding="5dp" >
 		  <TextView 

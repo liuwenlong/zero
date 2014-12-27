@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -135,11 +136,20 @@ LinearLayout mProductLinear;
 		case R.id.order_form_jujue_btn:
 			startActivityForResult(new Intent(mContext, DeclineReasonActivity.class).putExtra("FwsOrderinfo",mFwsOrderinfo), 100);
 			break;	
+		case R.id.order_dianhua_lianxiren:
+			callPhone(mFwsOrderinfo.MobilePhone);
+			break;
 		default:
 			break;
 		}
 	}
-
+	private void callPhone(String str){
+		if(str!=null && !str.isEmpty()){
+			Uri uri = Uri.parse("tel:"+str);   
+			Intent it = new Intent(Intent.ACTION_DIAL, uri);     
+			startActivity(it); 
+		}
+	}
 	
 	private void OrderAccept(){
 		ApiClient.OrderAccept(mFwsOrderinfo.RecID,

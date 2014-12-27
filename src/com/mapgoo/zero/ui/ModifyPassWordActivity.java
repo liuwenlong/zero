@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -126,6 +127,8 @@ private void startModifyPassword() {
 								try {
 									if (response.getInt("error") == 0) {
 										mToast.toastMsg("密码修改成功,请重新登陆!");
+										startActivity(new Intent(mContext, LoginActivity.class));
+										finish();
 									}else{
 										mToast.toastMsg(response.getString("reason"));
 									}
