@@ -228,10 +228,12 @@
 		    android:text="13912345678"
 		      />
     <ImageButton 
+        	android:id="@+id/ruhu_dianhua_call_lianxiren"
  		     android:layout_width="wrap_content"
 		    android:layout_height="wrap_content" 
 		    android:layout_alignParentRight="true"       
 		    android:layout_centerVertical="true" 
+		    android:onClick="onClick"
 		    android:src="@drawable/ruhu_dianhua_call"
         />
 </RelativeLayout>
@@ -265,10 +267,12 @@
 		    android:text="13912345678"
 		      />
     <ImageButton 
+        	android:id="@+id/ruhu_dianhua_call_jiaren"
  		     android:layout_width="wrap_content"
 		    android:layout_height="wrap_content" 
 		    android:layout_alignParentRight="true"       
 		    android:layout_centerVertical="true" 
+		    android:onClick="onClick"
 		    android:src="@drawable/ruhu_dianhua_call"
         />
 </RelativeLayout>
@@ -302,10 +306,12 @@
 		    android:text="13912345678"
 		      />
     <ImageButton 
+        	android:id="@+id/ruhu_dianhua_call_qinren"
  		     android:layout_width="wrap_content"
 		    android:layout_height="wrap_content" 
 		    android:layout_alignParentRight="true"       
 		    android:layout_centerVertical="true" 
+		    android:onClick="onClick"
 		    android:src="@drawable/ruhu_dianhua_call"
         />
 </RelativeLayout>
@@ -333,7 +339,8 @@
 		     android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:textColor="@color/normal_color_text"
-		    android:text="13912345678"
+		       android:minWidth="50dp"
+		       android:gravity="center"
 		      />    
 </LinearLayout>
 <LinearLayout 
@@ -353,7 +360,8 @@
 		     android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:textColor="@color/normal_color_text"
-		    android:text="13912345678"
+		       android:minWidth="50dp"
+		       android:gravity="center"
 		      />    
 </LinearLayout>
 

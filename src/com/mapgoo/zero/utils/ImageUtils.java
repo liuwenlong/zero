@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -224,6 +225,7 @@ public class ImageUtils {
 			try {
 				FileOutputStream fos = new FileOutputStream(tmpfile);
 				fos.write(bytes);
+				fos.close();
 //				if (bitmap.compress(compressFormat, 100, fos)) {
 //					fos.flush();
 //					fos.close();
@@ -258,14 +260,14 @@ public class ImageUtils {
 		return base64Str;
 	}
 	
-	public static Bitmap getBitmapFromBase64String(Context c, String str){
+	public static Bitmap getBitmapFromBase64String(Context c, String str,ArrayList<String> array){
 		mContext = c;
 		Bitmap bp = null;
 		
 		if(str != null){
 			byte[] bytes = Base64.decode(str, Base64.DEFAULT);
 			String path = saveByteAsTmpImgFile(bytes);
-			
+			array.add(path);
 			//bp = BitmapFactory.decodeByteArray(bytes, 0, 0);
 			bp = BitmapFactory.decodeFile(path);
 		}

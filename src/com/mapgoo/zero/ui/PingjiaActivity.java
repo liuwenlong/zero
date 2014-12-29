@@ -95,7 +95,7 @@ public class PingjiaActivity extends BaseActivity implements OnCheckedChangeList
 	}
 	
 	private void OrderComplete(){
-		ApiClient.OrderComplete(getChecked(),mOrderFormInfo.RecID,
+		ApiClient.OrderComplete(mOrderFormInfo.RecID,getChecked(),
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();
