@@ -1,9 +1,11 @@
 package com.mapgoo.zero.ui;
 
 
-import com.huaan.icare.fws.R;
-import com.mapgoo.zero.utils.VersionUtils;
 
+import com.huaan.icare.fws.R;
+import com.mapgoo.zero.api.URLs;
+import com.mapgoo.zero.api.VersionUpdate;
+import com.mapgoo.zero.utils.VersionUtils;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -51,12 +53,15 @@ public class SettingsAboutActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.iv_ab_left_btn:
-			finish();
-			break;
-
-		default:
-			break;
+			case R.id.iv_ab_left_btn:
+				finish();
+				break;
+			case R.id.rl_check_update:
+				new VersionUpdate(mContext).execute(URLs.UPDATE_CODE);
+				//new VersionUpdate(mContext).execute("0201001");
+				break;
+			default:
+				break;
 		}
 	}
 

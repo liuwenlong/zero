@@ -137,13 +137,11 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		private static String handleServerError(VolleyError error, final Context context, final User curUser) {
 			FwsUser cUser;
 			NetworkResponse response = error.networkResponse;
-
 			if (response != null) {
 				switch (response.statusCode) {
 	//				case 404:
 	//				case 422:
 					case 401:
-						
 						final MGProgressDialog progressDialog = new MGProgressDialog(context);
 						progressDialog.setCancelable(true);
 						
@@ -151,47 +149,40 @@ public class GlobalNetErrorHandler implements ErrorListener {
 								cUser = (FwsUser)curUser;
 							// 重新获取token
 							ApiClient.loginInternel(cUser.mUername, cUser.mPassword, new onReqStartListener() {
-		
 								@Override
 								public void onReqStart() {
-		
 									if (progressDialog != null && !progressDialog.isShowing()) {
 										progressDialog.setMessage(context.getText(R.string.token_expire_and_reget).toString());
 										progressDialog.show();
 									}
-		
 								}
 							}, new Listener<JSONObject>() {
-		
 								@Override
 								public void onResponse(JSONObject response) {
-		
-									try {
-										XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-										
-										RequestUtils.setToken(user.token);
-										QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
-		
-										if (progressDialog != null && progressDialog.isShowing())
-											progressDialog.dismiss();
-		
-										MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
-		
-									} catch (JSONException e) {
-										e.printStackTrace();
+									Log.d("onResponse", response.toString());
+									if (progressDialog != null && progressDialog.isShowing()) {
+										progressDialog.dismiss();
 									}
-		
+									try {
+										if(response.getInt("error") == 0){
+											XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+											RequestUtils.setToken(user.token);
+											QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+											if (progressDialog != null && progressDialog.isShowing())
+												progressDialog.dismiss();
+											MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+										}else{
+											MyToast.getInstance(context).toastMsg("登陆失效,请重新登陆");
+										}
+									}catch(Exception e){}
 								}
-		
 							}, GlobalNetErrorHandler.getInstance(context, curUser, null));
 						}
 						return "";
-						
 					default:
 						return context.getResources().getString(R.string.bad_network);
 					}
 			}
-			
 			return context.getResources().getString(R.string.bad_network);
 		}
 	}
