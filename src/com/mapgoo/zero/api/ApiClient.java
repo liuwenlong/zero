@@ -14,6 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Bitmap;
@@ -168,9 +169,18 @@ public class ApiClient {
 
 			JSONObject reqJsonObject = null;
 
-			if (reqBodyParams != null)
-				reqJsonObject = new JSONObject(reqBodyParams);
-
+			if (reqBodyParams != null){
+				//reqJsonObject = new JSONObject(reqBodyParams);
+			com.alibaba.fastjson.JSONObject o = new com.alibaba.fastjson.JSONObject(reqBodyParams);
+			//Log.d("o", o.toString());
+			
+				try {
+					reqJsonObject = new JSONObject(o.toString());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			MyVolley.addToRequestQueue(RequestUtils.getJsonObjectRequest(Method.POST, url, headerParams, reqParams,
 					reqJsonObject == null ? null : reqJsonObject, responseListener, errorListener));
 		}
