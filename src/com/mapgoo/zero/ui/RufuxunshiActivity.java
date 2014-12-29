@@ -158,10 +158,17 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		
 		refreshPatrolStatus(mPatrolBasicInfo.PatrolStatus);
 		
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg1,ImagePathList),mPatrolBasicInfo.SafetyImg1,ImagePathList.get(ImagePathList.size()-1));
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg2,ImagePathList),mPatrolBasicInfo.SafetyImg2,ImagePathList.get(ImagePathList.size()-1));
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg3,ImagePathList),mPatrolBasicInfo.SafetyImg3,ImagePathList.get(ImagePathList.size()-1));
-		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg4,ImagePathList),mPatrolBasicInfo.SafetyImg4,ImagePathList.get(ImagePathList.size()-1));
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg1,ImagePathList),mPatrolBasicInfo.SafetyImg1,getListLastitem(ImagePathList));
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg2,ImagePathList),mPatrolBasicInfo.SafetyImg2,getListLastitem(ImagePathList));
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg3,ImagePathList),mPatrolBasicInfo.SafetyImg3,getListLastitem(ImagePathList));
+		addBitmap(ImageUtils.getBitmapFromBase64String(mContext,mPatrolBasicInfo.SafetyImg4,ImagePathList),mPatrolBasicInfo.SafetyImg4,getListLastitem(ImagePathList));
+	}
+	private String getListLastitem(ArrayList<String> array){
+		if(ImagePathList.size()>0){
+			return ImagePathList.get(ImagePathList.size()-1);
+		}else{
+			return null;
+		}
 	}
 	ArrayList<String> ImagePathList = new ArrayList<String>();
 	
