@@ -52,6 +52,25 @@ public VersionUpdate(Context  c){
 	status = 0;
 	
 }
+
+@Override
+protected void onPreExecute() {
+	// TODO Auto-generated method stub
+	super.onPreExecute();
+	mProgressDialog = ProgressDialog.show(mContext, "温馨提示", "请稍后...", false, true);
+	mProgressDialog.setCanceledOnTouchOutside(false);			
+}
+
+@Override
+protected void onPostExecute(Boolean result) {
+	// TODO Auto-generated method stub
+	super.onPostExecute(result);
+	if(!result){
+		mProgressDialog.dismiss();
+		Toast.makeText(mContext, "已是最新版本", Toast.LENGTH_SHORT).show();
+	}
+}
+
 @Override
 protected Boolean doInBackground(String... params) {
 	
@@ -72,15 +91,9 @@ protected Boolean doInBackground(String... params) {
 		download(url);
 		publishProgress(-3);
 	}
-	return null;
+	return true;
 }
 
-
-@Override
-protected void onPostExecute(Boolean result) {
-	// TODO Auto-generated method stub
-	super.onPostExecute(result);
-}
 @Override
 protected void onProgressUpdate(Integer... values) {
 	// TODO Auto-generated method stub
@@ -88,6 +101,8 @@ protected void onProgressUpdate(Integer... values) {
 	int value = values[0];
 	
 	if(value  == -1){
+			if(mProgressDialog.isShowing())
+				mProgressDialog.dismiss();
 			new AlertDialog.Builder(mContext).setTitle("发现新版本")
 			.setMessage("是否更新？")
 			.setNegativeButton("稍后更新", new DialogInterface.OnClickListener() {
@@ -104,8 +119,13 @@ protected void onProgressUpdate(Integer... values) {
 				}
 			}).show();		
 	}else if(value == -2){
-		mProgressDialog = ProgressDialog.show(mContext, "温馨提示", "正在下载新版...", false, true);
-		mProgressDialog.setCanceledOnTouchOutside(false);			
+		if(mProgressDialog == null){
+			mProgressDialog = ProgressDialog.show(mContext, "温馨提示", "正在下载新版...", false, true);
+		}else{
+			mProgressDialog.setMessage("正在下载新版...");
+			if(!mProgressDialog.isShowing())
+				mProgressDialog.show();
+		}
 	}else if(value == -3){
 		mProgressDialog.dismiss();
 	}else{
