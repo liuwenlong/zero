@@ -25,6 +25,7 @@ import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.MyVolley;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
+import com.mapgoo.zero.bean.OrderFormInfo;
 import com.mapgoo.zero.bean.RenyuanInfo;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
@@ -47,7 +48,7 @@ RenyuanInfo mRenyuanInfo;
 	@Override
 	public void initData(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
-
+			mRenyuanInfo = (RenyuanInfo)savedInstanceState.getSerializable("Renyuan");
 		} else {
 			if(getIntent()!=null &&getIntent().getExtras()!=null)
 				mRenyuanInfo = (RenyuanInfo)getIntent().getExtras().getSerializable("Renyuan");
@@ -56,6 +57,7 @@ RenyuanInfo mRenyuanInfo;
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		outState.putSerializable("Renyuan", mRenyuanInfo);
 		super.onSaveInstanceState(outState);
 	}
 

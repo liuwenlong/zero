@@ -50,7 +50,7 @@ FwsShangpinInfo mFwsShangpinInfo;
 	@Override
 	public void initData(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
-
+			mFwsShangpinInfo = (FwsShangpinInfo)savedInstanceState.getSerializable("Renyuan");
 		} else {
 			if(getIntent()!=null &&getIntent().getExtras()!=null)
 				mFwsShangpinInfo = (FwsShangpinInfo)getIntent().getExtras().getSerializable("Renyuan");
@@ -59,6 +59,7 @@ FwsShangpinInfo mFwsShangpinInfo;
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		outState.putSerializable("Renyuan", mFwsShangpinInfo);
 		super.onSaveInstanceState(outState);
 	}
 
