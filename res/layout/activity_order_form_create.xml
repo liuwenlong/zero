@@ -149,7 +149,7 @@
         android:id="@+id/shangpin_yuyue"
         android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/order_form_detail_Confirm"
+    android:text="提交"
     android:layout_margin="20dp"
     android:background="@drawable/selector_button_ruhu_tijiao"
     android:textColor="@color/white_color_text"
