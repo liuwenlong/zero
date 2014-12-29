@@ -13,7 +13,7 @@ public class URLs implements Serializable {
 
 	private static final long serialVersionUID = -3371739479972951686L;
 	//升级参数
-	public final static String UPDATE_CODE = "0405027";
+	public final static String UPDATE_CODE = "0406027";
 	// 公网/生产服务器
 	private final static String SERVER_PRODUCT = "app001.u12580.com";
 
