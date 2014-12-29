@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  	android:background="#fff5f5f5">
+    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+  	android:background="#fff5f5f5"
+  	android:padding="10dp"
+    android:orientation="vertical" >    
+ <LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:orientation="horizontal"  >
+    <TextView    
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textSize="18sp"
+    android:layout_weight="2.3"
+    android:gravity="center_vertical|right"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/fws_shangpin_name" />
+     <EditText    
+     android:id="@+id/fws_shangpin_name"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:layout_weight="1.0"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
+    android:textSize="18sp"
+     android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"/>
+</LinearLayout>
+
+ <LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+    android:orientation="horizontal"  >
+    <TextView    
+     android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:textSize="18sp"
+    android:layout_weight="1.0"
+    android:gravity="center_vertical|right"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/fws_shangpin_time" />
+     <TextView    
+     android:id="@+id/fws_shangpin_start_time"
+     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
+    android:textSize="18sp"
+    android:text="08:00"
+    android:gravity="center"
+     android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"/>
+     <TextView    
+     android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:gravity="center"
+    android:textSize="18sp"
+    android:text="-"
+     android:textColor="@color/normal_color_text"/>   
+    <TextView    
+     android:id="@+id/fws_shangpin_end_time"
+     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+    android:layout_marginTop="2dp"
+    android:textSize="18sp"
+    android:text="20:00"
+    android:gravity="center"
+     android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"/>  
+     <TextView    
+     android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+     android:layout_weight="4"
+    android:textSize="18sp"
+     android:textColor="@color/normal_color_text"/>          
+</LinearLayout>
+
+ <LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+    android:orientation="horizontal"  >
+    <TextView    
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textSize="18sp"
+    android:layout_weight="2.3"
+    android:gravity="center_vertical|right"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/fws_shangpin_price" />
+     <EditText    
+     android:id="@+id/fws_shangpin_price"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:layout_weight="1.0"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
+    android:hint="元"
+    android:textSize="18sp"
+     android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"/>
+
+</LinearLayout>
+
+ <LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+    android:orientation="horizontal"  >
+    <TextView    
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textSize="18sp"
+    android:layout_weight="2.3"
+    android:gravity="center_vertical|right"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/fws_shangpin_remark" />
+     <EditText    
+     android:id="@+id/fws_shangpin_remark"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:layout_weight="1.0"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
+    android:textSize="18sp"
+     android:textColor="@color/normal_color_text"
+    android:background="@drawable/order_create_time_bgd"/>
+</LinearLayout>
+ 
+  <LinearLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+    android:orientation="horizontal"  >
+    <TextView    
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textSize="18sp"
+    android:layout_weight="2.3"
+    android:gravity="center_vertical|right"
+     android:textColor="@color/dark_color_text"
+    android:text="@string/fws_renyuan_pictrue" />
+    
+    <RelativeLayout 
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:layout_weight="1.0" >
+<ImageView 
+     android:id="@+id/fws_renyuan_pictrue"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:layout_marginLeft="10dp"
+     android:onClick="onClick"
+     android:src="@drawable/fws_add_shangpin_picture"   
+    />
+    </RelativeLayout>
+</LinearLayout>
+</LinearLayout>
+  
+<View 
+     android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/home_color_line"    
+    />
+  
+<RelativeLayout 
+                 android:layout_width="match_parent"
+                 android:padding="20dp"
+                 android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content"   >
+<Button 
+    		android:id="@+id/add_shangpin_tijiao"
+ 		     android:layout_width="160dp"
+		    android:layout_height="40dp"
+		    android:layout_centerHorizontal="true"
+		    android:text="提交"
+		    android:onClick="onClick"
+		    android:textColor="@color/white_color_text"
+		       android:background="@drawable/selector_button_ruhu_tijiao"
+    />
+</RelativeLayout>
+</RelativeLayout>

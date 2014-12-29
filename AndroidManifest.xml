@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huaan.icare.volunteer"
+    package="com.huaan.icare.fws"
     android:versionCode="1"
-    android:versionName="2.0.0" >
+    android:versionName="3.0.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -336,7 +336,21 @@
          <activity
             android:name="com.mapgoo.zero.ui.PhotoSelectActivity"            
             android:screenOrientation="portrait" />
-        
+         
+          <activity
+            android:name="com.mapgoo.zero.ui.ReyuanManagerActivity"            
+            android:screenOrientation="portrait" />
+           <activity
+            android:name="com.mapgoo.zero.ui.EditRenyuanActivity"            
+            android:screenOrientation="portrait" />         
+          <activity
+            android:name="com.mapgoo.zero.ui.ShanpingManagerActivity"            
+            android:screenOrientation="portrait" />      
+           <activity
+            android:name="com.mapgoo.zero.ui.EditShangpinActivity"            
+            android:screenOrientation="portrait" />                
+          
+         
         <!-- 百度定位服务 -->
         <service
             android:name="com.baidu.location.f"

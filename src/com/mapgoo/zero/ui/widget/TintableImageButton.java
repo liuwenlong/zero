@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
 
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 
 public class TintableImageButton extends ImageButton {
 	private int tintUpdateDelay_;

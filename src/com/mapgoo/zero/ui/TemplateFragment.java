@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 
 /**
  * 概述: 模版Fragment

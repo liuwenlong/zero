@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.RequestUtils;
@@ -158,7 +158,7 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 	}
 	
 	private void getMessageList(){
-		ApiClient.getMessageList(mXsyUser.getUserId(), 1, Integer.MAX_VALUE,
+		ApiClient.getMessageList(mFwsUser.serviceId, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();

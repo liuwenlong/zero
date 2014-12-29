@@ -70,8 +70,54 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:showDividers="middle" >
+        <LinearLayout
+            android:id="@+id/settings_message_shangpin_manager"
+            android:layout_width="match_parent"
+            android:layout_height="54.0dp"
+            android:clickable="true"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:orientation="horizontal"
+            android:paddingLeft="6.0dp" >
 
-        
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/setting_mar_right"
+	            android:drawableRight="@drawable/setting_right_arrow"
+	            android:drawableLeft="@drawable/set_shangpin_manager"           
+                android:gravity="center_vertical"
+                android:text="@string/settings_message_shangpin_manager"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+            
+        </LinearLayout>
+         <LinearLayout
+            android:id="@+id/settings_message_renyuan_manager"
+            android:layout_width="match_parent"
+            android:layout_height="54.0dp"
+            android:clickable="true"
+            android:background="@drawable/selector_item_card_bottom_bg"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:orientation="horizontal"
+            android:paddingLeft="6.0dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/setting_mar_right"
+	            android:drawableRight="@drawable/setting_right_arrow"
+	            android:drawableLeft="@drawable/set_man_manager"           
+                android:gravity="center_vertical"
+                android:text="@string/settings_message_renyuan_manager"
+                android:textColor="@color/setting_color_text"
+                android:textSize="@dimen/txt_size_18sp" />
+            
+        </LinearLayout>       
         <LinearLayout
             android:id="@+id/setting_center_message"
             android:layout_width="match_parent"

@@ -47,7 +47,9 @@ public class URLs implements Serializable {
 
 	private final static String URL_SPLITTER = "/";
 
-	public final static String PRODUCT_NAME = "volunteer";
+
+	public final static String PRODUCT_NAME = "service";
+
 	public final static String API = "api";
 	public final static String PRODUCT_API_PATH = PRODUCT_NAME + URL_SPLITTER + API;
 
@@ -133,7 +135,24 @@ public class URLs implements Serializable {
 	public final static String UpdateUserPassword = URL_API_HTTP_HOST +"UpdateUserPassword";		
 	//受理订单
 	public final static String OrderAccept = URL_API_HTTP_HOST +"OrderAccept";		
-	//受理订单
-	public final static String OrderDecline = URL_API_HTTP_HOST +"OrderDecline";	
+	//拒绝订单
+	public final static String OrderDecline = URL_API_HTTP_HOST +"OrderDecline";
+	//人员的查询修改增加
+	public final static String PeopleBasic = URL_API_HTTP_HOST +"PeopleBasic";	
+	//删除人员
+	public final static String PeopleDelete = URL_API_HTTP_HOST +"PeopleDelete";	
+	//删除商品
+	public final static String ProjectDelete = URL_API_HTTP_HOST +"ProjectDelete";	
+	
+	//商品的查询修改增加
+	public final static String ProjectBasic = URL_API_HTTP_HOST +"ProjectBasic";		
+	
+	//修改头像
 	public final static String UpdateUserImage = URL_API_HTTP_HOST +"UpdateUserImage";	
+	//修改人员照片
+	public final static String PeopleImage = URL_API_HTTP_HOST +"PeopleImage";	
+	//修改商品照片
+	public final static String ProjectImage = URL_API_HTTP_HOST +"ProjectImage";		
+	
+
 }

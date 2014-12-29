@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
@@ -79,7 +79,7 @@ public class MessageReadActivity extends BaseActivity {
 		}
 	}
 	private void SetNoticeRead(){
-		ApiClient.SetNoticeRead(mMsg.NoticeID,mXsyUser.getUserId(),
+		ApiClient.SetNoticeRead(mMsg.NoticeID,mFwsUser.serviceId,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();

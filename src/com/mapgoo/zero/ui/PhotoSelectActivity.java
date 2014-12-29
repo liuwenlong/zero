@@ -25,7 +25,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
@@ -180,7 +180,7 @@ public class PhotoSelectActivity extends BaseActivity implements OnItemClickList
 			
 			if(convertView == null){
 				convertView = View.inflate(aContext, R.layout.grid_child_item, null);
-				mPoint.set(DimenUtils.dip2px(mContext, 114), DimenUtils.dip2px(mContext, 114));
+				mPoint.set(DimenUtils.dip2px(mContext, 60), DimenUtils.dip2px(mContext, 60));
 			}
 			
 			mImageView = (ImageView)convertView.findViewById(R.id.child_image);

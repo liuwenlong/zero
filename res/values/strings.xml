@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">零距离-志愿者版</string>
+    <string name="app_name">零距离-服务商版</string>
     
     <string name="click_again_to_exit_tip">再按一次退出</string>
     
@@ -55,7 +55,7 @@
    <string name="settings_old_pw">输入旧密码</string>
    <string name="settings_new_pw">输入新密码</string>
 
-    <string name="hint_login_user_account">志愿者</string>
+    <string name="hint_login_user_account">账号</string>
     <string name="hint_login_user_pwd">密码</string>
 
      <!-- 离线地图 s-->
@@ -290,6 +290,8 @@
  <string name="settings_message_center_msg">中心通告</string>  
  <string name="settings_message_modify_mima">修改密码</string> 
    <string name="settings_message_about">关于</string>  
+   <string name="settings_message_shangpin_manager">商品管理</string>  
+   <string name="settings_message_renyuan_manager">人员管理</string>  
    
    <string name="home_yuyue">预约服务</string>  
    <string name="home_weizhi">位置服务</string>  
@@ -397,5 +399,21 @@
                   <string name="fws_order_jujue_reason">请输入拒受理原因:</string>
                   <string name="order_form_desline">提交</string>
  		      <string name="order_form_deceline_reason">拒受理原因</string>
-		    <string name="order_form_detail_pingjia">评价</string>                 
+		    <string name="order_form_detail_pingjia">评价</string>
+		    
+		    <string name="fws_renyuan_name">姓名:</string>
+		    <string name="fws_renyuan_old">年龄:</string>
+		     <string name="fws_renyuan_birthday">出生日期:</string>
+		    <string name="fws_renyuan_sex">性别:</string>
+		    <string name="fws_renyuan_idcard">身份证:</string>
+		    <string name="fws_renyuan_pictrue">上传照片:</string>
+		    <string name="fws_renyuan_add">新增人员</string>
+		    <string name="fws_renyuan_modify">修改人员</string>
+		    
+		     <string name="fws_shangpin_name">商品/服务:</string>
+		    <string name="fws_shangpin_time">服务时间:</string>
+		     <string name="fws_shangpin_price">单价:</string>
+		    <string name="fws_shangpin_remark">备注:</string>
+		    <string name="fws_shangpin_new">新增商品</string>
+		    <string name="fws_shangpin_modify">修改商品</string>
 </resources>

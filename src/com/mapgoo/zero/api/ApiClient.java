@@ -1,6 +1,7 @@
 package com.mapgoo.zero.api;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,9 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.mapgoo.zero.MGApp;
+import com.mapgoo.zero.bean.FwsShangpinInfo;
 import com.mapgoo.zero.bean.PatrolBasicInfo;
+import com.mapgoo.zero.bean.RenyuanInfo;
 import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
 import com.mapgoo.zero.bean.VolunteerOrderSubmitInfo;
 import com.mapgoo.zero.ui.widget.QuickShPref;
@@ -771,15 +774,13 @@ public class ApiClient {
 		_POST_WITH_LISTENERS(URLs.UpdateUserPassword, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}	
 	
-	public static void getZhiyuanzheOrderList(int orderType,String peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+	public static void getZhiyuanzheOrderList(int orderType,int peopleNo,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, String> reqParams = new HashMap<String, String>();
-		if(isDebuge)
-			reqParams.put("peopleNo", "0");
-		else
-			reqParams.put("orderType", orderType+"");
+
+		reqParams.put("orderType", orderType+"");
 		
-		reqParams.put("peopleNo", peopleNo);
+		reqParams.put("serviceId", peopleNo+"");
 		reqParams.put("p", pager+"");
 		reqParams.put("pRowCount", rawcount+"");
 		
@@ -799,11 +800,91 @@ public class ApiClient {
 		reqParams.put("declineReason", declineReason);
 		_POST_WITH_LISTENERS(URLs.OrderDecline, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}		
+
+	public static void getPeopleBasic(int serviceId,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		
+		reqParams.put("serviceId", serviceId+"");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.PeopleBasic, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
+	public static void savePeopleBasic(RenyuanInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("PeopleNo", info.PeopleNo);
+		reqParams.put("PeopleName", info.PeopleName);
+		reqParams.put("PeopleSex", info.PeopleSex);
+		reqParams.put("IDCard", info.IDCard);
+		reqParams.put("Birthday", info.Birthday);
+		reqParams.put("Picture", info.Picture);
+		reqParams.put("ServiceID", info.ServiceID);
+		
+		_POST_WITH_LISTENERS(URLs.PeopleBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void PeopleDelete(RenyuanInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		array.add( info.PeopleNo);
+		reqParams.put("id", array);
+		
+		_POST_WITH_LISTENERS(URLs.PeopleDelete, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void ProjectDelete(FwsShangpinInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		array.add( info.ProjectID);
+		reqParams.put("id", array);
+		
+		_POST_WITH_LISTENERS(URLs.ProjectDelete, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void getProjectBasic(int serviceId,int pager,int rawcount,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, String> reqParams = new HashMap<String, String>();
+		
+		reqParams.put("serviceId", serviceId+"");
+		reqParams.put("p", pager+"");
+		reqParams.put("pRowCount", rawcount+"");
+		
+		_GET_WITH_LISTENERS(URLs.ProjectBasic, null, reqParams, reqStartListener, responseListener, errorListener);
+	}
+	public static void saveProjectBasic(FwsShangpinInfo info,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("ProjectID", info.ProjectID);
+		reqParams.put("ProjectName", info.ProjectName);
+		reqParams.put("ServiceID", info.ServiceID);
+		reqParams.put("Period", info.Period);
+		reqParams.put("Price", info.Price);
+		reqParams.put("Remark", info.Remark);
+		
+		_POST_WITH_LISTENERS(URLs.ProjectBasic, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}	
+	
+
 	public static void UpdateUserImage(int peopleNo,String avatar,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("serviceId", peopleNo);
+		reqParams.put("avatar", avatar);
+		_POST_WITH_LISTENERS(URLs.UpdateUserImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void PeopleImage(int peopleNo,String avatar,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
 			ErrorListener errorListener) {
 		Map<String, Object> reqParams = new HashMap<String, Object>();
 		reqParams.put("peopleNo", peopleNo);
 		reqParams.put("avatar", avatar);
-		_POST_WITH_LISTENERS(URLs.UpdateUserImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+		_POST_WITH_LISTENERS(URLs.PeopleImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void ProjectImage(int projectId,String avatar,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+		Map<String, Object> reqParams = new HashMap<String, Object>();
+		reqParams.put("projectId", projectId);
+		reqParams.put("avatar", avatar);
+		_POST_WITH_LISTENERS(URLs.ProjectImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
 }

@@ -48,10 +48,9 @@
             android:background="#00ffffff"
             android:layout_marginTop="2dip"
             android:completionThreshold="1"
-            android:digits="0123456789"
             android:hint="@string/hint_login_user_account"
             android:imeOptions="actionNext"
-            android:inputType="phone"
+            android:inputType="textPassword"
             android:maxLength="11"
             android:padding="10.0dp"
             android:singleLine="true"
@@ -67,6 +66,7 @@
                 android:layout_marginRight="5.0dp"
                 android:background="#00ffffff"
                 android:onClick="onClick"
+                android:visibility="gone"
                 android:src="@drawable/login_id_refresh"     	    
         	    />
  </LinearLayout>       
@@ -127,21 +127,40 @@
                 android:button="@drawable/selector_pwd_visable_checkbox"
                 android:checked="false" />
         </LinearLayout>
-
-        <CheckBox
-            android:layout_width="wrap_content"
+<LinearLayout 
+               android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"   
+    >
+     <CheckBox
+            android:id="@+id/remember_account"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
+            android:layout_weight="1.0"
+            android:gravity="left|center_vertical"
             android:layout_marginTop="5.0dp"
             android:button="@null"
             android:drawableLeft="@drawable/selector_checkbox_icon"
             android:drawablePadding="5.0dp"
-            android:gravity="center"
+            android:checked="true"
+            android:text="@string/remember_account"
+            android:textColor="@color/skin_main_hint_txt_clr_grey"
+            android:textSize="@dimen/txt_size_16sp" />
+	<CheckBox
+            android:id="@+id/remember_password"       
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="left|center_vertical"
+            android:layout_marginTop="5.0dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_checkbox_icon"
+            android:drawablePadding="5.0dp"
             android:checked="true"
             android:text="@string/remember_password"
             android:textColor="@color/skin_main_hint_txt_clr_grey"
             android:textSize="@dimen/txt_size_16sp" />
-
+</LinearLayout>
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"

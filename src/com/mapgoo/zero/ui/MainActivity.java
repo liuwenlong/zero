@@ -39,7 +39,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.VolleyError;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.mapgoo.zero.api.ApiClient;
@@ -92,14 +92,15 @@ private void setSelect(int num){
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
 		
 		TextView xsy_user_name = (TextView) mMenuView.findViewById(R.id.xsy_user_name);
-		xsy_user_name.setText(mXsyUser.DisplayName);
+
+		xsy_user_name.setText(mFwsUser.serviceName);
 		civ_avatar = (CircleImageView) mMenuView.findViewById(R.id.civ_avatar);
-		if(mXsyUser.picture != null){
-			MyVolley.getImageLoader().get(mXsyUser.picture, 
+		if(mFwsUser.picture != null){
+			MyVolley.getImageLoader().get(mFwsUser.picture, 
 					ImageLoader.getImageListener((ImageView)mMenuView. findViewById(R.id.civ_avatar), 
 							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
 		}
-		
+
 		mSlidingMenu = new SlidingMenu(this);
 		mSlidingMenu.setSlidingEnabled(true);
 		mSlidingMenu.setMode(SlidingMenu.LEFT);
@@ -153,9 +154,16 @@ private void setSelect(int num){
 				startActivity(new Intent(mContext, LoginActivity.class));
 				finish();
 				break;
+			case R.id.settings_message_shangpin_manager:
+				startActivity(new Intent(mContext, ShanpingManagerActivity.class));
+				break;
+			case R.id.settings_message_renyuan_manager:
+				startActivity(new Intent(mContext, ReyuanManagerActivity.class));
+				break;
 			case R.id.civ_avatar:
 				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
 				break;				
+
 		}
 	}
 void myStartActivity(Class<?> c){
@@ -210,7 +218,7 @@ void myStartActivity(Class<?> c){
 	private int OrderType;
 	private void getOrderInfoList(int type){
 		OrderType = type;
-		ApiClient.getZhiyuanzheOrderList(type+1,mXsyUser.peopleNo, 1, Integer.MAX_VALUE,
+		ApiClient.getZhiyuanzheOrderList(type+1,mFwsUser.serviceId, 1, Integer.MAX_VALUE,
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();
@@ -238,7 +246,7 @@ void myStartActivity(Class<?> c){
 							}
 							
 						}},
-					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));
+					GlobalNetErrorHandler.getInstance(mContext, mFwsUser, getmProgressDialog()));
 	}
 	
 	
@@ -256,9 +264,9 @@ void myStartActivity(Class<?> c){
 		
 		public void convert(ViewHolder holder, FwsOrderinfo item) {
 			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_dingdanhao))).setText(item.OrderCode);
-			((TextView)(holder.getConvertView().findViewById(R.id.fws_order_yuyue_shijian))).setText(item.OrderTime);
-			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_note))).setText(item.Remark);
+			((TextView)(holder.getConvertView().findViewById(R.id.fws_order_shangpin_or_fuwu))).setText(item.getProductName());
 			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_laoren_dizhi))).setText(item.HumanAddress);
+			((TextView)(holder.getConvertView().findViewById(R.id.fws_order_yuyue_shijian))).setText(item.OrderTime);
 			((TextView)(holder.getConvertView().findViewById(R.id.fws_list_item_order_status))).setText(item.OrderStatus);
 		}
 	}
@@ -302,7 +310,7 @@ void myStartActivity(Class<?> c){
 	
 	private void UpdateUserImage(String str){
 		
-		ApiClient.UpdateUserImage(Integer.parseInt(mXsyUser.peopleNo),getImageBase64(str),
+		ApiClient.UpdateUserImage(mFwsUser.serviceId,getImageBase64(str),
 				new onReqStartListener(){
 					public void onReqStart() {
 						getmProgressDialog().show();

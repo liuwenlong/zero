@@ -20,8 +20,9 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.mapgoo.zero.MGApp;
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 import com.mapgoo.zero.api.RequestUtils;
+import com.mapgoo.zero.bean.FwsUser;
 import com.mapgoo.zero.bean.MGObject;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
@@ -73,8 +74,10 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		// 保存
 		if (savedInstanceState != null) {
 			mXsyUser = (XsyUser) savedInstanceState.getSerializable("mXsyUser");
-			if(mXsyUser!=null)
-				RequestUtils.setToken(mXsyUser.token);
+			mFwsUser = (FwsUser) savedInstanceState.getSerializable("mFwsUser");
+
+			if(mFwsUser!=null)
+				RequestUtils.setToken(mFwsUser.token);			
 		} else {
 		}
 	}
@@ -83,6 +86,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	protected void onSaveInstanceState(Bundle outState) {
 
 		outState.putSerializable("mXsyUser", mXsyUser);
+		outState.putSerializable("mFwsUser", mFwsUser);
 
 		super.onSaveInstanceState(outState);
 	}	
@@ -258,6 +262,7 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	}
 
 	
+	protected static FwsUser mFwsUser; // 静态，全局公用
 	protected static XsyUser mXsyUser; // 静态，全局公用
 	protected static User mCurUser; // 静态，全局公用
 

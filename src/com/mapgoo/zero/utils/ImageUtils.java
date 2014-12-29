@@ -22,7 +22,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.huaan.icare.volunteer.R;
+import com.huaan.icare.fws.R;
 
 public class ImageUtils {
 
