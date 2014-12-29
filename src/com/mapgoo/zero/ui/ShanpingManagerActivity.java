@@ -124,7 +124,9 @@ public class FwsShangpinAdapter extends CommonAdapter<FwsShangpinInfo>{
 			Log.d("onResponse","info.AvatarImage="+ item.ImagePath);
 			MyVolley.getImageLoader().get(item.ImagePath, 
 					ImageLoader.getImageListener((ImageView)(holder.getConvertView().findViewById(R.id.fws_renyuan_manager_def_pic)), 
-							R.drawable.list_item_zhiyuan_zhe_icon, R.drawable.list_item_zhiyuan_zhe_icon));
+							R.drawable.fws_renyuan_manager_def_pic, R.drawable.fws_renyuan_manager_def_pic));
+		}else{
+			((ImageView)(holder.getConvertView().findViewById(R.id.fws_renyuan_manager_def_pic))).setImageResource(R.drawable.fws_renyuan_manager_def_pic);
 		}
 	}
 }

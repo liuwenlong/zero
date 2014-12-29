@@ -125,7 +125,9 @@ public class RenyuanAdapter extends CommonAdapter<RenyuanInfo>{
 			Log.d("onResponse","info.AvatarImage="+ item.Picture);
 			MyVolley.getImageLoader().get(item.Picture, 
 					ImageLoader.getImageListener((ImageView)(holder.getConvertView().findViewById(R.id.fws_renyuan_manager_def_pic)), 
-							R.drawable.list_item_zhiyuan_zhe_icon, R.drawable.list_item_zhiyuan_zhe_icon));
+							R.drawable.fws_renyuan_manager_def_pic, R.drawable.fws_renyuan_manager_def_pic));
+		}else{
+			((ImageView)(holder.getConvertView().findViewById(R.id.fws_renyuan_manager_def_pic))).setImageResource(R.drawable.fws_renyuan_manager_def_pic);
 		}
 	}
 	
