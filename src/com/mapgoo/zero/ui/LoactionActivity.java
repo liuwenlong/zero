@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -287,7 +288,7 @@ private void showLaorenMarker(){
 
 private void showLoarenInfoWindows(){
 	if(isLoactionLaoren()){
-		View v = View.inflate(mContext, R.layout.popview, null);
+		View v = View.inflate(this, R.layout.popview, null);
 		
 		((TextView)v.findViewById(R.id.loaren_name)).setText(mLaorenLocInfo.HumanName);
 		((TextView)v.findViewById(R.id.laoren_location_time)).setText(mLaorenLocInfo.getLoactionStatus());
@@ -296,7 +297,14 @@ private void showLoarenInfoWindows(){
 		else
 			((TextView)v.findViewById(R.id.laoren_location_adress)).setText(mLaorenLocInfo.Adress);
 	
+		if(v == null)
+			Log.d("showLoarenInfoWindows", "v is null.");
+		
+		v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 		mLaorenInfoWindow = new InfoWindow(v, mLaorenLatLng, -47);
+		if(mLaorenInfoWindow == null)
+			Log.d("showLoarenInfoWindows", "mLaorenInfoWindow is null.");
+		
 		mBaiduMap.showInfoWindow(mLaorenInfoWindow);
 	}
 	
