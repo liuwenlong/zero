@@ -65,6 +65,7 @@ import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.LaorenLocInfo;
 import com.mapgoo.zero.bean.MessageInfo;
+import com.mapgoo.zero.bean.OrderFormInfo;
 
 /**
  * 概述: 模版
@@ -113,7 +114,7 @@ public class LoactionActivity extends BaseActivity {
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mLaorenInfo = (LaorenInfo)savedInstanceState.getSerializable("mLaorenInfo");
 		} else {
 			mLaorenInfo = (LaorenInfo)getIntent().getExtras().getSerializable("mLaorenInfo");
 		}
@@ -121,7 +122,7 @@ public class LoactionActivity extends BaseActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
+		outState.putSerializable("mLaorenInfo", mLaorenInfo);
 		super.onSaveInstanceState(outState);
 	}
 
