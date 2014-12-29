@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.AuthFailureError;
@@ -162,24 +163,28 @@ public class GlobalNetErrorHandler implements ErrorListener {
 
 						@Override
 						public void onResponse(JSONObject response) {
-
-							try {
-								XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-								
-								RequestUtils.setToken(user.token);
-								QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
-
-								if (progressDialog != null && progressDialog.isShowing())
-									progressDialog.dismiss();
-
-								MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
-
-							} catch (JSONException e) {
-								e.printStackTrace();
+							Log.d("onResponse", response.toString());
+							if (progressDialog != null && progressDialog.isShowing()) {
+								progressDialog.dismiss();
 							}
-
+							try {
+								if(response.getInt("error") == 0){
+									XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+									
+									RequestUtils.setToken(user.token);
+									QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+	
+									if (progressDialog != null && progressDialog.isShowing())
+										progressDialog.dismiss();
+	
+									MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+								}else{
+									MyToast.getInstance(context).toastMsg("登陆失效,请重新登陆");
+								}
+							}catch(Exception e){
+								
+							}
 						}
-
 					}, GlobalNetErrorHandler.getInstance(context, curUser, null));
 					}
 					return "";

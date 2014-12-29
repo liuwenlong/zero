@@ -24,6 +24,7 @@ import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.ui.widget.EditTextView;
+import com.mapgoo.zero.ui.widget.QuickShPref;
 
 /**
  * 概述: 模版
@@ -127,6 +128,8 @@ private void startModifyPassword() {
 								try {
 									if (response.getInt("error") == 0) {
 										mToast.toastMsg("密码修改成功,请重新登陆!");
+										QuickShPref.putValueObject(QuickShPref.PASS_WORD, "");
+										QuickShPref.putValueObject(QuickShPref.isLogin, false);
 										startActivity(new Intent(mContext, LoginActivity.class));
 										finish();
 									}else{
