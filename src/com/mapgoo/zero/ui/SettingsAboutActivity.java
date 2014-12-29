@@ -2,6 +2,8 @@ package com.mapgoo.zero.ui;
 
 
 import com.huaan.icare.xsy.R;
+import com.mapgoo.zero.api.URLs;
+import com.mapgoo.zero.api.VersionUpdate;
 import com.mapgoo.zero.utils.VersionUtils;
 
 import android.os.Bundle;
@@ -54,7 +56,10 @@ public class SettingsAboutActivity extends BaseActivity {
 		case R.id.iv_ab_left_btn:
 			finish();
 			break;
-
+		case R.id.rl_check_update:
+			new VersionUpdate(mContext).execute(URLs.UPDATE_CODE);
+			//new VersionUpdate(mContext).execute("0201001");
+			break;
 		default:
 			break;
 		}
