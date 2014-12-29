@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -65,6 +66,7 @@ import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.LaorenLocInfo;
 import com.mapgoo.zero.bean.MessageInfo;
+import com.mapgoo.zero.bean.OrderFormInfo;
 
 /**
  * 概述: 模版
@@ -113,7 +115,7 @@ public class LoactionActivity extends BaseActivity {
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mLaorenInfo = (LaorenInfo)savedInstanceState.getSerializable("mLaorenInfo");
 		} else {
 			mLaorenInfo = (LaorenInfo)getIntent().getExtras().getSerializable("mLaorenInfo");
 		}
@@ -121,7 +123,7 @@ public class LoactionActivity extends BaseActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
+		outState.putSerializable("mLaorenInfo", mLaorenInfo);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -286,7 +288,7 @@ private void showLaorenMarker(){
 
 private void showLoarenInfoWindows(){
 	if(isLoactionLaoren()){
-		View v = View.inflate(mContext, R.layout.popview, null);
+		View v = View.inflate(this, R.layout.popview, null);
 		
 		((TextView)v.findViewById(R.id.loaren_name)).setText(mLaorenLocInfo.HumanName);
 		((TextView)v.findViewById(R.id.laoren_location_time)).setText(mLaorenLocInfo.getLoactionStatus());
@@ -295,7 +297,14 @@ private void showLoarenInfoWindows(){
 		else
 			((TextView)v.findViewById(R.id.laoren_location_adress)).setText(mLaorenLocInfo.Adress);
 	
+		if(v == null)
+			Log.d("showLoarenInfoWindows", "v is null.");
+		
+		v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 		mLaorenInfoWindow = new InfoWindow(v, mLaorenLatLng, -47);
+		if(mLaorenInfoWindow == null)
+			Log.d("showLoarenInfoWindows", "mLaorenInfoWindow is null.");
+		
 		mBaiduMap.showInfoWindow(mLaorenInfoWindow);
 	}
 	

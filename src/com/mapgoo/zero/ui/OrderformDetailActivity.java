@@ -48,7 +48,7 @@ public class OrderformDetailActivity extends BaseActivity {
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mOrderFormInfo = (OrderFormInfo)savedInstanceState.getSerializable("OrderFormInfo");
 		} else {
 			mOrderFormInfo = (OrderFormInfo)getIntent().getExtras().getSerializable("OrderFormInfo");
 		}
@@ -56,7 +56,7 @@ public class OrderformDetailActivity extends BaseActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
+		outState.putSerializable("OrderFormInfo", mOrderFormInfo);
 		super.onSaveInstanceState(outState);
 	}
 

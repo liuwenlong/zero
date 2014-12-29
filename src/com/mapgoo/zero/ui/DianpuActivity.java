@@ -63,8 +63,8 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
 		outState.putInt("fuwutype", mFuwuType);
+		super.onSaveInstanceState(outState);
 	}
 
 	private String getMyTitle(){
