@@ -40,7 +40,7 @@ public class DeclineReasonActivity extends BaseActivity {
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mFwsOrderinfo = (FwsOrderinfo)savedInstanceState.get("FwsOrderinfo");
 		} else {
 			mFwsOrderinfo = (FwsOrderinfo)getIntent().getExtras().getSerializable("FwsOrderinfo");
 		}
@@ -49,7 +49,7 @@ public class DeclineReasonActivity extends BaseActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
+		outState.putSerializable("FwsOrderinfo", mFwsOrderinfo);
 		super.onSaveInstanceState(outState);
 	}
 	EditText reason;
