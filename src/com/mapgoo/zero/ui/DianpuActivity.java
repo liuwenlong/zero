@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -103,42 +104,18 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 	}
 	
 	void dianpuInit(){
-//		if(mDianpuList.isEmpty()){
-//			DianpuInfo info = new DianpuInfo();
-//			info.mFromName="飘香餐馆";
-//			info.mFuwuTime = "8:30-19:30";
-//			info.mUnitPrice="200元";
-//			info.mPayType="刷卡";
-//			info.mPhone="78455454";
-//			info.mAdress="北京西城区椿树街道102号";
-//			info.mShanMen="是";
-//			mDianpuList.add(info);
-//			mDianpuList.add(info);
-//			mDianpuList.add(info);
-//			mDianpuList.add(info);
-//			mDianpuList.add(info);
-//		}
 		mDianpuAdapter = new DianpuAdapter(mContext, mDianpuList);
 		mListView.setAdapter(mDianpuAdapter);
-		mListView.setOnItemClickListener(this);		
+		mListView.setOnItemClickListener(this);
+
+		mListView.setEmptyView(findViewById(R.id.empty_text));
+		findViewById(R.id.empty_text).setOnClickListener(this);
 	}
 
 	void zhiyuanzheInit(){
-//		if(mZhiyuanzheList.isEmpty()){
-//			ZhiyuanzheInfo info = new ZhiyuanzheInfo();
-//			info.mZhiyuanzheName="李四";
-//			info.mFuwuName="做饭";
-//			info.mXingbie="男";
-//			info.mFuwuTime="11:00-12:30";
-//			info.mPhone="87541236";
-//			mZhiyuanzheList.add(info);
-//			mZhiyuanzheList.add(info);
-//			mZhiyuanzheList.add(info);
-//			mZhiyuanzheList.add(info);
-//		}
 		mZhiyuanzheAdapter = new ZhiyuanzheAdapter(mContext, mZhiyuanzheList);
 		mListView.setAdapter(mZhiyuanzheAdapter);
-		mListView.setOnItemClickListener(this);			
+		mListView.setOnItemClickListener(this);
 	}
 	
 	@Override
@@ -151,6 +128,13 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 		switch (v.getId()) {
 		case R.id.iv_ab_left_btn:
 			finish();
+			break;
+		case R.id.empty_text:
+			if(mFuwuType == YuyuefuwuActivity.YUYUE_FUWU_ZHIYUANZHE){
+				getZhiyuanzhe();
+			}else{
+				getFuwuInfoList();
+			}
 			break;
 		default:
 			break;
@@ -235,6 +219,8 @@ public class DianpuActivity extends BaseActivity implements OnItemClickListener 
 				MyVolley.getImageLoader().get(info.Picture, 
 						ImageLoader.getImageListener((ImageView) view.findViewById(R.id.zhiyuan_zhe_avater), 
 								R.drawable.list_item_zhiyuan_zhe_icon, R.drawable.list_item_zhiyuan_zhe_icon));
+			}else{
+				((ImageView) view.findViewById(R.id.zhiyuan_zhe_avater)).setImageResource(R.drawable.list_item_zhiyuan_zhe_icon);
 			}
 		}
 		

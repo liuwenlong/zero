@@ -72,7 +72,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 
 	@Override
 	public void onErrorResponse(VolleyError error) {
-
+		Log.d("onErrorResponse", error.toString());
 		if (mProgressDialog != null && mProgressDialog.isShowing())
 			mProgressDialog.dismiss();
 
@@ -99,11 +99,14 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		public static String getMessage(VolleyError error, Context context, User curUser) {
 			if (error instanceof TimeoutError)
 				return context.getResources().getString(R.string.network_timeout_req_again);
-			else if (isServerProblem(error))
+			else if (isServerProblem(error)){
+				Log.d("isServerProblem", "isServerProblem");
 				return handleServerError(error, context, curUser);
-			else if (isNetworkProblem(error))
+			}else if (isNetworkProblem(error)){
+				Log.d("isNetworkProblem", "isNetworkProblem");
 				return context.getResources().getString(R.string.bad_network);
-
+			}
+			Log.d("unknow", "isNetworkProblem unknow");
 			return context.getResources().getString(R.string.bad_network);
 		}
 
@@ -138,7 +141,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		private static String handleServerError(VolleyError error, final Context context, final User curUser) {
 			XsyUser cUser;
 			NetworkResponse response = error.networkResponse;
-
+			Log.d("handleServerError", "response.statusCode="+response.statusCode);
 			if (response != null) {
 				switch (response.statusCode) {
 //				case 404:
