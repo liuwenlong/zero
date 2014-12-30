@@ -67,18 +67,11 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 		super.setupActionBar("通知中心", 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
-		
-		if(mMessageList.isEmpty()){
-			MessageInfo info = new MessageInfo();
-			info.mMessage = "测试消息，请忽略！";
-			info.mRecevTime = "2014-10-12 19:30";
-			info.mIsRead="0";
-			info.IsRead=true;
-			mMessageList.add(info);
-		}
+
 		mMessageAdapter = new MessageAdapter(mContext, mMessageList);
 		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnItemClickListener(this);
+		mListView.setEmptyView(findViewById(R.id.empty_text));
 		getMessageList();
 	}
 
@@ -124,22 +117,16 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 			inflateView(convertView,mDataList.get(position));
 			return convertView;
 		}
-		
 		void inflateView(View view,MessageInfo info){
-			
 			view.findViewById(R.id.msg_list_item_icon).setVisibility(info.getIocnVisiable());
 			((TextView)view.findViewById(R.id.msg_list_item_msg)).setText(info.Title);
 			((TextView)view.findViewById(R.id.msg_list_item_time)).setText(info.CreateTime);
-
 		}
-		
 	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		
 		if(requestCode == 100){
 			getMessageList();
 		}
@@ -149,11 +136,9 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 		// TODO Auto-generated method stub
 		Intent forwardIntent = new Intent();
 		forwardIntent.setClass(mContext, MessageReadActivity.class);
-
 		Bundle mBundle = new Bundle();
 		mBundle.putSerializable("mMsg", mMessageList.get(arg2));
 		forwardIntent.putExtras(mBundle);
-		
 		startActivityForResult(forwardIntent, 100);		
 	}
 	
