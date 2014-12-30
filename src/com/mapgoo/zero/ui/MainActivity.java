@@ -161,6 +161,9 @@ private void setSelect(int num){
 				break;				
 		}
 	}
+	public void displayRefresh(){
+		setPagerTo(OrderType);
+	}
 void myStartActivity(Class<?> c){
 	Intent forwardIntent = new Intent();
 	forwardIntent.setClass(mContext, c);
