@@ -67,18 +67,10 @@ public class XiaoxiActivity extends BaseActivity implements OnItemClickListener 
 		super.setupActionBar("通知中心", 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mListView = (ListView)findViewById(R.id.laoren_list);
-		
-		if(mMessageList.isEmpty()){
-			MessageInfo info = new MessageInfo();
-			info.mMessage = "测试消息，请忽略！";
-			info.mRecevTime = "2014-10-12 19:30";
-			info.mIsRead="0";
-			info.IsRead=true;
-			mMessageList.add(info);
-		}
 		mMessageAdapter = new MessageAdapter(mContext, mMessageList);
 		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnItemClickListener(this);
+		mListView.setEmptyView(findViewById(R.id.empty_text));
 		getMessageList();
 	}
 

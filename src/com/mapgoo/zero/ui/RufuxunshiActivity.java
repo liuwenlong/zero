@@ -255,9 +255,6 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 				mImageList.add(0,ImageUtils.img2Base64(MGApp.pThis, bitmap));
 			else
 				mImageList.add(0,base64);
-			if(mImageList.size() == 2){
-				Log.d("msg", " "+ mImageList.get(1).equalsIgnoreCase(base64));
-			}
 			
 			LinearLayout.LayoutParams param = new  LinearLayout.LayoutParams(DimenUtils.dip2px(mContext, 60),DimenUtils.dip2px(mContext, 60) );
 
@@ -267,7 +264,8 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 			
 			if(linear.getChildCount()>=5)
 				mViewPager2.findViewById(R.id.ruhu_jiating_tianjia_zhaopian_btn).setVisibility(View.INVISIBLE);
-			
+			else
+				mViewPager2.findViewById(R.id.ruhu_jiating_tianjia_zhaopian_btn).setVisibility(View.VISIBLE);
 			Log.d("ChildCount", "linear.getChildCount()="+linear.getChildCount());
 		}
 	}

@@ -56,7 +56,7 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 	public void initData(Bundle savedInstanceState) {
 
 		if (savedInstanceState != null) {
-
+			mLaorenList = (ArrayList<LaorenInfo>)savedInstanceState.getSerializable("laoren");
 		} else {
 			mLaorenList = (ArrayList<LaorenInfo>)getIntent().getExtras().getSerializable("laoren");
 		}
@@ -64,7 +64,7 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-
+		outState.putSerializable("laoren", mLaorenList);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -77,6 +77,7 @@ public class LaorenActivity extends BaseActivity implements OnItemClickListener 
 		mLaorenAdapter = new LaorenAdapter(mContext, mLaorenList);
 		mListView.setAdapter(mLaorenAdapter);
 		mListView.setOnItemClickListener(this);
+		mListView.setEmptyView(findViewById(R.id.empty_text));
 		getLoaorenInfo();
 	}
 
