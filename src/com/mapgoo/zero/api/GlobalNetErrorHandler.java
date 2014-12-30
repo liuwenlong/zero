@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -25,6 +26,8 @@ import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.FwsUser;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
+import com.mapgoo.zero.ui.LoginActivity;
+import com.mapgoo.zero.ui.MainActivity;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyToast;
 import com.mapgoo.zero.ui.widget.QuickShPref;
@@ -98,11 +101,14 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		public static String getMessage(VolleyError error, Context context, User curUser) {
 			if (error instanceof TimeoutError)
 				return context.getResources().getString(R.string.network_timeout_req_again);
-			else if (isServerProblem(error))
+			else if (isServerProblem(error)){
+				Log.d("getMessage"," isServerProblem:"+error.toString());
 				return handleServerError(error, context, curUser);
-			else if (isNetworkProblem(error))
+			}else if (isNetworkProblem(error)){
+				Log.d("getMessage"," isNetworkProblem:"+error.toString());
 				return context.getResources().getString(R.string.bad_network);
-
+			}
+			Log.d("getMessage"," unknow:"+error.toString());
 			return context.getResources().getString(R.string.bad_network);
 		}
 
@@ -123,7 +129,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		 * @return
 		 */
 		private static boolean isServerProblem(VolleyError error) {
-			return (error instanceof ServerError) || (error instanceof AuthFailureError);
+			return (error instanceof ServerError) || (error instanceof AuthFailureError) || (error instanceof NoConnectionError);
 		}
 
 		/**
@@ -137,53 +143,148 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		private static String handleServerError(VolleyError error, final Context context, final User curUser) {
 			FwsUser cUser;
 			NetworkResponse response = error.networkResponse;
+/************************add for 红米 401***********************/
+			String str = error.toString();
+			if(error instanceof NoConnectionError){
+				if(str.contains("No authentication challenges found")){
+					getTokenRetry(context,curUser);
+					return "";
+				}else{
+					return "网络连接错误";
+				}
+			}
+/************************add for 红米 401 end***********************/
 			if (response != null) {
 				switch (response.statusCode) {
-	//				case 404:
-	//				case 422:
-					case 401:
-						final MGProgressDialog progressDialog = new MGProgressDialog(context);
-						progressDialog.setCancelable(true);
-						
-						if(curUser instanceof FwsUser){
-								cUser = (FwsUser)curUser;
-							// 重新获取token
-							ApiClient.loginInternel(cUser.mUername, cUser.mPassword, new onReqStartListener() {
-								@Override
-								public void onReqStart() {
-									if (progressDialog != null && !progressDialog.isShowing()) {
-										progressDialog.setMessage(context.getText(R.string.token_expire_and_reget).toString());
-										progressDialog.show();
-									}
-								}
-							}, new Listener<JSONObject>() {
-								@Override
-								public void onResponse(JSONObject response) {
-									Log.d("onResponse", response.toString());
-									if (progressDialog != null && progressDialog.isShowing()) {
-										progressDialog.dismiss();
-									}
-									try {
-										if(response.getInt("error") == 0){
-											XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-											RequestUtils.setToken(user.token);
-											QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
-											if (progressDialog != null && progressDialog.isShowing())
-												progressDialog.dismiss();
-											MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
-										}else{
-											MyToast.getInstance(context).toastMsg("登陆失效,请重新登陆");
-										}
-									}catch(Exception e){}
-								}
-							}, GlobalNetErrorHandler.getInstance(context, curUser, null));
+//				case 404:
+//				case 422:
+				case 401:
+/*					
+					final MGProgressDialog progressDialog = new MGProgressDialog(context);
+					progressDialog.setCancelable(true);
+					
+					if(curUser instanceof XsyUser){
+						cUser = (XsyUser)curUser;
+					// 重新获取token
+					ApiClient.loginInternel(cUser.userName, cUser.mPassword, new onReqStartListener() {
+
+						@Override
+						public void onReqStart() {
+
+							if (progressDialog != null && !progressDialog.isShowing()) {
+								progressDialog.setMessage(context.getText(R.string.token_expire_and_reget).toString());
+								progressDialog.show();
+							}
+
 						}
-						return "";
-					default:
-						return context.getResources().getString(R.string.bad_network);
+					}, new Listener<JSONObject>() {
+
+						@Override
+						public void onResponse(JSONObject response) {
+							if (progressDialog != null && progressDialog.isShowing())
+								progressDialog.dismiss();							
+							Log.d("onResponse", response.toString());
+							if (response.has("error")) {
+								try {
+									if(response.getInt("error") == 0){
+										XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+										
+										RequestUtils.setToken(user.token);
+										QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+		
+										if(mContext instanceof MainActivity){
+											if(!((MainActivity)mContext).isFinishing())
+												((MainActivity)mContext).getLoaorenInfo();
+										}else{
+											MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+										}
+									}else{
+										String reason=response.getString("reason");
+										MyToast.getInstance(context).toastMsg(reason);
+										QuickShPref.putValueObject(QuickShPref.isLogin, false);
+										mContext.startActivity(new Intent(mContext, LoginActivity.class));
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+									QuickShPref.putValueObject(QuickShPref.isLogin, false);
+									mContext.startActivity(new Intent(mContext, LoginActivity.class));
+								}
+							}
+						}
+
+					}, GlobalNetErrorHandler.getInstance(context, curUser, null));
 					}
+*/						
+					getTokenRetry(context,curUser);
+					return "";
+					
+				default:
+					return context.getResources().getString(R.string.bad_network);
+				}
 			}
+			
 			return context.getResources().getString(R.string.bad_network);
 		}
+		
+		private  static void getTokenRetry(final Context context, final User curUser){
+			FwsUser cUser;
+			
+			final MGProgressDialog progressDialog = new MGProgressDialog(context);
+			progressDialog.setCancelable(true);
+			
+			if(curUser instanceof FwsUser){
+				cUser = (FwsUser)curUser;
+			// 重新获取token
+			ApiClient.loginInternel(cUser.mUername, cUser.mPassword, new onReqStartListener() {
+
+				@Override
+				public void onReqStart() {
+
+					if (progressDialog != null && !progressDialog.isShowing()) {
+						progressDialog.setMessage(context.getText(R.string.token_expire_and_reget).toString());
+						progressDialog.show();
+					}
+
+				}
+			}, new Listener<JSONObject>() {
+
+				@Override
+				public void onResponse(JSONObject response) {
+					if (progressDialog != null && progressDialog.isShowing())
+						progressDialog.dismiss();							
+					Log.d("onResponse", response.toString());
+					if (response.has("error")) {
+						try {
+							if(response.getInt("error") == 0){
+								FwsUser user = JSON.parseObject(response.getJSONObject("result").toString(), FwsUser.class);
+								
+								RequestUtils.setToken(user.token);
+								QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+
+								if(mContext instanceof MainActivity){
+									if(!((MainActivity)mContext).isFinishing())
+										((MainActivity)mContext).displayRefresh();
+								}else{
+									MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+								}
+							}else{
+								String reason=response.getString("reason");
+								MyToast.getInstance(context).toastMsg(reason);
+								QuickShPref.putValueObject(QuickShPref.isLogin, false);
+								mContext.startActivity(new Intent(mContext, LoginActivity.class));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							QuickShPref.putValueObject(QuickShPref.isLogin, false);
+							mContext.startActivity(new Intent(mContext, LoginActivity.class));
+						}
+					}
+				}
+
+			}, GlobalNetErrorHandler.getInstance(context, curUser, null));
+			}
+			
+		}
+		
 	}
 }

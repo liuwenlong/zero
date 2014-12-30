@@ -162,9 +162,15 @@ private void setSelect(int num){
 				break;
 			case R.id.civ_avatar:
 				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+				break;
+			case R.id.empty_text:
+				setPagerTo(OrderType);
 				break;				
 
 		}
+	}
+	public void displayRefresh(){
+		setPagerTo(OrderType);
 	}
 void myStartActivity(Class<?> c){
 	Intent forwardIntent = new Intent();
@@ -194,7 +200,12 @@ void myStartActivity(Class<?> c){
 		mListView = (ListView)findViewById(R.id.fws_order_list);
 		mListView.setDividerHeight(0);
 		mListView.setOnItemClickListener(this);
+		
+		mListView.setEmptyView(findViewById(R.id.empty_text));
+		findViewById(R.id.empty_text).setOnClickListener(this);
+		
 		setPagerTo(0);
+		getmProgressDialog().setMessage("加载中...");
 	}
 	private void refreshData(ArrayList<FwsOrderinfo> array1){
 		if(adapter[OrderType] == null){
@@ -203,7 +214,7 @@ void myStartActivity(Class<?> c){
 			adapter[OrderType] .setData(array1);
 		}
 		mListView.setAdapter(adapter[OrderType] );
-	}	
+	}
 	@Override
 	protected void handleData() {
 		// TODO Auto-generated method stub
