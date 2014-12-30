@@ -19,9 +19,9 @@ import com.android.volley.Response.Listener;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.huaan.icare.xsy.R;
 import com.j256.ormlite.dao.Dao;
 import com.mapgoo.zero.MGApp;
-import com.huaan.icare.xsy.R;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
@@ -72,7 +72,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 
 	@Override
 	public void onErrorResponse(VolleyError error) {
-		Log.d("onErrorResponse", error.toString());
+
 		if (mProgressDialog != null && mProgressDialog.isShowing())
 			mProgressDialog.dismiss();
 
@@ -100,13 +100,13 @@ public class GlobalNetErrorHandler implements ErrorListener {
 			if (error instanceof TimeoutError)
 				return context.getResources().getString(R.string.network_timeout_req_again);
 			else if (isServerProblem(error)){
-				Log.d("isServerProblem", "isServerProblem");
+				Log.d("getMessage"," isServerProblem:"+error.toString());
 				return handleServerError(error, context, curUser);
 			}else if (isNetworkProblem(error)){
-				Log.d("isNetworkProblem", "isNetworkProblem");
+				Log.d("getMessage"," isNetworkProblem:"+error.toString());
 				return context.getResources().getString(R.string.bad_network);
 			}
-			Log.d("unknow", "isNetworkProblem unknow");
+			Log.d("getMessage"," unknow:"+error.toString());
 			return context.getResources().getString(R.string.bad_network);
 		}
 
@@ -127,7 +127,7 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		 * @return
 		 */
 		private static boolean isServerProblem(VolleyError error) {
-			return (error instanceof ServerError) || (error instanceof AuthFailureError);
+			return (error instanceof ServerError) || (error instanceof AuthFailureError) || (error instanceof NoConnectionError);
 		}
 
 		/**
@@ -141,13 +141,24 @@ public class GlobalNetErrorHandler implements ErrorListener {
 		private static String handleServerError(VolleyError error, final Context context, final User curUser) {
 			XsyUser cUser;
 			NetworkResponse response = error.networkResponse;
-			Log.d("handleServerError", "response.statusCode="+response.statusCode);
+
+/************************add for 红米 401***********************/
+			String str = error.toString();
+			if(error instanceof NoConnectionError){
+				if(str.contains("No authentication challenges found")){
+					getTokenRetry(context,curUser);
+					return "";
+				}else{
+					return "网络连接错误";
+				}
+			}
+/************************add for 红米 401 end***********************/
 			if (response != null) {
 				switch (response.statusCode) {
 //				case 404:
 //				case 422:
 				case 401:
-					
+/*					
 					final MGProgressDialog progressDialog = new MGProgressDialog(context);
 					progressDialog.setCancelable(true);
 					
@@ -202,6 +213,8 @@ public class GlobalNetErrorHandler implements ErrorListener {
 
 					}, GlobalNetErrorHandler.getInstance(context, curUser, null));
 					}
+*/						
+					getTokenRetry(context,curUser);
 					return "";
 					
 				default:
@@ -211,5 +224,66 @@ public class GlobalNetErrorHandler implements ErrorListener {
 			
 			return context.getResources().getString(R.string.bad_network);
 		}
+		
+		private  static void getTokenRetry(final Context context, final User curUser){
+			XsyUser cUser;
+			
+			final MGProgressDialog progressDialog = new MGProgressDialog(context);
+			progressDialog.setCancelable(true);
+			
+			if(curUser instanceof XsyUser){
+				cUser = (XsyUser)curUser;
+			// 重新获取token
+			ApiClient.loginInternel(cUser.userName, cUser.mPassword, new onReqStartListener() {
+
+				@Override
+				public void onReqStart() {
+
+					if (progressDialog != null && !progressDialog.isShowing()) {
+						progressDialog.setMessage(context.getText(R.string.token_expire_and_reget).toString());
+						progressDialog.show();
+					}
+
+				}
+			}, new Listener<JSONObject>() {
+
+				@Override
+				public void onResponse(JSONObject response) {
+					if (progressDialog != null && progressDialog.isShowing())
+						progressDialog.dismiss();							
+					Log.d("onResponse", response.toString());
+					if (response.has("error")) {
+						try {
+							if(response.getInt("error") == 0){
+								XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+								
+								RequestUtils.setToken(user.token);
+								QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+
+								if(mContext instanceof MainActivity){
+									if(!((MainActivity)mContext).isFinishing())
+										((MainActivity)mContext).getLoaorenInfo();
+								}else{
+									MyToast.getInstance(context).toastMsg(context.getText(R.string.token_reget_success_and_do_your_stuff_again));
+								}
+							}else{
+								String reason=response.getString("reason");
+								MyToast.getInstance(context).toastMsg(reason);
+								QuickShPref.putValueObject(QuickShPref.isLogin, false);
+								mContext.startActivity(new Intent(mContext, LoginActivity.class));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							QuickShPref.putValueObject(QuickShPref.isLogin, false);
+							mContext.startActivity(new Intent(mContext, LoginActivity.class));
+						}
+					}
+				}
+
+			}, GlobalNetErrorHandler.getInstance(context, curUser, null));
+			}
+			
+		}
+		
 	}
 }
