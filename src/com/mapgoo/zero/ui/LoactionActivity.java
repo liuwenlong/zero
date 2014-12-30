@@ -156,6 +156,7 @@ public class LoactionActivity extends BaseActivity {
 	private void initMapLoaction(){
 		// 地图初始化
 		mMapView = (MapView) findViewById(R.id.bmapView);
+		mMapView.showZoomControls(false);
 		mBaiduMap = mMapView.getMap();
 		// 开启定位图层
 		mBaiduMap.setMyLocationEnabled(true);
