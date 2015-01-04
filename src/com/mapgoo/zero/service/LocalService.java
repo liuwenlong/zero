@@ -72,7 +72,7 @@ public class LocalService extends Service {
 				mMyLoactionChange.onMyLoactionChange(location);
 			}
 			mLastBDLocation = location;
-			Updatelocation(location);
+			//Updatelocation(location);
 		}
 		public void onReceivePoi(BDLocation poiLocation) {}
 	}
