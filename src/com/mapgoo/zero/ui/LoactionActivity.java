@@ -17,10 +17,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -67,6 +71,8 @@ import com.mapgoo.zero.bean.LaorenInfo;
 import com.mapgoo.zero.bean.LaorenLocInfo;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.bean.OrderFormInfo;
+import com.mapgoo.zero.service.LocalService;
+import com.mapgoo.zero.service.LocalService.MyLoactionChange;
 
 /**
  * 概述: 模版
@@ -100,6 +106,7 @@ public class LoactionActivity extends BaseActivity {
 	@Override
 	public void setContentView() {
 		setContentView(R.layout.activity_loc_service);
+		doBindService();
 	}
 	
 	private void ConverterLaorenLoaction(LaorenLocInfo info){
@@ -160,17 +167,9 @@ public class LoactionActivity extends BaseActivity {
 		mBaiduMap = mMapView.getMap();
 		// 开启定位图层
 		mBaiduMap.setMyLocationEnabled(true);
-		// 定位初始化
-		mLocClient = new LocationClient(this);
-		mLocClient.registerLocationListener(myListener);
-		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);// 打开gps
-		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(10000);
-		mLocClient.setLocOption(option);
-		mLocClient.start();
+
 		mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(
-						mCurrentMode, true, null));				
+				LocationMode.NORMAL, true, null));				
 	}
 
 	@Override
@@ -192,14 +191,12 @@ public class LoactionActivity extends BaseActivity {
 
 	@Override
 	protected void onDestroy() {
-		// 退出时销毁定位
-		mLocClient.stop();
-		// 关闭定位图层
+		doUnbindService();
 		mBaiduMap.setMyLocationEnabled(false);
 		mMapView.onDestroy();
-		mMapView = null;
+        mMapView = null;
 		super.onDestroy();
-	}	
+	}
 private void zoomIn(){
 	float zoom = mBaiduMap.getMapStatus().zoom;
 	perfomZoom(zoom-1);
@@ -447,7 +444,71 @@ private void moveToLoaren(){
 		}
 	}
 	
+	MyLoactionChange mMyLoactionChange = new MyLoactionChange(){
+		@Override
+		public void onMyLoactionChange(BDLocation location) {
+			// map view 销毁后不在处理新接收的位置
+			//Log.d("location", "onReceiveLocation");
+			if (location == null || mMapView == null)
+				return;
+			MyLocationData locData = new MyLocationData.Builder()
+					.accuracy(location.getRadius())
+					// 此处设置开发者获取到的方向信息，顺时针0-360
+					.direction(100).latitude(location.getLatitude())
+					.longitude(location.getLongitude()).build();
+			mMylocLatLng = new LatLng(location.getLatitude(),
+					location.getLongitude());
+			if(mBaiduMap != null)
+				mBaiduMap.setMyLocationData(locData);
+		}
+	};
 	
+	private LocalService mBoundService;
+
+	private ServiceConnection mConnection = new ServiceConnection() {
+	    public void onServiceConnected(ComponentName className, IBinder service) {
+	        // This is called when the connection with the service has been
+	        // established, giving us the service object we can use to
+	        // interact with the service.  Because we have bound to a explicit
+	        // service that we know is running in our own process, we can
+	        // cast its IBinder to a concrete class and directly access it.
+	        mBoundService = ((LocalService.LocalBinder)service).getService();
+	        if(mBoundService != null)
+	        	mBoundService.setMyLocationListenner(mMyLoactionChange);
+	        // Tell the user about this for our demo.
+//	        Toast.makeText(Binding.this, R.string.local_service_connected,
+//	                Toast.LENGTH_SHORT).show();
+	    }
+
+	    public void onServiceDisconnected(ComponentName className) {
+	        // This is called when the connection with the service has been
+	        // unexpectedly disconnected -- that is, its process crashed.
+	        // Because it is running in our same process, we should never
+	        // see this happen.
+	        mBoundService = null;
+//	        Toast.makeText(Binding.this, R.string.local_service_disconnected,
+//	                Toast.LENGTH_SHORT).show();
+	    }
+	};
+boolean mIsBound;
+	void doBindService() {
+	    // Establish a connection with the service.  We use an explicit
+	    // class name because we want a specific service implementation that
+	    // we know will be running in our own process (and thus won't be
+	    // supporting component replacement by other applications).
+	    bindService(new Intent(this, 
+	            LocalService.class), mConnection, Context.BIND_AUTO_CREATE);
+	    mIsBound = true;
+	}
+
+	void doUnbindService() {
+	    if (mIsBound) {
+	        // Detach our existing connection.
+	        unbindService(mConnection);
+	        mIsBound = false;
+	    }
+	}
+
 	
 	void myStartActivity(Class<?> c){
 		Intent forwardIntent = new Intent();

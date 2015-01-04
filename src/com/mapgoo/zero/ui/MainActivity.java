@@ -48,6 +48,7 @@ import com.mapgoo.zero.bean.LaorenLocInfo;
 import com.mapgoo.zero.bean.MessageInfo;
 import com.mapgoo.zero.bean.User;
 import com.mapgoo.zero.bean.XsyUser;
+import com.mapgoo.zero.service.LocalService;
 import com.mapgoo.zero.ui.widget.AutoScrollViewPager;
 import com.mapgoo.zero.ui.widget.CircleImageView;
 import com.mapgoo.zero.ui.widget.CirclePageIndicator;
@@ -195,6 +196,7 @@ void myStartActivity(Class<?> c){
 		// TODO Auto-generated method stub
 		setContentView(R.layout.activity_main);
 		initSlideMenu();
+		startService(new Intent(mContext, LocalService.class).putExtra("mXsyUser", mXsyUser));
 	}
 
 	private void inflateLaoren(){
