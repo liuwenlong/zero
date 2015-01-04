@@ -21,6 +21,7 @@ import android.util.Log;
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.baidu.location.BDLocation;
 import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.bean.PatrolBasicInfo;
 import com.mapgoo.zero.bean.ServiceOrderSubmitInfo;
@@ -776,5 +777,16 @@ public class ApiClient {
 		reqParams.put("peopleNo", peopleNo);
 		reqParams.put("avatar", avatar);
 		_POST_WITH_LISTENERS(URLs.UpdateUserImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
+	}
+	public static void UpdatePosition(int peopleNo,BDLocation location,onReqStartListener reqStartListener, Listener<JSONObject> responseListener,
+			ErrorListener errorListener) {
+			Map<String, Object> reqParams = new HashMap<String, Object>();
+			reqParams.put("peopleNo", peopleNo);
+			reqParams.put("GPSTime", location.getTime());
+			reqParams.put("Lon", location.getLongitude());
+			reqParams.put("Lat", location.getLatitude());
+			reqParams.put("Speed", location.getSpeed());
+			reqParams.put("Direct", (int)(location.getDerect()));
+		_POST_WITH_LISTENERS(URLs.Position, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
 }

@@ -339,7 +339,10 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-  
+          <!-- 百度定位服务 -->
+        <service
+            android:name="com.mapgoo.zero.service.LocalService"
+            android:enabled="true" />
         
         <!-- 极光sdk s -->
         <meta-data

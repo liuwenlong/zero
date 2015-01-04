@@ -19,7 +19,7 @@ public class URLs implements Serializable {
 	private final static String SERVER_PRODUCT = "app001.u12580.com";
 
 	// 局域网服务器http://192.168.1.99/ecareapp/api/Login?IMEI=56456456
-	private final static String LOCAL_TEST_SERVER = "www3.lingjuli.org.cn";
+	private final static String LOCAL_TEST_SERVER = "www.lingjuli.org.cn";
 
 	// 内测服务器
 	private final static String INTERNEL_TEST_SERVER = "mapgoo1307.eicp.net:6789";
@@ -135,6 +135,6 @@ public class URLs implements Serializable {
 	//修改密码
 	public final static String UpdateUserPassword = URL_API_HTTP_HOST +"UpdateUserPassword";	
 	public final static String UpdateUserImage = URL_API_HTTP_HOST +"UpdateUserImage";	
-	
+	public final static String Position = URL_API_HTTP_HOST +"Position";		
 	
 }
