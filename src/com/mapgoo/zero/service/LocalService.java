@@ -1,5 +1,6 @@
 package com.mapgoo.zero.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -117,6 +118,7 @@ public class LocalService extends Service {
 	}
 	
 	private void getToken(){
+		if(mXsyUser != null)
 		ApiClient.loginInternel(mXsyUser.userName, mXsyUser.mPassword, 
 				null, 
 				new Listener<JSONObject>() {
@@ -175,7 +177,11 @@ XsyUser mXsyUser;
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
-        mXsyUser = (XsyUser)intent.getExtras().getSerializable("mXsyUser");
+        if(intent!=null && intent.getExtras()!=null){
+        	Serializable serializable = intent.getExtras().getSerializable("mXsyUser");
+        	if(serializable!=null)
+        		mXsyUser = (XsyUser)serializable;
+        }
         return START_STICKY;
     }
 
