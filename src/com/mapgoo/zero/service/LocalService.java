@@ -79,6 +79,7 @@ public class LocalService extends Service {
 	}
 	
 	private void Updatelocation(BDLocation location){
+		//RequestUtils.setToken("sss'");
 		ApiClient.UpdatePosition(Integer.parseInt((QuickShPref.getString(QuickShPref.PEOPLE_ON))), location,	null,
 				new Listener<JSONObject> (){
 					public void onResponse(JSONObject response) {
@@ -107,6 +108,7 @@ public class LocalService extends Service {
 										}
 							/************************add for 红米 401 end***********************/
 										if (response != null) {
+											Log.d("onErrorResponse", "response.statusCode="+response.statusCode);
 											switch (response.statusCode) {
 												case 401:
 													getToken();
@@ -118,7 +120,7 @@ public class LocalService extends Service {
 	}
 	
 	private void getToken(){
-		if(mXsyUser != null)
+		if(mXsyUser != null){
 		ApiClient.loginInternel(mXsyUser.userName, mXsyUser.mPassword, 
 				null, 
 				new Listener<JSONObject>() {
@@ -142,6 +144,9 @@ public class LocalService extends Service {
 						}
 					}
 				}, GlobalNetErrorHandler.getInstance(mContext, mXsyUser, null));
+		}else{
+			Log.e("getToken", "mXsyUser is null");
+		}
 	}
 	
     LocationClient mLocClient;
