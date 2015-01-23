@@ -383,6 +383,6 @@
                 <string name="laoren_list">老人档案</string>
                 
 
-    <string name="service_ip">183.15.222.93</string>
-    <string name="service_port">8899</string>               
+    <string name="service_ip">118.26.162.95</string>
+    <string name="service_port">9000</string>               
 </resources>

@@ -10,6 +10,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -43,6 +45,8 @@ import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.huaan.icare.xsy.R;
+import com.mapgoo.zero.api.PositionUtil;
+import com.mapgoo.zero.api.PositionUtil.Gps;
 import com.mapgoo.zero.ui.widget.QuickShPref;
 
 /**
@@ -232,6 +236,33 @@ public class Network {
 		return port;
 	}
 
+	
+	/*
+	 * 将百度定位的时间转换成标准格式2013-09-01 09:05:02
+	 */
+	private String formatTime(String time){
+			Pattern pattern = Pattern.compile("\\s*(\\d+)-(\\d+)-(\\d+)\\s+(\\d+):(\\d+):(\\d+)\\s*");
+			Matcher matcher = pattern.matcher(time);
+			String ret = null;
+			int y,m,d,h,min,s;
+
+			if(matcher.find()){ 
+				try {
+					y =  Integer.parseInt(matcher.group(1));
+					m =  Integer.parseInt(matcher.group(2));
+					d =  Integer.parseInt(matcher.group(3));
+					h =  Integer.parseInt(matcher.group(4));
+					min =  Integer.parseInt(matcher.group(5));
+					s =  Integer.parseInt(matcher.group(6));
+				} catch (Exception e) {
+					// TODO: handle exception
+					return null;
+				}
+				ret = String.format("%04d-%02d-%02d %02d:%02d:%02d", y,m,d,h,min,s);
+				Log.d("time", ret);
+			}
+			return ret;
+	}
 	/**
 	 * 上传位置
 	 * 
@@ -240,9 +271,16 @@ public class Network {
 	public void uploadPos(BDLocation location) {
 		mIMEI = QuickShPref.getString(QuickShPref.IEMI);
 		String time = location.getTime();
-
-		double lon = location.getLongitude(); // 经度
-		double lat = location.getLatitude(); // 纬度
+		time = formatTime(time);
+		if(time == null || time.length()<19){
+			if(time!=null)
+				Log.d("tag", "定位数据有误,不上报:"+time);
+			return;
+		}
+		Gps gps = PositionUtil.bd09_To_Gps84(location.getLatitude(), location.getLongitude());
+		
+		double lon = gps.mLon;//location.getLongitude(); // 经度
+		double lat =	gps.mLat; // 纬度
 
 		/**
 		 * location.getLocType() 的值 61 ： GPS定位结果 62 ： 扫描整合定位依据失败。此时定位结果无效。 63 ：
@@ -267,20 +305,20 @@ public class Network {
 														// 3、ObjectId
 		String cardNum = sp.getString("CardNum", ""); // 手机号码
 
-		if (uplocation_way == 1) { // 如果客户选择了只上报GPS位置信息
-			// 获取GPS获取的经纬度
-			SharedPreferences sp3 = mContext.getSharedPreferences(
-					"mapgooService", Activity.MODE_PRIVATE);
-			lon = sp3.getFloat("gpsLon", 0);
-			lat = sp3.getFloat("gpsLat", 0);
-
-			f = 0x06;
-
-			// 如果经纬度为0，则不上报
-			if (lon == 0 || lat == 0) {
-				return;
-			}
-		}
+//		if (uplocation_way == 1) { // 如果客户选择了只上报GPS位置信息
+//			// 获取GPS获取的经纬度
+//			SharedPreferences sp3 = mContext.getSharedPreferences(
+//					"mapgooService", Activity.MODE_PRIVATE);
+//			lon = sp3.getFloat("gpsLon", 0);
+//			lat = sp3.getFloat("gpsLat", 0);
+//
+//			f = 0x06;
+//
+//			// 如果经纬度为0，则不上报
+//			if (lon == 0 || lat == 0) {
+//				return;
+//			}
+//		}
 
 		int lonDu = (int) lon;
 		float lonFen = (float) (lon - lonDu) * 60;
@@ -337,7 +375,7 @@ public class Network {
 		// begin 将上报的相关信息写入日志
 		String uplocationType = (location.getLocType() < 100) ? "GPS" : "基站";
 		mContext.writeLog("定位方式:" + uplocationType + ", 经度:" + lon + ", 纬度:"
-				+ lat);
+				+ lat+",时间:"+time);
 		// 往日志文件里写入上报的协议内容
 		mContext.writeLog("上报的协议内容为:" + buffer.toString());
 		// end 将上报的相关信息写入日志

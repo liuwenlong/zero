@@ -85,7 +85,7 @@ public class LocalService extends Service {
 				super.run();
 				mNetwork.uploadPos(location);
 			}}.start();
-		
+	}
 		
 		
 //		ApiClient.UpdatePosition(Integer.parseInt((QuickShPref.getString(QuickShPref.PEOPLE_ON))), location,	null,
@@ -124,8 +124,7 @@ public class LocalService extends Service {
 //											}
 //										}
 //						}
-//					});		
-	}
+//					});
 	
 //	private void getToken(){
 //		if(mXsyUser != null){
@@ -182,7 +181,7 @@ public class LocalService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(30000);
+		option.setScanSpan(1*60*1000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();  	
     }
