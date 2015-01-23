@@ -44,7 +44,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.family.R;
 import com.mapgoo.zero.api.PositionUtil;
 import com.mapgoo.zero.api.PositionUtil.Gps;
 import com.mapgoo.zero.ui.widget.QuickShPref;
