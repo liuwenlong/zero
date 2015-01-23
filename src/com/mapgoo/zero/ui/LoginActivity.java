@@ -301,13 +301,16 @@ private String mDisplayName;
 	
 	public String getIMEI(){
 		String imei = QuickShPref.getString(QuickShPref.IEMI);
+		
 		if(imei == null){
 			imei =((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
+		
+			if(ApiClient.isDebuge)
+				imei = "355002057640887";	
+			Log.d("ieme", imei);
 			QuickShPref.putValueObject(QuickShPref.IEMI, imei);
 		}
-		Log.d("ieme", imei);
-		if(ApiClient.isDebuge)
-			imei = "56456456";
+
 		return imei;
 	}
 	
