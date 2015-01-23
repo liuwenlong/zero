@@ -44,7 +44,7 @@ import android.widget.Toast;
 
 public class LocalService extends Service {
     private NotificationManager mNM;
-
+	public static final String RESULTACTION = "com.mapgoo.service.result";
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
     private int NOTIFICATION = R.string.app_name;
@@ -78,71 +78,83 @@ public class LocalService extends Service {
 		public void onReceivePoi(BDLocation poiLocation) {}
 	}
 	
-	private void Updatelocation(BDLocation location){
-		ApiClient.UpdatePosition(Integer.parseInt((QuickShPref.getString(QuickShPref.PEOPLE_ON))), location,	null,
-				new Listener<JSONObject> (){
-					public void onResponse(JSONObject response) {
-						Log.d("onResponse", "MyLocationListenner:"+response.toString());
-						if (response.has("error")) {
-							try {
-								if (response.getInt("error") == 0) {
-//									JSONArray array = response.getJSONArray("result");
-								}else{
-									//mToast.toastMsg(response.getString("reason"));
-								}
-							}catch (JSONException e) {e.printStackTrace();}
-						}
-					}},
-					new ErrorListener(){
-						@Override
-						public void onErrorResponse(VolleyError error) {
-							Log.d("onErrorResponse", error.toString());
-							NetworkResponse response = error.networkResponse;
-							/************************add for 红米 401***********************/
-										String str = error.toString();
-										if(error instanceof NoConnectionError){
-											if(str.contains("No authentication challenges found")){
-												getToken();
-											}
-										}
-							/************************add for 红米 401 end***********************/
-										if (response != null) {
-											switch (response.statusCode) {
-												case 401:
-													getToken();
-													break;
-											}
-										}
-						}
-					});		
+	private void Updatelocation(final BDLocation location){
+		//RequestUtils.setToken("sss'");
+		new Thread(){
+			public void run() {
+				super.run();
+				mNetwork.uploadPos(location);
+			}}.start();
 	}
+		
+		
+//		ApiClient.UpdatePosition(Integer.parseInt((QuickShPref.getString(QuickShPref.PEOPLE_ON))), location,	null,
+//				new Listener<JSONObject> (){
+//					public void onResponse(JSONObject response) {
+//						Log.d("onResponse", "MyLocationListenner:"+response.toString());
+//						if (response.has("error")) {
+//							try {
+//								if (response.getInt("error") == 0) {
+////									JSONArray array = response.getJSONArray("result");
+//								}else{
+//									//mToast.toastMsg(response.getString("reason"));
+//								}
+//							}catch (JSONException e) {e.printStackTrace();}
+//						}
+//					}},
+//					new ErrorListener(){
+//						@Override
+//						public void onErrorResponse(VolleyError error) {
+//							Log.d("onErrorResponse", error.toString());
+//							NetworkResponse response = error.networkResponse;
+//							/************************add for 红米 401***********************/
+//										String str = error.toString();
+//										if(error instanceof NoConnectionError){
+//											if(str.contains("No authentication challenges found")){
+//												getToken();
+//											}
+//										}
+//							/************************add for 红米 401 end***********************/
+//										if (response != null) {
+//											Log.d("onErrorResponse", "response.statusCode="+response.statusCode);
+//											switch (response.statusCode) {
+//												case 401:
+//													getToken();
+//													break;
+//											}
+//										}
+//						}
+//					});
 	
-	private void getToken(){
-		if(mXsyUser != null)
-		ApiClient.loginInternel(mXsyUser.userName, mXsyUser.mPassword, 
-				null, 
-				new Listener<JSONObject>() {
-					@Override
-					public void onResponse(JSONObject response) {
-						Log.d("onResponse", response.toString());
-						if (response.has("error")) {
-							try {
-								if(response.getInt("error") == 0){
-									XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
-									RequestUtils.setToken(user.token);
-									QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
-								}else{
-									String reason=response.getString("reason");
-								}
-							} catch (JSONException e) {
-								e.printStackTrace();
-								QuickShPref.putValueObject(QuickShPref.isLogin, false);
-								//mContext.startActivity(new Intent(mContext, LoginActivity.class));
-							}
-						}
-					}
-				}, GlobalNetErrorHandler.getInstance(mContext, mXsyUser, null));
-	}
+//	private void getToken(){
+//		if(mXsyUser != null){
+//		ApiClient.loginInternel(mXsyUser.userName, mXsyUser.mPassword, 
+//				null, 
+//				new Listener<JSONObject>() {
+//					@Override
+//					public void onResponse(JSONObject response) {
+//						Log.d("onResponse", response.toString());
+//						if (response.has("error")) {
+//							try {
+//								if(response.getInt("error") == 0){
+//									XsyUser user = JSON.parseObject(response.getJSONObject("result").toString(), XsyUser.class);
+//									RequestUtils.setToken(user.token);
+//									QuickShPref.putValueObject(QuickShPref.TOKEN, user.token);
+//								}else{
+//									String reason=response.getString("reason");
+//								}
+//							} catch (JSONException e) {
+//								e.printStackTrace();
+//								QuickShPref.putValueObject(QuickShPref.isLogin, false);
+//								//mContext.startActivity(new Intent(mContext, LoginActivity.class));
+//							}
+//						}
+//					}
+//				}, GlobalNetErrorHandler.getInstance(mContext, mXsyUser, null));
+//		}else{
+//			Log.e("getToken", "mXsyUser is null");
+//		}
+//	}
 	
     LocationClient mLocClient;
     MyLocationListenner myListener= new MyLocationListenner();
@@ -154,10 +166,12 @@ public class LocalService extends Service {
     		mMyLoactionChange.onMyLoactionChange(mLastBDLocation);
     }
     Context mContext;
+    Network mNetwork;
     @Override
     public void onCreate() {
     	 locationInit();
     	 mContext = getBaseContext();
+    	 mNetwork = new Network(this);
     }
     
     // 定位初始化
@@ -167,7 +181,7 @@ public class LocalService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(10000);
+		option.setScanSpan(1*60*1000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();  	
     }
@@ -220,5 +234,9 @@ XsyUser mXsyUser;
 
         // Send the notification.
         mNM.notify(NOTIFICATION, notification);
+    }
+    
+    public void writeLog(String str){
+    	Log.d("writeLog", str);
     }
 }
