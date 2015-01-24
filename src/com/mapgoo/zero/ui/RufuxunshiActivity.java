@@ -39,10 +39,12 @@ import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.OrderFormInfo;
 import com.mapgoo.zero.bean.PatrolBasicInfo;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
+import com.mapgoo.zero.ui.widget.PhotoSelectPop;
 import com.mapgoo.zero.ui.widget.RuhuPagerAdapter;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
 import com.mapgoo.zero.utils.DimenUtils;
 import com.mapgoo.zero.utils.ImageUtils;
+import com.mapgoo.zero.utils.TurnToCamrea;
 
 /**
  * 概述: 模版
@@ -57,6 +59,8 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 	private View mViewPager2;
 	private PatrolBasicInfo mPatrolBasicInfo= new PatrolBasicInfo();
 	private boolean mPatrolStatus;
+	private PhotoSelectPop mPhotoSelectPop;
+	private TurnToCamrea mTurnToCamrea;
 	@Override
 	public void setContentView() {
 		setContentView(R.layout.activity_ruhuxunshi);
@@ -109,7 +113,14 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 			}});
 		setPagerNum(0);
 		
+		initPhotoSelect();
 		getOrderformList();
+	}
+	
+	private void initPhotoSelect(){
+		mPhotoSelectPop = new PhotoSelectPop(mContext);
+		mPhotoSelectPop.setOnClickListener(this);
+		mTurnToCamrea = new TurnToCamrea(this);		
 	}
 	
 	int[] pager1_item_view_id=new int[]{R.id.pager_1_item_0,R.id.pager_1_item_1,R.id.pager_1_item_2};
@@ -288,6 +299,8 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 		if(requestCode == requestCode_photo && resultCode == RESULT_OK){
 			String photo = data.getStringExtra("photo");
 			addPhoto(photo);
+		}else if(requestCode == TurnToCamrea.REQUEST_PIC_FROM_CAMREA && resultCode == RESULT_OK){
+			addPhoto(mTurnToCamrea.getImgFilePath());
 		}
 	}
 
@@ -298,7 +311,7 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 			finish();
 			break;
 		case R.id.ruhu_jiating_tianjia_zhaopian_btn:
-			startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+			mPhotoSelectPop.show(v);
 			break;
 		case R.id.ruhu_xunshi_sign_in:
 			setPatrolSign(0);
@@ -333,6 +346,12 @@ public class RufuxunshiActivity extends BaseActivity implements OnCheckedChangeL
 			String path = (String)v.getTag();
 			showImage(path);
 			break;
+		case R.id.tv_from_local_album:
+			startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+			break;
+		case R.id.tv_from_camera:
+			mTurnToCamrea.prepareAndTurnToCamrea();
+			break;			
 		default:
 			break;
 		}

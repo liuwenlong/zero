@@ -1,11 +1,12 @@
 package com.mapgoo.zero.ui;
 
+import java.io.File;
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -13,8 +14,10 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -28,6 +31,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.ErrorListener;
@@ -55,10 +59,13 @@ import com.mapgoo.zero.ui.widget.CirclePageIndicator;
 import com.mapgoo.zero.ui.widget.MGProgressDialog;
 import com.mapgoo.zero.ui.widget.MyBannerAdapter;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
+import com.mapgoo.zero.ui.widget.PhotoSelectPop;
 import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
 import com.mapgoo.zero.utils.DoubleClickExitHelper;
 import com.mapgoo.zero.utils.ImageUtils;
+import com.mapgoo.zero.utils.TurnToCamrea;
+import com.mapgoo.zero.utils.Utils;
 
 public class MainActivity extends BaseActivity implements OnClosedListener  {
 	
@@ -73,8 +80,8 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 	private TextView xsy_user_name;
 	private ArrayList<LaorenInfo> mLaorenList = new ArrayList<LaorenInfo>();
 	public static LaorenInfo mLaorenInfo;
-
-	
+	private PhotoSelectPop mPhotoSelectPop;
+	private TurnToCamrea mTurnToCamrea;
 	private void initSlideMenu() {
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
 		tv_wearer_nickname = (TextView) mMenuView.findViewById(R.id.tv_wearer_nickname);
@@ -100,6 +107,9 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		mSlidingMenu.setMenu(mMenuView);
 
 		mSlidingMenu.setOnClosedListener(this); // 当SlideMenu关闭的事件监听
+		
+		mPhotoSelectPop = new PhotoSelectPop(mContext);
+		mPhotoSelectPop.setOnClickListener(this);
 	}
 	
 	public void Logout(View v){
@@ -127,7 +137,13 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			if(resultCode == RESULT_OK){
 				String photo = data.getStringExtra("photo");
 				UpdateUserImage(photo);
-			}			
+			}
+			break;
+		case TurnToCamrea.REQUEST_PIC_FROM_CAMREA:
+			if(resultCode == RESULT_OK){
+				if(new File(mTurnToCamrea.getImgFilePath()).exists())
+					UpdateUserImage(mTurnToCamrea.getImgFilePath());
+			}
 			break;
 		default:
 			break;
@@ -174,10 +190,20 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			myStartActivity(SettingsAboutActivity.class);
 			break;
 		case R.id.civ_avatar:
+			//startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+			mPhotoSelectPop.show(v);
+			break;
+		case R.id.tv_from_local_album:
 			startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+			break;
+		case R.id.tv_from_camera:
+			if(mTurnToCamrea == null)
+				mTurnToCamrea = new TurnToCamrea((Activity)mContext);
+			mTurnToCamrea.prepareAndTurnToCamrea();
 			break;
 		}
 	}
+	
 void myStartActivity(Class<?> c){
 	if(mLaorenInfo == null)
 		return;
@@ -408,10 +434,10 @@ void myStartActivity(Class<?> c){
 	
 	private String getImageBase64(String str){
 		Point point = new Point();
-		point.set(60, 60);
+		point.set(100, 100);
 		Bitmap bp = NativeImageLoader.getInstance().loadNativeImage(str, point, new NativeImageCallBack() {
 			public void onImageLoader(Bitmap bitmap, String path) {
-				//addBitmap(bitmap,null);
+				UpdateUserImage(path);
 			}
 		});
 		if(bp!=null){

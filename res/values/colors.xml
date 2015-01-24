@@ -110,4 +110,6 @@
 
 <color name="color_main_blue">#ffed8659</color>
 
+    <color name="context_menu_textview_btn_txt_clr">#0079FF</color>
+
 </resources>
