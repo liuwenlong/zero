@@ -803,6 +803,8 @@ public class ApiClient {
 			ErrorListener errorListener) {
 		Map<String, Object> reqParams = new HashMap<String, Object>();
 		reqParams.put("peopleNo", peopleNo);
+		if(avatar == null)
+			return;
 		reqParams.put("avatar", avatar);
 		_POST_WITH_LISTENERS(URLs.UpdateUserImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
