@@ -308,7 +308,7 @@ void myStartActivity(Class<?> c){
 	}
 	private String getImageBase64(String str){
 		Point point = new Point();
-		point.set(60, 60);
+		point.set(100, 100);
 		Bitmap bp = NativeImageLoader.getInstance().loadNativeImage(str, point, new NativeImageCallBack() {
 			public void onImageLoader(Bitmap bitmap, String path) {
 				UpdateUserImage(path);
