@@ -179,7 +179,7 @@ public class LocalService extends Service {
 		mLocClient = new LocationClient(this);
 		mLocClient.registerLocationListener(myListener);
 		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);// 打开gps
+		option.setOpenGps(false);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
 		option.setScanSpan(1*60*1000);
 		mLocClient.setLocOption(option);

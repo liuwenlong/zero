@@ -334,7 +334,7 @@ public class Network {
 
 		String speed = String.format("%02d",
 				Math.round(location.getSpeed() * 3.6f / 3.704f));
-		int derect = Math.round(location.getDerect()) / 10;
+		int derect = Math.round(0) / 10;
 		if (derect < 0) {
 			derect = 0;
 		}

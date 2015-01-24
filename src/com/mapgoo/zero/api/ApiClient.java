@@ -775,6 +775,8 @@ public class ApiClient {
 			ErrorListener errorListener) {
 		Map<String, Object> reqParams = new HashMap<String, Object>();
 		reqParams.put("peopleNo", peopleNo);
+		if(avatar == null)
+			return;
 		reqParams.put("avatar", avatar);
 		_POST_WITH_LISTENERS(URLs.UpdateUserImage, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
@@ -786,7 +788,7 @@ public class ApiClient {
 			reqParams.put("Lon", location.getLongitude());
 			reqParams.put("Lat", location.getLatitude());
 			reqParams.put("Speed", location.getSpeed());
-			reqParams.put("Direct", (int)(location.getDerect()));
+			reqParams.put("Direct", 0);
 		_POST_WITH_LISTENERS(URLs.Position, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}
 }
