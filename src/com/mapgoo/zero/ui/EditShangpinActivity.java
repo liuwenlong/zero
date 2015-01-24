@@ -30,9 +30,11 @@ import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.bean.FwsShangpinInfo;
 import com.mapgoo.zero.bean.RenyuanInfo;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
+import com.mapgoo.zero.ui.widget.PhotoSelectPop;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
 import com.mapgoo.zero.utils.DimenUtils;
 import com.mapgoo.zero.utils.ImageUtils;
+import com.mapgoo.zero.utils.TurnToCamrea;
 
 /**
  * 概述: 模版
@@ -45,8 +47,15 @@ FwsShangpinInfo mFwsShangpinInfo;
 	@Override
 	public void setContentView() {
 		setContentView(R.layout.activity_add_or_modify_shangpin);
+		initPhotoSelect();
 	}
-
+	private PhotoSelectPop mPhotoSelectPop;
+	private TurnToCamrea mTurnToCamrea;	
+	private void initPhotoSelect(){
+		mPhotoSelectPop = new PhotoSelectPop(mContext);
+		mPhotoSelectPop.setOnClickListener(this);
+		mTurnToCamrea = new TurnToCamrea(this);		
+	}	
 	@Override
 	public void initData(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
@@ -65,7 +74,7 @@ FwsShangpinInfo mFwsShangpinInfo;
 
 	@Override
 	public void initViews() {
-		super.setupActionBar(getString(R.string.fws_renyuan_add), 1, R.drawable.ic_back_arrow_white, -1,
+		super.setupActionBar(getString(R.string.fws_shangpin_new), 1, R.drawable.ic_back_arrow_white, -1,
 				R.drawable.home_actionbar_bgd, -1);
 		mImageView = (ImageView)findViewById(R.id.fws_renyuan_pictrue);
 		findViewById(R.id.fws_shangpin_start_time).setOnClickListener(this);
@@ -98,7 +107,7 @@ FwsShangpinInfo mFwsShangpinInfo;
 	Bitmap mBitmap = null;
 	private void addPhoto(String path){
 		Point point = new Point();
-		point.set(DimenUtils.dip2px(mContext, 30), DimenUtils.dip2px(mContext, 30));
+		point.set(DimenUtils.dip2px(mContext, 60), DimenUtils.dip2px(mContext, 60));
 		mBitmap = NativeImageLoader.getInstance().loadNativeImage(path, point, new NativeImageCallBack() {
 			public void onImageLoader(Bitmap bitmap, String path) {
 				mImageView.setImageBitmap(bitmap);
@@ -118,6 +127,9 @@ FwsShangpinInfo mFwsShangpinInfo;
 			String photo = data.getStringExtra("photo");
 			addPhoto(photo);
 		}
+		 if(requestCode == TurnToCamrea.REQUEST_PIC_FROM_CAMREA && resultCode == RESULT_OK){
+			 addPhoto(mTurnToCamrea.getImgFilePath());
+		}
 	}
 	
 	TextView mInputStartTime;
@@ -132,7 +144,7 @@ FwsShangpinInfo mFwsShangpinInfo;
 				saveRenyuan();
 				break;
 			case R.id.fws_renyuan_pictrue:
-				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), 100);
+				mPhotoSelectPop.show(v);
 				break;
 			case R.id.fws_shangpin_start_time:{
 				if(mInputStartTime == null)
@@ -182,7 +194,12 @@ FwsShangpinInfo mFwsShangpinInfo;
 				dialog.show();
 				break;
 			}
-			
+			case R.id.tv_from_local_album:
+				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), 100);
+				break;
+			case R.id.tv_from_camera:
+				mTurnToCamrea.prepareAndTurnToCamrea();
+				break;				
 			default:
 				break;
 		}

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#55000000"
+    android:gravity="bottom"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_shuoshuo_upload_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:background="@drawable/shape_context_menu_popup_view_bg"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_from_camera"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_shuoshuo_context_menu_top_item_bg"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="相机"
+                android:textColor="@color/context_menu_textview_btn_txt_clr"
+                android:textSize="18.0sp"
+                android:typeface="monospace" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/line_without_blank" />
+
+            <TextView
+                android:id="@+id/tv_from_local_album"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_shuoshuo_context_menu_bottom_item_bg"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="从手机照片选择"
+                android:textColor="@color/context_menu_textview_btn_txt_clr"
+                android:textSize="18.0sp"
+                android:typeface="monospace" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="4dip"
+            android:background="@drawable/shape_context_menu_popup_view_bg"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_select_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_shuoshuo_context_menu_item_bg"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="取消"
+                android:textColor="@color/context_menu_textview_btn_txt_clr"
+                android:textSize="18.0sp"
+                android:typeface="monospace" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

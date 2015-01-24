@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/shape_shuoshuo_context_menu_bottom_item_pressed_bg" android:state_pressed="true"/>
+
+</selector>

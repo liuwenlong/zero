@@ -50,10 +50,12 @@ import com.mapgoo.zero.bean.FwsOrderinfo;
 import com.mapgoo.zero.ui.widget.CircleImageView;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
 import com.mapgoo.zero.ui.widget.NativeImageLoader;
+import com.mapgoo.zero.ui.widget.PhotoSelectPop;
 import com.mapgoo.zero.ui.widget.QuickShPref;
 import com.mapgoo.zero.ui.widget.ViewHolder;
 import com.mapgoo.zero.ui.widget.NativeImageLoader.NativeImageCallBack;
 import com.mapgoo.zero.utils.ImageUtils;
+import com.mapgoo.zero.utils.TurnToCamrea;
 
 
 public class MainActivity extends BaseActivity implements OnClosedListener, OnItemClickListener  {
@@ -113,7 +115,13 @@ private void setSelect(int num){
 		mSlidingMenu.setMenu(mMenuView);
 		mSlidingMenu.setOnClosedListener(this); // 当SlideMenu关闭的事件监听
 	}
-	
+	private PhotoSelectPop mPhotoSelectPop;
+	private TurnToCamrea mTurnToCamrea;	
+	private void initPhotoSelect(){
+		mPhotoSelectPop = new PhotoSelectPop(mContext);
+		mPhotoSelectPop.setOnClickListener(this);
+		mTurnToCamrea = new TurnToCamrea(this);		
+	}	
 	private void setPagerTo(int type){
 		setSelect(type);
 		getOrderInfoList(type);	
@@ -161,8 +169,14 @@ private void setSelect(int num){
 				startActivity(new Intent(mContext, ReyuanManagerActivity.class));
 				break;
 			case R.id.civ_avatar:
+				mPhotoSelectPop.show(v);
+				break;
+			case R.id.tv_from_local_album:
 				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
 				break;
+			case R.id.tv_from_camera:
+				mTurnToCamrea.prepareAndTurnToCamrea();
+				break;				
 			case R.id.empty_text:
 				setPagerTo(OrderType);
 				break;				
@@ -203,7 +217,7 @@ void myStartActivity(Class<?> c){
 		
 		mListView.setEmptyView(findViewById(R.id.empty_text));
 		findViewById(R.id.empty_text).setOnClickListener(this);
-		
+		initPhotoSelect();
 		setPagerTo(0);
 		getmProgressDialog().setMessage("加载中...");
 	}
@@ -295,6 +309,9 @@ void myStartActivity(Class<?> c){
 			String photo = data.getStringExtra("photo");
 			UpdateUserImage(photo);
 		}
+		 if(requestCode == TurnToCamrea.REQUEST_PIC_FROM_CAMREA && resultCode == RESULT_OK){
+			 UpdateUserImage(mTurnToCamrea.getImgFilePath());
+		}
 
 	}
 	private String getImageBase64(String str){
@@ -302,7 +319,7 @@ void myStartActivity(Class<?> c){
 		point.set(60, 60);
 		Bitmap bp = NativeImageLoader.getInstance().loadNativeImage(str, point, new NativeImageCallBack() {
 			public void onImageLoader(Bitmap bitmap, String path) {
-				//addBitmap(bitmap,null);
+				UpdateUserImage(path);
 			}
 		});
 		if(bp!=null){
