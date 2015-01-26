@@ -33,7 +33,7 @@ import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 import com.nineoldandroids.view.ViewHelper;
 
 public class RippleButton extends Button {

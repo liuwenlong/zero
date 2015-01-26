@@ -1,7 +1,7 @@
 package com.mapgoo.zero.ui;
 
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 import com.mapgoo.zero.api.URLs;
 import com.mapgoo.zero.api.VersionUpdate;
 import com.mapgoo.zero.utils.VersionUtils;

@@ -7,7 +7,7 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 
 import com.mapgoo.zero.MGApp;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 
 public class DateUtils {
 

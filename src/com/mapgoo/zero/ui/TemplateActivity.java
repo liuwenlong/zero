@@ -3,7 +3,7 @@ package com.mapgoo.zero.ui;
 import android.os.Bundle;
 import android.view.View;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 
 /**
  * 概述: 模版

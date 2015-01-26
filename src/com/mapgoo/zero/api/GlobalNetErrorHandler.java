@@ -19,7 +19,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 import com.j256.ormlite.dao.Dao;
 import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;

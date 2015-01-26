@@ -2,7 +2,7 @@ package com.mapgoo.zero.utils;
 
 import java.io.File;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 
 import android.app.Activity;
 import android.content.Context;

@@ -26,7 +26,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.j256.ormlite.stmt.query.In;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

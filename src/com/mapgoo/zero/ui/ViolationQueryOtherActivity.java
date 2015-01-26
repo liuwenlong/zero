@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 
 /**
  * 概述: 违章查询-其他车辆查询

@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 import com.mapgoo.zero.bean.InternalApp;
 import com.mapgoo.zero.ui.widget.CommonAdapter;
 import com.mapgoo.zero.ui.widget.ViewHolder;

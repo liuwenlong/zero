@@ -28,7 +28,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.ImageLoader;
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
 import com.mapgoo.zero.api.MyVolley;

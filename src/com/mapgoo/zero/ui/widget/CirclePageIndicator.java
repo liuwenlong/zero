@@ -20,7 +20,7 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
 
-import com.huaan.icare.xsy.R;
+import com.huaan.icare.pub.R;
 
 import android.content.Context;
 import android.content.res.Resources;
