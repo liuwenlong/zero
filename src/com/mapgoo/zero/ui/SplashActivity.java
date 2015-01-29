@@ -101,33 +101,17 @@ public class SplashActivity extends BaseActivity {
 			break;
 		}
 	}
-
-	private void startSettings(){
-		getWindow().getDecorView().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(SplashActivity.this,SettingsActivity.class);
-				SplashActivity.this.startActivity(intent);
-			}
-		},2000);
-	}
-	
 	
 	// JPUSH统计
-	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
 		JPushInterface.onResume(mContext);
-		
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		
 		JPushInterface.onPause(mContext);
 	}
 }
