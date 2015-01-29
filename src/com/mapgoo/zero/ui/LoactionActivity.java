@@ -51,6 +51,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -397,8 +398,10 @@ private boolean isLoactionLaoren(){
 private void moveToLoaren(){
 	if(isLoactionLaoren()){
 		LatLng latlng = new LatLng(Double.parseDouble(mLaorenLocInfo.Lat), Double.parseDouble(mLaorenLocInfo.Lon));
-		moveToPosition(latlng);
-	}	
+		MapStatus status = new MapStatus.Builder(mBaiduMap.getMapStatus()).target(latlng).zoom(16.0f).build();
+		MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(status);
+		mBaiduMap.animateMapStatus(u);
+	}
 }
 
 	@Override
@@ -539,7 +542,6 @@ boolean mIsBound;
 											ConverterLaorenLoaction(mLaorenLocInfo);
 											showLaorenMarker();
 											moveToLoaren();
-											perfomZoom(16);
 										}else{
 											mToast.toastMsg("无法有效定位");
 										}
