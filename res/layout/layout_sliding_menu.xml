@@ -81,6 +81,7 @@
             android:visibility="gone"
             android:paddingLeft="26.0dp" >
         <CheckBox
+            android:id="@+id/settings_msg_shengying_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
@@ -106,6 +107,7 @@
             android:orientation="horizontal"
             android:paddingLeft="26.0dp" >
         <CheckBox
+            android:id="@+id/settings_msg_zhendong_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"

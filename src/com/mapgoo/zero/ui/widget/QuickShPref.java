@@ -15,6 +15,9 @@ public static String TOKEN= "token";
 public static String Image= "image";
 public static String isLogin= "islogin";
 public static String DisplayName= "DisplayName";
+
+public static String Msg_sound= "Msg_sound";
+public static String Msg_Vibrate= "Msg_Vibrate";
 	
 private static SharedPreferences sSharedPreferences;
 private static Editor sEditor;
