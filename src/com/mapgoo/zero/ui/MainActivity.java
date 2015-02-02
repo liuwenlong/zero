@@ -51,6 +51,7 @@ import com.android.volley.VolleyError;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.huaan.icare.xsy.R;
+import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
@@ -147,7 +148,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 	}
 	
 	private void updateMsgSet(){
-			BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(mContext);
+			BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(MGApp.pThis);
 			
 			builder.notificationDefaults = Notification.DEFAULT_LIGHTS;
 			if(QuickShPref.getBoolean(QuickShPref.Msg_sound))
@@ -167,6 +168,7 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			@Override
 			public void gotResult(int arg0, String arg1, Set<String> arg2) {
 				Log.d("setAliasAndTags", "arg0="+arg0+",Alias="+arg1+",Tags="+arg2);
+				updateMsgSet();
 			}});
 	}
 	
