@@ -154,53 +154,52 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent();
 
 		switch (v.getId()) {
-		case R.id.iv_ab_left_btn:
-			if (mSlidingMenu != null) {
-				if (mSlidingMenu.isMenuShowing())
-					mSlidingMenu.showContent();
-				else
-					mSlidingMenu.showMenu();
-			}
-			break;
-		case R.id.home_yuyue:
-			startActivity(new Intent(mContext, YuyuefuwuActivity.class));
-			break;
-		case R.id.home_weizhi:
-			myStartActivity(LoactionActivity.class);
-			break;
-		case R.id.home_rufu:
-			myStartActivity(RufuxunshiActivity.class);
-			break;
-		case R.id.home_dingdan:
-			startActivity(new Intent(mContext, WodedingdanActivity.class));
-			break;
-		case R.id.tv_ab_title:
-			startActivityForResult((new Intent(mContext, LaorenActivity.class).putExtra("laoren", mLaorenList)),RequestCode_Laoren);
-			break;
-		case R.id.iv_ab_right_btn:
-			startActivityForResult(new Intent(mContext, XiaoxiActivity.class),RequestCode_Message);
-			break;
-		case R.id.setting_modify_password:
-			myStartActivity(ModifyPassWordActivity.class);
-			break;
-		case R.id.setting_about:
-			myStartActivity(SettingsAboutActivity.class);
-			break;
-		case R.id.civ_avatar:
-			//startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
-			mPhotoSelectPop.show(v);
-			break;
-		case R.id.tv_from_local_album:
-			startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
-			break;
-		case R.id.tv_from_camera:
-			if(mTurnToCamrea == null)
-				mTurnToCamrea = new TurnToCamrea((Activity)mContext);
-			mTurnToCamrea.prepareAndTurnToCamrea();
-			break;
+			case R.id.iv_ab_left_btn:
+				if (mSlidingMenu != null) {
+					if (mSlidingMenu.isMenuShowing())
+						mSlidingMenu.showContent();
+					else
+						mSlidingMenu.showMenu();
+				}
+				break;
+			case R.id.home_yuyue:
+				startActivity(new Intent(mContext, YuyuefuwuActivity.class));
+				break;
+			case R.id.home_weizhi:
+				myStartActivity(LoactionActivity.class);
+				break;
+			case R.id.home_rufu:
+				myStartActivity(RufuxunshiActivity.class);
+				break;
+			case R.id.home_dingdan:
+				startActivity(new Intent(mContext, WodedingdanActivity.class));
+				break;
+			case R.id.tv_ab_title:
+				startActivityForResult((new Intent(mContext, LaorenActivity.class).putExtra("laoren", mLaorenList)),RequestCode_Laoren);
+				break;
+			case R.id.iv_ab_right_btn:
+				startActivityForResult(new Intent(mContext, XiaoxiActivity.class),RequestCode_Message);
+				break;
+			case R.id.setting_modify_password:
+				myStartActivity(ModifyPassWordActivity.class);
+				break;
+			case R.id.setting_about:
+				myStartActivity(SettingsAboutActivity.class);
+				break;
+			case R.id.civ_avatar:
+				//startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+				mPhotoSelectPop.show(v);
+				break;
+			case R.id.tv_from_local_album:
+				startActivityForResult(new Intent(mContext, PhotoSelectActivity.class), requestCode_photo);
+				break;
+			case R.id.tv_from_camera:
+				if(mTurnToCamrea == null)
+					mTurnToCamrea = new TurnToCamrea((Activity)mContext);
+				mTurnToCamrea.prepareAndTurnToCamrea();
+				break;
 		}
 	}
 	
