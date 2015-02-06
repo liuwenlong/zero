@@ -301,10 +301,12 @@ private void showLoarenInfoWindows(){
 		
 		v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 		mLaorenInfoWindow = new InfoWindow(v, mLaorenLatLng, -47);
-		if(mLaorenInfoWindow == null)
+		if(mLaorenInfoWindow == null){
 			Log.d("showLoarenInfoWindows", "mLaorenInfoWindow is null.");
-		
-		mBaiduMap.showInfoWindow(mLaorenInfoWindow);
+			return;
+		}
+		if(mMapView != null)
+			mBaiduMap.showInfoWindow(mLaorenInfoWindow);
 	}
 	
 	

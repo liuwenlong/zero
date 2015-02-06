@@ -116,8 +116,12 @@ LinearLayout mProductLinear;
 			
 			findViewById(R.id.order_form_detail_zhiyuanzhe_fuwu_item).setVisibility(View.VISIBLE);
 			findViewById(R.id.order_form_detail_unit_price_item) .setVisibility(View.GONE);
+			findViewById(R.id.order_form_detail_payment_linear) .setVisibility(View.GONE);
 		}else{
-			((TextView)findViewById(R.id.order_form_detail_unit_price) ).setText(info.ServiceFee+"元");
+			((TextView)findViewById(R.id.order_form_detail_unit_price)).setText(info.ServiceFee+"元");
+			((TextView)findViewById(R.id.order_form_detail_payment)).setText(info.Payment);
+			findViewById(R.id.order_form_detail_payment_linear) .setVisibility(View.VISIBLE);
+			
 		}
 	}
 

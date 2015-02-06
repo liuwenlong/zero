@@ -8,10 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings.Global;
@@ -26,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.Listener;
@@ -61,6 +64,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 	private DianpuInfo mDianpuInfo;
 	TextView mInputDate;
 	TextView mInputTime;	
+	TextView mPayType;	
 	
 	@Override
 	public void setContentView() {
@@ -99,6 +103,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		
 		mInputDate = (TextView)findViewById(R.id.order_create_data_show);
 		mInputTime = (TextView)findViewById(R.id.order_create_time_show);
+		mPayType = (TextView)findViewById(R.id.order_create_pay_show);
 		if(MainActivity.mLaorenInfo!=null)
 		((TextView)findViewById(R.id.order_create_for_laoren)).setText(MainActivity.mLaorenInfo.getHumanName());
 		
@@ -113,6 +118,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			mZhiyuanzheAdapter = new ZhiyuanzheAdapter(mContext, mZhiyuanzheList);
 			mListView.setAdapter(mZhiyuanzheAdapter);
 			mListView.setOnItemClickListener(this);
+			findViewById(R.id.order_create_pay).setVisibility(View.GONE);
 		}
 	}
 	void shanpinInit(){
@@ -120,7 +126,10 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			mShanpinAdapter = new ShangpinAdapter(mContext, mShangpinList);
 			mListView.setAdapter(mShanpinAdapter);
 			mListView.setOnItemClickListener(this);
-		}	
+			findViewById(R.id.order_create_pay).setVisibility(View.VISIBLE);
+			String[] arrayFruit = getResources().getStringArray(R.array.pay_type_select);
+			mPayType.setText(arrayFruit[0]);
+		}
 	}
 
 	private String getOrderTime(){
@@ -223,7 +232,7 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 			info.ServiceFee=getServiceFee();
 			info.Serviceltem=getServiceltem();
 			info.UserID = mXsyUser.getUserId();
-			
+			info.PayMent = mPayType.getText().toString();
 			
 			ApiClient.postServiceOrderSubmit(info, new onReqStartListener(){
 				public void onReqStart() {
@@ -306,6 +315,9 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 		case R.id.shangpin_yuyue:
 			serviceOrderSubmit();
 			VolunteerOrderSubmit();
+			break;
+		case R.id.order_create_pay_click:
+			showPaySelectDialog();
 			break;
 		default:
 			break;
@@ -392,5 +404,23 @@ public class OrderCreateActivity extends BaseActivity implements OnItemClickList
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
+	}
+	
+	private void showPaySelectDialog(){
+		final String[] arrayFruit = mDianpuInfo.getPayMentList();//getResources().getStringArray(R.array.pay_type_select);
+
+  		Dialog dialog = new AlertDialog.Builder(this)
+        .setTitle(R.string.order_create_yuyue_pay_type)
+        .setItems(arrayFruit, new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int which) {
+		        mPayType.setText(arrayFruit[which]);
+		    }
+        })
+        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+         public void onClick(DialogInterface dialog, int which) {
+        	 
+         }}) .create();
+  		
+  		dialog.show();
 	}
 }

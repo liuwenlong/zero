@@ -85,5 +85,12 @@
         <item>思维状态</item>
         <item>压力状态</item>
     </array>
-       
+ 
+      <array name="pay_type_select">
+        <item>现金</item>
+        <item>刷卡</item>
+        <item>老年券</item>
+        <item>老年卡</item>
+    </array>
+   
 </resources>
