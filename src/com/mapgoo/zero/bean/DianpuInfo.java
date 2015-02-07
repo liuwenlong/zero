@@ -99,4 +99,18 @@ public class DianpuInfo  implements Serializable {
 			else 
 				return "否";
 	}
+	
+	public String[] getPayMentList(){
+		String[] str = null;
+		if(PayMent != null && PayMent.length() > 0){
+			if(PayMent.contains(",")){
+				str = PayMent.split(",");
+			}else{
+				str = new String[]{PayMent};
+			}
+		}else{
+			str = new String[]{"现金"};
+		}
+		return str;
+	}
 }

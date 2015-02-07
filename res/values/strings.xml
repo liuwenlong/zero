@@ -362,7 +362,11 @@
               
              <string name="order_create_fuwu_laoren">服务老人:</string> 
             <string name="order_create_yuyue_time">预约时间:</string> 
+            <string name="order_create_yuyue_pay">货到付款:</string> 
+             <string name="order_create_yuyue_pay_type">付款方式</string> 
             <string name="order_create_beizhu">备注:</string>  
+            
+            
             
              <string name="ping_jia_title">评价</string>  
              <string name="ping_jia_note">请对本次服务打评</string>  

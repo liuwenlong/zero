@@ -11,5 +11,5 @@ public class ServiceOrderSubmitInfo {
 	public int UserID;//ID
 	public String ServiceFee;//ID
 	public String Remark;//ID
-	
+	public String PayMent;//ID
 }
