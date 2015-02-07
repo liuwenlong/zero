@@ -26,7 +26,11 @@ public class OrderFormDetailInfo implements Serializable {
 	public String Remark;
 	public int RecID;
 	public String OrderContent;
-
+	public String Payment;
+	
+	public void setPayment(String str){
+		Payment = str;
+	}	
 public void setOrderContent(String str){
 	OrderContent = str;
 }

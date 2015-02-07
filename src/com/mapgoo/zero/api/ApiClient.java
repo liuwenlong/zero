@@ -627,7 +627,7 @@ public class ApiClient {
 		reqParams.put("Serviceltem", info.Serviceltem);
 		
 		reqParams.put("UserID", info.UserID);
-		
+		reqParams.put("Payment", info.PayMent);
 		
 		_POST_WITH_LISTENERS(URLs.ServiceOrderSubmit, null,null, reqParams, reqStartListener, responseListener, errorListener);		
 	}

@@ -2,11 +2,15 @@ package com.mapgoo.zero.ui;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -28,10 +32,16 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.CheckBox;
+import cn.jpush.android.api.BasicPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.Response.ErrorListener;
@@ -41,6 +51,7 @@ import com.android.volley.VolleyError;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.huaan.icare.pub.R;
+import com.mapgoo.zero.MGApp;
 import com.mapgoo.zero.api.ApiClient;
 import com.mapgoo.zero.api.ApiClient.onReqStartListener;
 import com.mapgoo.zero.api.GlobalNetErrorHandler;
@@ -82,6 +93,8 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 	public static LaorenInfo mLaorenInfo;
 	private PhotoSelectPop mPhotoSelectPop;
 	private TurnToCamrea mTurnToCamrea;
+	
+	public static boolean isForeground;
 	private void initSlideMenu() {
 		mMenuView = mInflater.inflate(R.layout.layout_sliding_menu, null);
 		tv_wearer_nickname = (TextView) mMenuView.findViewById(R.id.tv_wearer_nickname);
@@ -93,6 +106,28 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 			MyVolley.getImageLoader().get(mXsyUser.picture, 
 					ImageLoader.getImageListener((ImageView)mMenuView. findViewById(R.id.civ_avatar), 
 							R.drawable.ic_avatar_holder, R.drawable.ic_avatar_holder));
+		}
+		
+		if(mMenuView.findViewById(R.id.settings_msg_zhendong_box).getVisibility() == View.VISIBLE){
+			((CheckBox)mMenuView.findViewById(R.id.settings_msg_zhendong_box)).setChecked(QuickShPref.getBoolean(QuickShPref.Msg_Vibrate));
+			((CheckBox)mMenuView.findViewById(R.id.settings_msg_shengying_box)).setChecked(QuickShPref.getBoolean(QuickShPref.Msg_sound));
+			
+			((CheckBox)mMenuView.findViewById(R.id.settings_msg_zhendong_box)).setOnCheckedChangeListener(new OnCheckedChangeListener(){
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+						QuickShPref.putValueObject(QuickShPref.Msg_Vibrate, isChecked);
+						updateMsgSet();
+				}
+			});
+			((CheckBox)mMenuView.findViewById(R.id.settings_msg_shengying_box)).setOnCheckedChangeListener(new OnCheckedChangeListener(){
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+						QuickShPref.putValueObject(QuickShPref.Msg_sound, isChecked);
+						updateMsgSet();
+				}
+			});
+			
+			regMsgJPush();
 		}
 		
 		mSlidingMenu = new SlidingMenu(this);
@@ -110,6 +145,31 @@ public class MainActivity extends BaseActivity implements OnClosedListener  {
 		
 		mPhotoSelectPop = new PhotoSelectPop(mContext);
 		mPhotoSelectPop.setOnClickListener(this);
+	}
+	
+	private void updateMsgSet(){
+			BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(MGApp.pThis);
+			
+			builder.notificationDefaults = Notification.DEFAULT_LIGHTS;
+			if(QuickShPref.getBoolean(QuickShPref.Msg_sound))
+				builder.notificationDefaults |= Notification.DEFAULT_SOUND;
+			if(QuickShPref.getBoolean(QuickShPref.Msg_Vibrate))
+				builder.notificationDefaults |= Notification.DEFAULT_VIBRATE;
+
+			JPushInterface.setDefaultPushNotificationBuilder(builder);
+	}
+	private void regMsgJPush(){
+		JPushInterface.resumePush(mContext);
+		
+		Set<String> tagSet = new LinkedHashSet<String>();
+		tagSet.add("TAG");
+		
+		JPushInterface.setAliasAndTags(mContext, "Alias", tagSet, new TagAliasCallback(){
+			@Override
+			public void gotResult(int arg0, String arg1, Set<String> arg2) {
+				Log.d("setAliasAndTags", "arg0="+arg0+",Alias="+arg1+",Tags="+arg2);
+				updateMsgSet();
+			}});
 	}
 	
 	public void Logout(View v){
@@ -333,7 +393,7 @@ void myStartActivity(Class<?> c){
 	@Override
 	protected void handleData() {
 		// TODO Auto-generated method stub
-
+		JPushInterface.init(getApplicationContext());
 	}
 	@Override
 	public void onClosed() {
@@ -474,5 +534,20 @@ void myStartActivity(Class<?> c){
 						}},
 					GlobalNetErrorHandler.getInstance(mContext, mXsyUser, getmProgressDialog()));				
 	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		isForeground = true;
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		isForeground = false;
+	}
+	
 	
 }

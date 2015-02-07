@@ -30,7 +30,7 @@ public class MGApp extends Application {
 		initMap();
 
 		// 初始化极光推送
-		//initJpush();
+		initJpush();
 
 		// 初始化 UIL(Universal Image Loader)
 		QuickShPref.init(getBaseContext());
